@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Crosswalk explorer: coverage, gaps and receipts for Harbor &amp; Pine</title>
   <meta name="description" content="Explore the Crosswalk compliance graph in your browser. No install, no server, no AI key: Relate runs as WebAssembly.">
+  <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,99 +15,156 @@
   <link rel="stylesheet" href="css/tour.css">
 </head>
 <body>
+  <!-- interface glyphs: Lucide (ISC), fetched with the taste skill's icons.mjs; used as <svg class="ic"><use href="#i-name"/></svg> -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 19l-7-7l7-7m7 7H5"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7-7l7 7l-7 7"/></symbol>
+    <symbol id="i-book-open" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7v14m-9-3a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4a4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3a3 3 0 0 0-3-3z"/></symbol>
+    <symbol id="i-bot" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2m16 0h2m-7-1v2m-6-2v2"/></g></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 2v4m8-4v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 6L9 17l-5-5"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m6 9l6 6l6-6"/></symbol>
+    <symbol id="i-circle-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></g></symbol>
+    <symbol id="i-circle-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12l2 2l4-4"/></g></symbol>
+    <symbol id="i-circle-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9l-6 6m0-6l6 6"/></g></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></g></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76l-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"/></g></symbol>
+    <symbol id="i-file-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 22h2a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v2.85"/><path d="M14 2v5a1 1 0 0 0 1 1h5M8 14v2.2l1.6 1"/><circle cx="8" cy="16" r="6"/></g></symbol>
+    <symbol id="i-file-text" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5M10 9H8m8 4H8m8 4H8"/></g></symbol>
+    <symbol id="i-flask-conical" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2M6.453 15h11.094M8.5 2h7"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 14l4-4M3.34 19a10 10 0 1 1 17.32 0"/></symbol>
+    <symbol id="i-git-merge" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M6 21V9a9 9 0 0 0 9 9"/></g></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4m0-4h.01"/></g></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></g></symbol>
+    <symbol id="i-list-checks" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5h8m-8 7h8m-8 7h8M3 17l2 2l4-4M3 7l2 2l4-4"/></symbol>
+    <symbol id="i-rotate-ccw" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9a9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m21 21l-4.34-4.34"/><circle cx="11" cy="11" r="8"/></g></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12l2 2l4-4"/></g></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594zM20 2v4m2-2h-4"/><circle cx="4" cy="20" r="2"/></g></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></g></symbol>
+    <symbol id="i-triangle-alert" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21.73 18l-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3M12 9v4m0 4h.01"/></symbol>
+    <symbol id="i-user-minus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 11h-6"/></g></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M16 3.128a4 4 0 0 1 0 7.744M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></g></symbol>
+    <symbol id="i-waypoints" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="m10.586 5.414l-5.172 5.172m13.172 2.828l-5.172 5.172M6 12h12"/><circle cx="12" cy="20" r="2"/><circle cx="12" cy="4" r="2"/><circle cx="20" cy="12" r="2"/><circle cx="4" cy="12" r="2"/></g></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 6L6 18M6 6l12 12"/></symbol>
+  </svg>
   <a class="skip" href="#main">Skip to content</a>
 
   <header class="top">
     <div class="wrap top-row">
-      <a class="brand" href="index.html" aria-label="Crosswalk, back to the overview"><span class="mark" aria-hidden="true"></span>Crosswalk</a>
-      <span class="chip" id="asof-chip" title="The demo's &quot;today&quot;. Evidence expiry is judged against it, so results don't change with the real date.">demo date &hellip;</span>
-      <a class="toplink" href="index.html">About this demo</a>
-      <button type="button" class="toplink tour-start" id="tour-start">Take the tour</button>
-      <div class="whatif" role="group" aria-label="What-if: try a change">
-        <span class="whatif-label">What-if <span class="hint" tabindex="0" role="note" aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
-        <button class="btn small" id="btn-expire" type="button" disabled title="Pretend a piece of evidence expires. Numbers update; nothing is saved.">Expire evidence&hellip;</button>
-        <button class="btn small" id="btn-remove" type="button" disabled title="Pretend a person leaves. Controls they alone own lose their owner. Nothing is saved.">Remove person&hellip;</button>
-        <button class="btn small ghost" id="btn-reset" type="button" disabled title="Undo every what-if and restore the original numbers.">Reset</button>
+      <a class="brand" href="index.html" aria-label="Crosswalk, back to the overview"><span class="mark" aria-hidden="true"></span>Crosswalk<span class="brand-sub" aria-hidden="true">Explorer</span></a>
+      <span class="chip" id="asof-chip" title="The demo's &quot;today&quot;. Evidence expiry is judged against it, so results don't change with the real date."><svg class="ic" aria-hidden="true"><use href="#i-calendar"/></svg><span>demo date &hellip;</span></span>
+      <div class="whatif" role="group" aria-label="Simulate a change (what-if)">
+        <span class="whatif-label"><svg class="ic" aria-hidden="true"><use href="#i-flask-conical"/></svg>Simulate <span class="hint" tabindex="0" role="note" aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
+        <button class="btn small" id="btn-expire" type="button" disabled title="Pretend a piece of evidence expires. Numbers update; nothing is saved."><svg class="ic" aria-hidden="true"><use href="#i-file-clock"/></svg>Expire evidence&hellip;</button>
+        <button class="btn small" id="btn-remove" type="button" disabled title="Pretend a person leaves. Controls they alone own lose their owner. Nothing is saved."><svg class="ic" aria-hidden="true"><use href="#i-user-minus"/></svg>Remove person&hellip;</button>
+        <button class="btn small ghost" id="btn-reset" type="button" disabled title="Undo every what-if and restore the original numbers."><svg class="ic" aria-hidden="true"><use href="#i-rotate-ccw"/></svg>Reset</button>
         <span class="whatif-busy" id="wi-busy" hidden><span class="spinner" aria-hidden="true"></span><span id="wi-busy-text">Updating&hellip;</span></span>
+      </div>
+      <div class="top-links">
+        <a class="toplink" href="index.html" title="About this demo">About</a>
+        <button type="button" class="btn small primary tour-start" id="tour-start"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>Take the tour</button>
       </div>
     </div>
   </header>
 
-  <section class="intro">
+  <section class="intro" aria-labelledby="intro-h">
     <div class="wrap">
-      <p class="verdict-line" id="verdict" aria-live="polite"></p>
       <div class="intro-head">
-        <div>
-          <h1>Crosswalk explorer</h1>
-          <p class="lede">Crosswalk checks whether a company is ready for a security audit. Here it checks Harbor &amp; Pine, a made-up company, against NIST security standards. Every number is computed live in your browser.</p>
-          <details class="glossary"><summary>What do these words mean?</summary><dl>
-            <dt>Requirement</dt><dd>One rule a standard asks you to meet, such as "use multi-factor login". A framework (NIST 800-171, 800-53, CSF 2.0) is a set of them.</dd>
-            <dt>Control</dt><dd>Something the company does or uses to meet a requirement, such as an MFA setting.</dd>
-            <dt>Evidence</dt><dd>Proof that a control works, such as a report or screenshot. It has an expiry date.</dd>
-            <dt>Receipt</dt><dd>The chain from a requirement to a control to its evidence. Every claim in an answer comes with one.</dd>
-            <dt>Claim check</dt><dd>Re-runs each receipt against the graph and drops any claim that fails.</dd>
-            <dt>Covered, inherited, gap</dt><dd>Covered: met directly, with valid evidence. Inherited: met through a matching requirement in another framework. Gap: neither.</dd>
-            <dt>Demo date</dt><dd>The demo's "today". Expiry is judged against it, so results never change with the real date.</dd>
-          </dl></details>
+        <h1 id="intro-h">Crosswalk explorer</h1>
+        <p class="lede">Crosswalk checks whether a company is ready for a security audit. Here it checks Harbor &amp; Pine, a made-up company, against NIST security standards. Every number is computed live in your browser.</p>
+        <details class="glossary"><summary><svg class="ic" aria-hidden="true"><use href="#i-book-open"/></svg>What do these words mean?</summary><dl>
+          <dt>Requirement</dt><dd>One rule a standard asks you to meet, such as "use multi-factor login". A framework (NIST 800-171, 800-53, CSF 2.0) is a set of them.</dd>
+          <dt>Control</dt><dd>Something the company does or uses to meet a requirement, such as an MFA setting.</dd>
+          <dt>Evidence</dt><dd>Proof that a control works, such as a report or screenshot. It has an expiry date.</dd>
+          <dt>Receipt</dt><dd>The chain from a requirement to a control to its evidence. Every claim in an answer comes with one.</dd>
+          <dt>Claim check</dt><dd>Re-runs each receipt against the graph and drops any claim that fails.</dd>
+          <dt>Covered, inherited, gap</dt><dd>Covered: met directly, with valid evidence. Inherited: met through a matching requirement in another framework. Gap: neither.</dd>
+          <dt>Demo date</dt><dd>The demo's "today". Expiry is judged against it, so results never change with the real date.</dd>
+        </dl></details>
+      </div>
+
+      <div class="overview">
+        <div class="status-card" id="status-card">
+          <div class="ring" id="ov-ring" aria-hidden="true"><span class="skel skel-ring"></span></div>
+          <div class="status-body">
+            <p class="status-k" id="ov-kicker">Audit readiness</p>
+            <p class="verdict-line" id="verdict" aria-live="polite"><span class="skel skel-line"></span><span class="skel skel-line short"></span></p>
+            <p class="status-note" id="ov-note"></p>
+          </div>
         </div>
-        <!-- The numbers in this strip (45%, 95%, 0, 109/109) are replaced at boot from data/scorecard.json (app.js fillHeadline).
+        <!-- The numbers in this card (45%, 95%, 0, 109/109) are replaced at boot from data/scorecard.json (app.js fillHeadline).
              These are only the fallback text if that file is missing. Source: eval/agent-runs/results-run2.md -->
         <a class="result-strip" href="#scorecard" data-tab-link="scorecard" aria-label="Agent test result: 45 percent right with a spreadsheet, 95 percent right with Crosswalk, 0 wrong claims shown. Open the scorecard.">
-          <span class="rs-title">Agent test, 20 questions</span>
-          <span class="rs-nums"><b id="hl-before">45%</b><span class="rs-arrow" aria-hidden="true">&rarr;</span><b class="good" id="hl-after">95%</b><span class="rs-small">right, spreadsheet vs Crosswalk</span></span>
+          <span class="rs-top"><span class="rs-ic" aria-hidden="true"><svg class="ic"><use href="#i-bot"/></svg></span><span class="rs-title">Agent test, 20 questions</span><svg class="ic rs-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></span>
+          <span class="rs-nums">
+            <span class="rs-num"><b id="hl-before">45%</b><small>right with a spreadsheet</small></span>
+            <span class="rs-arrow" aria-hidden="true"><svg class="ic"><use href="#i-arrow-right"/></svg></span>
+            <span class="rs-num good"><b id="hl-after">95%</b><small>right with Crosswalk</small></span>
+          </span>
           <span class="rs-small"><b id="hl-wrong">0</b> wrong claims shown &middot; <b id="hl-claims">109/109</b> claims with a valid receipt</span>
         </a>
       </div>
-      <dl class="kpis" id="hero-kpis"></dl>
+      <dl class="kpis" id="hero-kpis" aria-busy="true"><div class="kpi skel-tile"></div><div class="kpi skel-tile"></div><div class="kpi skel-tile"></div><div class="kpi skel-tile"></div></dl>
     </div>
   </section>
 
   <nav class="tabs-bar" aria-label="Explorer sections">
     <div class="wrap">
       <div class="tabs" role="tablist" id="tabs" aria-busy="true">
-        <button role="tab" id="tab-coverage"aria-controls="panel-coverage" data-tab="coverage"><b>Coverage</b><span>Which requirements are covered, inherited, or gaps</span></button>
-        <button role="tab" id="tab-blast" aria-controls="panel-blast" data-tab="blast"><b>What breaks</b><span>What fails when evidence expires or a person leaves</span></button>
-        <button role="tab" id="tab-adopt" aria-controls="panel-adopt" data-tab="adopt"><b>Inherited</b><span>Requirements already met through another framework</span></button>
-        <button role="tab" id="tab-agent" aria-controls="panel-agent" data-tab="agent"><b>Agent log</b><span>What the AI agent suggested, and a wrong answer it caught</span></button>
-        <button role="tab" id="tab-scorecard" aria-controls="panel-scorecard" data-tab="scorecard"><b>Scorecard</b><span>Test results: <span id="hl-tab-range">45% to 95%</span> right</span></button>
-        <button role="tab" id="tab-graph" aria-controls="panel-graph" data-tab="graph"><b>Graph</b><span>Click through the links behind the numbers</span></button>
+        <button role="tab" id="tab-coverage" aria-controls="panel-coverage" data-tab="coverage" title="Which requirements are covered, inherited, or gaps"><svg class="ic" aria-hidden="true"><use href="#i-shield-check"/></svg><b>Coverage</b><span class="sr">: which requirements are covered, inherited, or gaps</span></button>
+        <button role="tab" id="tab-blast" aria-controls="panel-blast" data-tab="blast" title="What fails when evidence expires or a person leaves"><svg class="ic" aria-hidden="true"><use href="#i-triangle-alert"/></svg><b>What breaks</b><span class="sr">: what fails when evidence expires or a person leaves</span></button>
+        <button role="tab" id="tab-adopt" aria-controls="panel-adopt" data-tab="adopt" title="Requirements already met through another framework"><svg class="ic" aria-hidden="true"><use href="#i-git-merge"/></svg><b>Inherited</b><span class="sr">: requirements already met through another framework</span></button>
+        <button role="tab" id="tab-agent" aria-controls="panel-agent" data-tab="agent" title="What the AI agent suggested, and a wrong answer it caught"><svg class="ic" aria-hidden="true"><use href="#i-bot"/></svg><b>Agent log</b><span class="sr">: what the AI agent suggested, and a wrong answer it caught</span></button>
+        <button role="tab" id="tab-scorecard" aria-controls="panel-scorecard" data-tab="scorecard" title="Test results"><svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg><b>Scorecard</b><span class="sr">: test results, <span id="hl-tab-range">45% to 95%</span> right</span></button>
+        <button role="tab" id="tab-graph" aria-controls="panel-graph" data-tab="graph" title="Click through the links behind the numbers"><svg class="ic" aria-hidden="true"><use href="#i-waypoints"/></svg><b>Graph</b><span class="sr">: click through the links behind the numbers</span></button>
+        <span class="tab-ind" id="tab-ind" aria-hidden="true"></span>
       </div>
     </div>
   </nav>
   <div class="whatif-dock" id="whatif-dock" hidden>
     <div class="wrap">
-      <div class="wi-compact">
-        <button type="button" class="wi-toggle" id="wi-toggle" data-act="wi-toggle" aria-expanded="false" aria-controls="whatif-body"><span class="wi-toggle-text" id="wi-toggle-text"></span><span class="wi-chev" aria-hidden="true"></span></button>
-        <button type="button" class="btn small ghost wi-undo-top" data-act="reset">Undo all</button>
-      </div>
-      <div id="whatif-body">
-        <div class="banner" id="whatif-banner"></div>
+      <div class="dock-card">
+        <div class="wi-compact">
+          <button type="button" class="wi-toggle" id="wi-toggle" data-act="wi-toggle" aria-expanded="false" aria-controls="whatif-body"><svg class="ic" aria-hidden="true"><use href="#i-flask-conical"/></svg><span class="wi-toggle-text" id="wi-toggle-text"></span><span class="wi-chev" aria-hidden="true"></span></button>
+          <button type="button" class="btn small ghost wi-undo-top" data-act="reset">Undo all</button>
+        </div>
+        <div id="whatif-body">
+          <div class="banner" id="whatif-banner"></div>
+        </div>
       </div>
     </div>
   </div>
   <span class="sr" id="wi-status" role="status"></span>
-  <!-- js/whatif-viz.js renders the simulation view here (keep this element) -->
-  <div id="whatif-viz-root"></div>
+  <!-- js/whatif-viz.js renders the simulation view here (keep this element): full content width, between the what-if dock and the panels -->
+  <div class="wrap viz-slot"><div id="whatif-viz-root"></div></div>
 
   <section class="start" id="start" aria-labelledby="start-h">
     <div class="wrap">
       <div class="start-box">
-        <h2 id="start-h">Start here: three things to try</h2>
-        <span class="start-progress" id="start-progress" aria-live="polite">0 of 3 done</span>
+        <div class="start-head">
+          <span class="start-ic" aria-hidden="true"><svg class="ic"><use href="#i-list-checks"/></svg></span>
+          <h2 id="start-h">Start here: three things to try</h2>
+          <span class="start-meter" aria-hidden="true"><i id="start-meter"></i></span>
+          <span class="start-progress" id="start-progress" aria-live="polite">0 of 3 done</span>
+          <button type="button" class="linkbtn start-hide" id="start-hide">Hide this</button>
+        </div>
         <ol class="start-list">
-          <li><button type="button" class="start-btn" data-start="receipts"><span class="start-check" aria-hidden="true"></span><b>See the proof for one requirement</b><span>Opens a requirement and shows its receipt: the chain from requirement to control to evidence.</span></button></li>
-          <li><button type="button" class="start-btn" data-start="catch"><span class="start-check" aria-hidden="true"></span><b>See a wrong answer get caught</b><span>Agent log tab: an AI answer is re-checked and corrected.</span></button></li>
-          <li><button type="button" class="start-btn" data-start="expire"><span class="start-check" aria-hidden="true"></span><b>Try a what-if: expire evidence</b><span>Pretend a document lapsed and watch the numbers change.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="receipts"><span class="start-check" aria-hidden="true"></span><span class="start-txt"><b>See the proof for one requirement</b><span>Opens a requirement and shows its receipt: the chain from requirement to control to evidence.</span></span><svg class="ic start-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></button></li>
+          <li><button type="button" class="start-btn" data-start="catch"><span class="start-check" aria-hidden="true"></span><span class="start-txt"><b>See a wrong answer get caught</b><span>Agent log tab: an AI answer is re-checked and corrected.</span></span><svg class="ic start-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></button></li>
+          <li><button type="button" class="start-btn" data-start="expire"><span class="start-check" aria-hidden="true"></span><span class="start-txt"><b>Try a what-if: expire evidence</b><span>Pretend a document lapsed and watch the numbers change.</span></span><svg class="ic start-go" aria-hidden="true"><use href="#i-arrow-right"/></svg></button></li>
         </ol>
-        <button type="button" class="linkbtn start-hide" id="start-hide">Hide this</button>
       </div>
     </div>
   </section>
 
   <main id="main" class="wrap">
     <div id="loading" class="loading" role="status">
-      <div class="spinner" aria-hidden="true"></div>
-      <p id="loading-text">Step 1 of 3: downloading the graph and the query engine&hellip;</p>
+      <div class="loading-card">
+        <div class="spinner" aria-hidden="true"></div>
+        <p id="loading-text">Step 1 of 3: downloading the graph and the query engine&hellip;</p>
+        <div class="skel-stack" aria-hidden="true"><span class="skel skel-line"></span><span class="skel skel-line"></span><span class="skel skel-line short"></span></div>
+      </div>
     </div>
     <div id="fatal" class="notice error" hidden></div>
 
@@ -114,25 +172,35 @@
     <section id="panel-adopt" class="panel" role="tabpanel" aria-labelledby="tab-adopt" hidden></section>
     <section id="panel-blast" class="panel" role="tabpanel" aria-labelledby="tab-blast" hidden></section>
     <section id="panel-graph" class="panel" role="tabpanel" aria-labelledby="tab-graph" hidden>
-      <p class="muted">Each circle is a requirement, control, piece of evidence or person. Lines show how they connect. A receipt is one chain of them.</p>
+      <header class="panel-head">
+        <div class="ph-text">
+          <h2><span class="ph-ic" aria-hidden="true"><svg class="ic"><use href="#i-waypoints"/></svg></span>Graph</h2>
+          <p class="panel-desc">Each circle is a requirement, control, piece of evidence or person. Lines show how they connect. A receipt is one chain of them.</p>
+        </div>
+      </header>
       <div class="graph-caption" id="graph-caption" hidden>
+        <svg class="ic" aria-hidden="true"><use href="#i-link"/></svg>
         <span id="graph-caption-text"></span>
-        <button type="button" class="linkbtn" data-act="graph-back" id="graph-back"></button>
+        <button type="button" class="btn small" data-act="graph-back" id="graph-back"></button>
       </div>
-      <div class="graph-head">
-        <form id="graph-search" class="search" role="search" autocomplete="off">
-          <label class="sr" for="graph-q">Search the graph by ID or name</label>
-          <input id="graph-q" type="search" placeholder="Search by ID or name, e.g. 03.05.03, CTRL-REAP-6, EV-044, Dana" enterkeyhint="search">
-          <button class="btn small" type="submit">Find</button>
-          <button class="btn small ghost" type="button" id="graph-clear">Clear</button>
-        </form>
-        <ul id="graph-results" class="results" hidden></ul>
+      <div class="graph-shell">
+        <div class="graph-head">
+          <form id="graph-search" class="search" role="search" autocomplete="off">
+            <label class="sr" for="graph-q">Search the graph by ID or name</label>
+            <span class="search-field"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input id="graph-q" type="search" placeholder="Search by ID or name, e.g. 03.05.03, CTRL-REAP-6, EV-044, Dana" enterkeyhint="search"></span>
+            <button class="btn small primary" type="submit">Find</button>
+            <button class="btn small ghost" type="button" id="graph-clear">Clear</button>
+          </form>
+          <ul id="graph-results" class="results" hidden></ul>
+        </div>
+        <div class="graph-body">
+          <div class="cy-wrap">
+            <div id="cy" class="cy" role="img" aria-label="Interactive graph. Click a circle to see what it connects to."></div>
+            <ul class="legend" id="graph-legend" aria-label="What the circles mean"></ul>
+          </div>
+          <aside id="graph-info" class="info" aria-live="polite"></aside>
+        </div>
       </div>
-      <div class="graph-body">
-        <div id="cy" class="cy" role="img" aria-label="Interactive graph. Click a circle to see what it connects to."></div>
-        <aside id="graph-info" class="info" aria-live="polite"></aside>
-      </div>
-      <ul class="legend" id="graph-legend" aria-label="What the circles mean"></ul>
     </section>
     <section id="panel-agent" class="panel" role="tabpanel" aria-labelledby="tab-agent" hidden></section>
     <section id="panel-scorecard" class="panel" role="tabpanel" aria-labelledby="tab-scorecard" hidden></section>
@@ -140,7 +208,7 @@
 
   <dialog id="dlg-expire" aria-labelledby="dlg-expire-title">
     <form method="dialog" class="dlg">
-      <h2 id="dlg-expire-title">Pretend evidence expires</h2>
+      <div class="dlg-head"><span class="dlg-ic warn" aria-hidden="true"><svg class="ic"><use href="#i-file-clock"/></svg></span><h2 id="dlg-expire-title">Pretend evidence expires</h2></div>
       <p class="muted">Pick a piece of evidence to treat as expired on the demo date, <span id="expire-asof"></span>. Coverage, What breaks and the Agent log update right away. Nothing is saved; reload to undo.</p>
       <label for="expire-q">Search evidence</label>
       <input type="search" id="expire-q" placeholder="ID or title, e.g. EV-04 or MFA" autocomplete="off">
@@ -154,7 +222,7 @@
   </dialog>
   <dialog id="dlg-remove" aria-labelledby="dlg-remove-title">
     <form method="dialog" class="dlg">
-      <h2 id="dlg-remove-title">Pretend a person leaves</h2>
+      <div class="dlg-head"><span class="dlg-ic warn" aria-hidden="true"><svg class="ic"><use href="#i-user-minus"/></svg></span><h2 id="dlg-remove-title">Pretend a person leaves</h2></div>
       <p class="muted">Pick someone to treat as gone. Controls they alone own will have no owner. Coverage won't change. Nothing is saved; reload to undo.</p>
       <label for="sel-remove">Person</label>
       <select id="sel-remove"></select>
@@ -166,10 +234,12 @@
   </dialog>
 
   <footer class="foot">
-    <div class="wrap">
+    <div class="wrap foot-grid">
       <p><strong>Fictional data.</strong> Harbor &amp; Pine is an invented company. Its people, systems, evidence and dates are made up for this demo; the framework text is NIST's and the policy wording comes from an open-source policy template set. Nothing here is compliance advice.</p>
-      <p class="muted" id="foot-stats"></p>
-      <p class="muted">Runs entirely in your browser: <a href="https://relatedb.ai">Relate</a> 1.2.0 (WebAssembly) and <a href="https://js.cytoscape.org">Cytoscape.js</a> 3.35.0, both vendored. What-if changes live in memory only. Reload to undo.</p>
+      <div>
+        <p class="muted" id="foot-stats"></p>
+        <p class="muted">Runs entirely in your browser: <a href="https://relatedb.ai">Relate</a> 1.2.0 (WebAssembly) and <a href="https://js.cytoscape.org">Cytoscape.js</a> 3.35.0, both vendored. What-if changes live in memory only. Reload to undo. Icons: Lucide (ISC).</p>
+      </div>
     </div>
   </footer>
 

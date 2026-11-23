@@ -1,0 +1,77 @@
+/* Guided tour: spotlight, popover, hint bubble. Everything is prefixed tour-. Driven by js/tour.js. */
+.tour-shield { position: fixed; inset: 0; z-index: 9000; background: transparent; cursor: default; }
+
+.tour-ring {
+  position: fixed; z-index: 9001; pointer-events: none; box-sizing: border-box;
+  border-radius: calc(var(--radius, 8px) + 2px);
+  box-shadow: 0 0 0 2px var(--accent, #0d7480), 0 0 0 9999px rgb(15 28 34 / .56);
+}
+.tour-ring.tour-anim { transition: top .2s var(--ease, cubic-bezier(.2,0,0,1)), left .2s var(--ease, cubic-bezier(.2,0,0,1)), width .2s var(--ease, cubic-bezier(.2,0,0,1)), height .2s var(--ease, cubic-bezier(.2,0,0,1)); }
+.tour-ring.tour-soft { box-shadow: 0 0 0 2px var(--accent, #0d7480), 0 0 0 6px rgb(13 116 128 / .18); }
+
+.tour-pop, .tour-hint {
+  position: fixed; z-index: 9002; box-sizing: border-box;
+  width: 340px; max-width: calc(100vw - 16px);
+  background: var(--surface, #fff); color: var(--text, #1f3038);
+  border: 1px solid var(--border-strong, rgb(31 48 56 / .28));
+  border-radius: var(--radius, 8px);
+  box-shadow: 0 12px 32px rgb(15 28 34 / .28), 0 2px 6px rgb(15 28 34 / .12);
+  font-family: var(--font-text, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif);
+  font-size: var(--t-sm, .875rem); line-height: 1.45;
+  padding: 14px 16px 12px;
+  animation: tour-in .16s var(--ease, cubic-bezier(.2,0,0,1)) both;
+}
+.tour-hint { z-index: 8000; width: 320px; }
+.tour-pop[hidden], .tour-hint[hidden] { display: none; }
+
+.tour-title { margin: 0 28px 4px 0; font-family: var(--font-display, var(--font-text, system-ui, sans-serif)); font-size: var(--t-md, 1rem); font-weight: 600; line-height: 1.25; }
+.tour-text { margin: 0 0 12px; color: var(--muted, #4f5d64); }
+.tour-text b { color: var(--text, #1f3038); font-weight: 600; }
+.tour-foot { display: flex; align-items: center; gap: 8px; }
+.tour-count { margin-right: auto; font-size: var(--t-xs, .8125rem); color: var(--muted, #4f5d64); font-variant-numeric: tabular-nums; }
+
+.tour-btn {
+  appearance: none; font: inherit; font-weight: 500; cursor: pointer;
+  min-height: 34px; padding: 5px 12px; border-radius: var(--radius-sm, 6px);
+  border: 1px solid var(--border-strong, rgb(31 48 56 / .28));
+  background: var(--surface, #fff); color: var(--text, #1f3038);
+}
+.tour-btn:hover { background: var(--surface-2, #ecf0f2); }
+.tour-btn.tour-primary { background: var(--accent, #0d7480); border-color: var(--accent, #0d7480); color: var(--accent-ink, #fff); }
+.tour-btn.tour-primary:hover { filter: brightness(.92); background: var(--accent, #0d7480); }
+.tour-link { appearance: none; background: none; border: 0; padding: 4px 2px; font: inherit; font-size: var(--t-xs, .8125rem); color: var(--muted, #4f5d64); text-decoration: underline; cursor: pointer; }
+.tour-link:hover { color: var(--text, #1f3038); }
+.tour-x {
+  position: absolute; top: 6px; right: 6px; width: 30px; height: 30px; padding: 0;
+  display: grid; place-items: center; border: 0; background: none; border-radius: var(--radius-sm, 6px);
+  color: var(--muted, #4f5d64); font-size: 20px; line-height: 1; cursor: pointer;
+}
+.tour-x:hover { background: var(--surface-2, #ecf0f2); color: var(--text, #1f3038); }
+.tour-pop button:focus-visible, .tour-hint button:focus-visible { outline: 2px solid var(--focus, #0d7480); outline-offset: 2px; }
+
+.tour-hint .tour-foot { justify-content: flex-start; }
+.tour-hint .tour-text { margin-bottom: 10px; }
+.tour-hint.tour-corner { right: 16px; bottom: 16px; }
+
+/* the "Take the tour" header button keeps whatever the page gives it; this only adds a subtle cue while a tour runs */
+body.tour-open { overscroll-behavior: contain; }
+
+@media (max-width: 640px) {
+  .tour-pop, .tour-hint.tour-corner, .tour-hint {
+    left: 0 !important; right: 0 !important; top: auto !important; bottom: 0 !important;
+    width: auto; max-width: none;
+    border-radius: 14px 14px 0 0; border-width: 1px 0 0;
+    padding: 16px 16px calc(14px + env(safe-area-inset-bottom, 0px));
+    animation: tour-sheet .2s var(--ease, cubic-bezier(.2,0,0,1)) both;
+  }
+  .tour-btn { min-height: 40px; padding: 6px 14px; }
+  .tour-x { width: 40px; height: 40px; top: 6px; right: 6px; }
+}
+
+@keyframes tour-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@keyframes tour-sheet { from { transform: translateY(24px); opacity: .6; } to { transform: none; opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .tour-pop, .tour-hint { animation: none; }
+  .tour-ring.tour-anim { transition: none; }
+}
