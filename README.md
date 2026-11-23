@@ -1,5 +1,7 @@
 # Crosswalk: audit-prep AI agents on a Relate compliance graph (NIST, MCP)
 
+[![Cold start (Linux)](https://github.com/amanpundhir/crosswalk-relate/actions/workflows/cold-start.yml/badge.svg)](https://github.com/amanpundhir/crosswalk-relate/actions/workflows/cold-start.yml)
+
 **An audit-prep agent that answers with receipts.** Every claim is a path in the graph, from requirement to control to evidence, and Crosswalk re-checks that path before you read the answer.
 
 *Prove a control once, satisfy every framework, and see what breaks before the auditor does.*
@@ -190,7 +192,7 @@ Where to find each judging criterion in under a minute. Status is what actually 
 | Documentation | Official template order, schema, query cookbook, scorecard, limits | this file, [`docs/schema.md`](docs/schema.md), [`docs/queries.md`](docs/queries.md), [`eval/scorecard.md`](eval/scorecard.md) |
 | Creativity | The graph is the agent's memory and audit trail, and the claim checker turns "trust me" into a re-runnable path | [The live catch](#the-live-catch) |
 
-Not built or not done, stated plainly: no CI workflow and no hosted GitHub Pages deployment yet; no cold-start test on a clean Windows machine or on Linux or macOS (everything was developed and verified on Windows 11); the mapper-agent row of the mapping evaluation is not measured.
+Not built or not done, stated plainly: no macOS test; the Windows cold start (fresh copy of the repo and a new venv, first result in 99 s) was run on the development machine, not a clean one; the mapper-agent row of the mapping evaluation is not measured. Tested: a Linux cold start on a clean GitHub Actions runner on every push (README commands, the Relate CLI release asset with checksum, `agent setup` self-test, a rebuild, and the full test suite).
 
 ## Setup and run
 
@@ -206,7 +208,7 @@ pip install -e .
 crosswalk coverage -f 800-171
 ```
 
-macOS or Linux (not tested by us; the commands are standard):
+macOS or Linux (Linux is tested on every push by the cold-start workflow, Ubuntu with Python 3.12; macOS is not tested):
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate && export DO_NOT_TRACK=1
@@ -235,7 +237,7 @@ Copy-Item "$d\relate-windows-amd64.exe" .venv\Scripts\relate.exe
 relate --version                                                  # Relate v1.2.0
 ```
 
-macOS or Linux: use the official installer, `curl -sSfL https://relatedb.ai/install.sh | bash` (per Relate's documentation it verifies the release signature and `SHA256SUMS`, and installs onto your user PATH, outside this repo), or download the matching asset (`relate-linux-amd64`, `relate-linux-arm64`, `relate-darwin-amd64`, `relate-darwin-arm64`) from the same release page and check it against `SHA256SUMS`. Then put the binary where Crosswalk looks for it, next to the interpreter: `cp "$(command -v relate)" .venv/bin/relate` (or `install -m 755 relate-linux-amd64 .venv/bin/relate`). We confirmed the asset names and checksums exist; we did not run the macOS or Linux path.
+macOS or Linux: use the official installer, `curl -sSfL https://relatedb.ai/install.sh | bash` (per Relate's documentation it verifies the release signature and `SHA256SUMS`, and installs onto your user PATH, outside this repo), or download the matching asset (`relate-linux-amd64`, `relate-linux-arm64`, `relate-darwin-amd64`, `relate-darwin-arm64`) from the same release page and check it against `SHA256SUMS`. Then put the binary where Crosswalk looks for it, next to the interpreter: `cp "$(command -v relate)" .venv/bin/relate` (or `install -m 755 relate-linux-amd64 .venv/bin/relate`). The Linux path with the downloaded `relate-linux-amd64` asset is tested on every push by [`.github/workflows/cold-start.yml`](.github/workflows/cold-start.yml); the installer script and macOS are not tested by us.
 
 ### Command tour
 
@@ -441,7 +443,7 @@ An honest note on the repeat-rejection run: session 2 was asked for ten proposal
 * **The claim checker verifies paths, not truth outside the graph.** A wrong answer built from individually valid claims gets through (GQ-11 in run 2).
 * **Search limits (Relate 1.2.0).** Vector search is exact (brute force; the stored HNSW settings are not used for ranking), which is fine at about 1,200 requirements. Full-text search has no stemming and no phrase matching by default, which is why hybrid beats full text alone.
 * **One writer at a time** on an embedded directory store, as described above. `crosswalk-mcp` is the one process that writes for agents.
-* **Platforms.** Developed and verified on Windows 11 with Python 3.12 and Relate 1.2.0. macOS and Linux commands are given but untested by us.
+* **Platforms.** Developed on Windows 11 with Python 3.12 and Relate 1.2.0; Linux (Ubuntu, Python 3.12) is tested in CI on every push. macOS commands are given but untested by us.
 * **Privacy.** The core runs fully offline. Compliance data can be sensitive: the same MCP servers work with any MCP client, including one backed by a local model. Relate telemetry is opt-out (`DO_NOT_TRACK=1`); `crosswalk agent setup` sets it in the servers' environment.
 
 ## Data sources and licences
