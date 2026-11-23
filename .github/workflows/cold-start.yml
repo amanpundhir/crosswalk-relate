@@ -1,0 +1,71 @@
+# Cold start on a clean Linux runner: follows the README's macOS/Linux setup word for word,
+# then installs the Relate CLI from the official release asset (checksum verified), wires the
+# agents, rebuilds the store, and runs the full test suite. No API key anywhere.
+name: Cold start (Linux)
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["web/**", "docs/**", "**.md"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cold-start:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DO_NOT_TRACK: "1"
+      RELATE_VERSION: v1.2.0
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: "README: three commands to the first result"
+        run: |
+          start=$(date +%s)
+          python3 -m venv .venv && source .venv/bin/activate && export DO_NOT_TRACK=1
+          pip install -q -e .
+          crosswalk coverage -f 800-171 | tee /tmp/coverage.txt
+          grep -q "covered 15/97 (15%), inherited 23, gaps 59" /tmp/coverage.txt
+          echo "first result after $(( $(date +%s) - start ))s" | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: "README: no-key live-catch demo"
+        run: |
+          source .venv/bin/activate
+          crosswalk demo live-catch | tee /tmp/live.txt
+          grep -q "0/2 claims verified" /tmp/live.txt
+
+      - name: Relate CLI from the official release asset (SHA-256 checked)
+        run: |
+          base="https://github.com/relatedb/relate/releases/download/${RELATE_VERSION}"
+          mkdir -p /tmp/relate-dl && cd /tmp/relate-dl
+          curl -sSfLO "$base/relate-linux-amd64"
+          curl -sSfLO "$base/SHA256SUMS"
+          grep " relate-linux-amd64$" SHA256SUMS | sha256sum -c -
+          install -m 755 relate-linux-amd64 "$GITHUB_WORKSPACE/.venv/bin/relate"
+          "$GITHUB_WORKSPACE/.venv/bin/relate" --version
+
+      - name: "crosswalk agent setup (Claude Code config + MCP self-test)"
+        run: |
+          source .venv/bin/activate
+          crosswalk agent setup --yes
+          test -f .mcp.json
+          ls .claude/skills
+          crosswalk agent setup --undo --yes
+
+      - name: Rebuild the store from inputs and compare with the committed one
+        run: |
+          source .venv/bin/activate
+          crosswalk build --store /tmp/rebuilt --no-export
+          crosswalk coverage -f 800-171 --store /tmp/rebuilt | tail -1
+
+      - name: Full test suite
+        run: |
+          source .venv/bin/activate
+          pip install -q -r requirements.txt
+          pytest -q
