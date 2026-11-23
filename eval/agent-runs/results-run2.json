@@ -1,0 +1,1188 @@
+{
+  "questions": 20,
+  "question_ids": [
+    {
+      "id": "GQ-01",
+      "trap": null
+    },
+    {
+      "id": "GQ-02",
+      "trap": null
+    },
+    {
+      "id": "GQ-03",
+      "trap": "S5"
+    },
+    {
+      "id": "GQ-04",
+      "trap": "S5"
+    },
+    {
+      "id": "GQ-05",
+      "trap": "S1"
+    },
+    {
+      "id": "GQ-06",
+      "trap": "S1"
+    },
+    {
+      "id": "GQ-07",
+      "trap": "S2"
+    },
+    {
+      "id": "GQ-08",
+      "trap": "S2"
+    },
+    {
+      "id": "GQ-09",
+      "trap": "S2"
+    },
+    {
+      "id": "GQ-10",
+      "trap": null
+    },
+    {
+      "id": "GQ-11",
+      "trap": "S6"
+    },
+    {
+      "id": "GQ-12",
+      "trap": "S4"
+    },
+    {
+      "id": "GQ-13",
+      "trap": "S4"
+    },
+    {
+      "id": "GQ-14",
+      "trap": "S8"
+    },
+    {
+      "id": "GQ-15",
+      "trap": "S3"
+    },
+    {
+      "id": "GQ-16",
+      "trap": "S3"
+    },
+    {
+      "id": "GQ-17",
+      "trap": "S7"
+    },
+    {
+      "id": "GQ-18",
+      "trap": null
+    },
+    {
+      "id": "GQ-19",
+      "trap": null
+    },
+    {
+      "id": "GQ-20",
+      "trap": null
+    }
+  ],
+  "setups": {
+    "A": {
+      "setup": "A-spreadsheet",
+      "title": "A. Spreadsheet agent (CSV export)",
+      "questions": 20,
+      "answered": 20,
+      "correct": 9,
+      "accuracy": 0.45,
+      "mean_key_score": 0.5917,
+      "wrong_answers_shown": 11,
+      "trap_questions": 14,
+      "trap_hits": 6,
+      "tool_calls_total": 40.0,
+      "tool_calls_per_question": 2.0,
+      "grid": [
+        {
+          "id": "GQ-01",
+          "trap": null,
+          "answered": true,
+          "correct": false,
+          "key_score": 0.5,
+          "trap_hit": false,
+          "wrong_keys": [
+            "inherited",
+            "gap",
+            "percent_direct_plus_inherited"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-02",
+          "trap": null,
+          "answered": true,
+          "correct": false,
+          "key_score": 0.6,
+          "trap_hit": false,
+          "wrong_keys": [
+            "inherited",
+            "gap"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-03",
+          "trap": "S5",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.4,
+          "trap_hit": true,
+          "wrong_keys": [
+            "inherited",
+            "gap",
+            "percent_direct_plus_inherited"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-04",
+          "trap": "S5",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.0,
+          "trap_hit": true,
+          "wrong_keys": [
+            "count",
+            "requirements"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-05",
+          "trap": "S1",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.6667,
+          "trap_hit": false,
+          "wrong_keys": [
+            "inherited",
+            "proposed_only_controls"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-06",
+          "trap": "S1",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-07",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-08",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-09",
+          "trap": "S2",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.0,
+          "trap_hit": true,
+          "wrong_keys": [
+            "still_inherited",
+            "broken_and_not_inherited"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-10",
+          "trap": null,
+          "answered": true,
+          "correct": false,
+          "key_score": 0.0,
+          "trap_hit": false,
+          "wrong_keys": [
+            "controls"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-11",
+          "trap": "S6",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-12",
+          "trap": "S4",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.0,
+          "trap_hit": true,
+          "wrong_keys": [
+            "allowed",
+            "previously_rejected",
+            "decided_by",
+            "decided_at"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-13",
+          "trap": "S4",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.0,
+          "trap_hit": true,
+          "wrong_keys": [
+            "rejections"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-14",
+          "trap": "S8",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-15",
+          "trap": "S3",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-16",
+          "trap": "S3",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.0,
+          "trap_hit": true,
+          "wrong_keys": [
+            "requirements"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-17",
+          "trap": "S7",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.6667,
+          "trap_hit": false,
+          "wrong_keys": [
+            "frameworks_reached",
+            "reach_count_1_hop"
+          ],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-18",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-19",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        },
+        {
+          "id": "GQ-20",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 0,
+          "wrong_claims": 0
+        }
+      ]
+    },
+    "B": {
+      "setup": "B-graph",
+      "title": "B. Graph agent, no claim check",
+      "questions": 20,
+      "answered": 20,
+      "correct": 19,
+      "accuracy": 0.95,
+      "mean_key_score": 0.9917,
+      "wrong_answers_shown": 1,
+      "trap_questions": 14,
+      "trap_hits": 0,
+      "tool_calls_total": 24.0,
+      "tool_calls_per_question": 1.2,
+      "grid": [
+        {
+          "id": "GQ-01",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 3,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-02",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-03",
+          "trap": "S5",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-04",
+          "trap": "S5",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-05",
+          "trap": "S1",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-06",
+          "trap": "S1",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 4,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-07",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 10,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 0.75
+        },
+        {
+          "id": "GQ-08",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 3,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-09",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 9,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-10",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 3,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-11",
+          "trap": "S6",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.8333,
+          "trap_hit": false,
+          "wrong_keys": [
+            "valid_replacements"
+          ],
+          "claims": 4,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-12",
+          "trap": "S4",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 1,
+          "claim_detail": [
+            {
+              "wrong": true,
+              "valid_citation": false,
+              "uncited": false,
+              "text": "D-001: P-maya-chen rejected mapping CTRL-AOTP-11 to 800-53:AC-17 on 2026-11-25",
+              "verdict": "verified",
+              "reason": ""
+            }
+          ],
+          "must_cite_hit": 0.8
+        },
+        {
+          "id": "GQ-13",
+          "trap": "S4",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 2,
+          "claim_detail": [
+            {
+              "wrong": true,
+              "valid_citation": false,
+              "uncited": false,
+              "text": "D-001 rejected CTRL-AOTP-11 to 800-53:AC-17",
+              "verdict": "verified",
+              "reason": ""
+            },
+            {
+              "wrong": true,
+              "valid_citation": false,
+              "uncited": false,
+              "text": "D-002 rejected CTRL-REAP-7 to 800-53:SC-8",
+              "verdict": "verified",
+              "reason": ""
+            }
+          ],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-14",
+          "trap": "S8",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-15",
+          "trap": "S3",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-16",
+          "trap": "S3",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-17",
+          "trap": "S7",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 3,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 0.6667
+        },
+        {
+          "id": "GQ-18",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 7,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-19",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 15,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        },
+        {
+          "id": "GQ-20",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0
+        }
+      ],
+      "claims_total": 76,
+      "aggregate_claims": 4,
+      "cited_claims": 72,
+      "uncited_claims": 0,
+      "valid_citations": 69,
+      "valid_citation_rate": 0.9583,
+      "wrong_claims_shown": 3,
+      "mean_must_cite_hit": 0.9608
+    },
+    "C": {
+      "setup": "C-graph-checker",
+      "title": "C. Graph agent + claim checker",
+      "questions": 20,
+      "answered": 20,
+      "correct": 19,
+      "accuracy": 0.95,
+      "mean_key_score": 0.9917,
+      "wrong_answers_shown": 1,
+      "trap_questions": 14,
+      "trap_hits": 0,
+      "tool_calls_total": 50.0,
+      "tool_calls_per_question": 2.5,
+      "grid": [
+        {
+          "id": "GQ-01",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 7,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-02",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 4,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-03",
+          "trap": "S5",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 4,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-04",
+          "trap": "S5",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 23,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-05",
+          "trap": "S1",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-06",
+          "trap": "S1",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 4,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-07",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 9,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 0.75,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-08",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 13,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-09",
+          "trap": "S2",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 9,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-10",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 3,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-11",
+          "trap": "S6",
+          "answered": true,
+          "correct": false,
+          "key_score": 0.8333,
+          "trap_hit": false,
+          "wrong_keys": [
+            "valid_replacements"
+          ],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 0.8,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-12",
+          "trap": "S4",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 0.8,
+          "draft_wrong_claims": 1
+        },
+        {
+          "id": "GQ-13",
+          "trap": "S4",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 2
+        },
+        {
+          "id": "GQ-14",
+          "trap": "S8",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-15",
+          "trap": "S3",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-16",
+          "trap": "S3",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-17",
+          "trap": "S7",
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 2,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-18",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 7,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        },
+        {
+          "id": "GQ-19",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 15,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 10
+        },
+        {
+          "id": "GQ-20",
+          "trap": null,
+          "answered": true,
+          "correct": true,
+          "key_score": 1.0,
+          "trap_hit": false,
+          "wrong_keys": [],
+          "claims": 1,
+          "wrong_claims": 0,
+          "claim_detail": [],
+          "must_cite_hit": 1.0,
+          "draft_wrong_claims": 0
+        }
+      ],
+      "claims_total": 112,
+      "aggregate_claims": 3,
+      "cited_claims": 109,
+      "uncited_claims": 0,
+      "valid_citations": 109,
+      "valid_citation_rate": 1.0,
+      "wrong_claims_shown": 0,
+      "mean_must_cite_hit": 0.9675,
+      "check_calls_total": 27.0,
+      "draft_wrong_claims": 13,
+      "draft_wrong_claims_caught": 13
+    }
+  },
+  "usage": {
+    "A-spreadsheet": {
+      "tokens_total": 92634,
+      "seconds_total": 82.5
+    },
+    "B-graph": {
+      "tokens_total": 103241,
+      "seconds_total": 175.0
+    },
+    "C-graph-checker": {
+      "tokens_total": 111247,
+      "seconds_total": 227.3
+    }
+  },
+  "repeat_rejection": {
+    "session1_proposals": [
+      {
+        "id": "PR-009",
+        "control": "CTRL-AOTP-4",
+        "requirement": "800-53:AC-2"
+      },
+      {
+        "id": "PR-010",
+        "control": "CTRL-AOTP-4",
+        "requirement": "800-53:AC-2(1)"
+      },
+      {
+        "id": "PR-011",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-9"
+      },
+      {
+        "id": "PR-012",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-6"
+      },
+      {
+        "id": "PR-013",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:RA-5"
+      },
+      {
+        "id": "PR-014",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:SA-11"
+      },
+      {
+        "id": "PR-015",
+        "control": "CTRL-REAP-7",
+        "requirement": "800-53:AC-19(5)"
+      },
+      {
+        "id": "PR-016",
+        "control": "CTRL-REAP-7",
+        "requirement": "800-53:AC-17(2)"
+      },
+      {
+        "id": "PR-017",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:AU-2"
+      },
+      {
+        "id": "PR-018",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:AU-6(4)"
+      },
+      {
+        "id": "PR-019",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-9(5)"
+      },
+      {
+        "id": "PR-020",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:SA-11(5)"
+      }
+    ],
+    "session1_rejected": [
+      {
+        "proposal": "PR-019",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-9(5)",
+        "reason": "Rejected by the evaluation script: the control wording does not support this requirement.",
+        "by": "P-maya-chen"
+      },
+      {
+        "proposal": "PR-010",
+        "control": "CTRL-AOTP-4",
+        "requirement": "800-53:AC-2(1)",
+        "reason": "Rejected by the evaluation script: the control wording does not support this requirement.",
+        "by": "P-maya-chen"
+      },
+      {
+        "proposal": "PR-018",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:AU-6(4)",
+        "reason": "Rejected by the evaluation script: the control wording does not support this requirement.",
+        "by": "P-maya-chen"
+      }
+    ],
+    "session2_proposals": [
+      {
+        "id": "PR-021",
+        "control": "CTRL-AOTP-4",
+        "requirement": "800-53:AC-2"
+      },
+      {
+        "id": "PR-022",
+        "control": "CTRL-AOTP-4",
+        "requirement": "800-53:AC-6(7)"
+      },
+      {
+        "id": "PR-023",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-9"
+      },
+      {
+        "id": "PR-024",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-6"
+      },
+      {
+        "id": "PR-025",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:RA-5"
+      },
+      {
+        "id": "PR-026",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:SA-11"
+      },
+      {
+        "id": "PR-027",
+        "control": "CTRL-REAP-7",
+        "requirement": "800-53:AC-19(5)"
+      },
+      {
+        "id": "PR-028",
+        "control": "CTRL-REAP-7",
+        "requirement": "800-53:AC-19"
+      },
+      {
+        "id": "PR-029",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:AU-2"
+      },
+      {
+        "id": "PR-030",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:AU-12(1)"
+      },
+      {
+        "id": "PR-031",
+        "control": "CTRL-AOTP-4",
+        "requirement": "800-53:AC-3"
+      },
+      {
+        "id": "PR-032",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-9(3)"
+      },
+      {
+        "id": "PR-033",
+        "control": "CTRL-AP-11",
+        "requirement": "800-53:CP-9(1)"
+      },
+      {
+        "id": "PR-034",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:CA-2(2)"
+      },
+      {
+        "id": "PR-035",
+        "control": "CTRL-SDLCP-46",
+        "requirement": "800-53:CA-8"
+      },
+      {
+        "id": "PR-036",
+        "control": "CTRL-REAP-7",
+        "requirement": "800-53:AC-17(2)"
+      },
+      {
+        "id": "PR-037",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:AU-6(3)"
+      },
+      {
+        "id": "PR-038",
+        "control": "CTRL-REAP-7",
+        "requirement": "800-53:AC-18(1)"
+      },
+      {
+        "id": "PR-039",
+        "control": "CTRL-LMP-15",
+        "requirement": "800-53:SI-4(16)"
+      }
+    ],
+    "session1_repeats_of_preexisting_rejections": 0,
+    "session2_repeats_of_session1_rejections": 0,
+    "session2_repeat_pairs": [],
+    "session2_repeats_flagged_by_verifier": 0,
+    "session2_duplicates_of_session1_pending": 8,
+    "session2_repeats_of_preexisting_rejections": 0,
+    "target_session2": 0,
+    "decisions_called_first": true,
+    "session1_repeat_rate": 0.0,
+    "session2_repeat_rate": 0.0,
+    "session2_commands": 25,
+    "pass": true
+  }
+}

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Crosswalk: an audit-prep agent that answers with receipts</title>
+  <meta name="description" content="Explore the Crosswalk compliance graph in your browser. No install, no server, no AI key: Relate runs as WebAssembly.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="wrap top-row">
+      <a class="brand" href="#coverage" aria-label="Crosswalk home"><span class="mark" aria-hidden="true">&#x2194;</span> Crosswalk</a>
+      <span class="chip" id="asof-chip" title="The demo date. Every query takes it as a parameter; the page never reads the clock.">as of &hellip;</span>
+      <div class="whatif" role="group" aria-label="What-if">
+        <button class="btn small" id="btn-expire" type="button" disabled>Expire evidence&hellip;</button>
+        <button class="btn small" id="btn-remove" type="button" disabled>Remove person&hellip;</button>
+        <button class="btn small ghost" id="btn-reset" type="button" disabled>Reset</button>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="banner" id="whatif-banner" hidden role="status"></div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">For compliance leads preparing NIST audits</p>
+      <h1>An audit-prep agent that answers with receipts.</h1>
+      <p class="lede">Crosswalk keeps controls, evidence, owners and framework crosswalks in one graph. Every claim an agent makes cites a path through it, and the claim checker re-runs that path before you read the answer.</p>
+      <div class="cta">
+        <button class="btn primary" id="cta-gaps" type="button">Show audit gaps</button>
+        <button class="btn" id="cta-receipts" type="button">See the agent's receipts</button>
+      </div>
+      <dl class="kpis" id="hero-kpis" aria-live="polite"></dl>
+    </div>
+  </section>
+
+  <nav class="tabs-bar" aria-label="Explorer sections">
+    <div class="wrap">
+      <div class="tabs" role="tablist" id="tabs">
+        <button role="tab" id="tab-coverage" aria-controls="panel-coverage" data-tab="coverage">Coverage</button>
+        <button role="tab" id="tab-adopt" aria-controls="panel-adopt" data-tab="adopt">Head start</button>
+        <button role="tab" id="tab-blast" aria-controls="panel-blast" data-tab="blast">What breaks</button>
+        <button role="tab" id="tab-graph" aria-controls="panel-graph" data-tab="graph">Graph</button>
+        <button role="tab" id="tab-agent" aria-controls="panel-agent" data-tab="agent">Agent log</button>
+        <button role="tab" id="tab-scorecard" aria-controls="panel-scorecard" data-tab="scorecard">Scorecard</button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main" class="wrap">
+    <div id="loading" class="loading" role="status">
+      <div class="spinner" aria-hidden="true"></div>
+      <p id="loading-text">Loading Relate (WebAssembly)&hellip;</p>
+    </div>
+    <div id="fatal" class="notice error" hidden></div>
+
+    <section id="panel-coverage" class="panel" role="tabpanel" aria-labelledby="tab-coverage" hidden></section>
+    <section id="panel-adopt" class="panel" role="tabpanel" aria-labelledby="tab-adopt" hidden></section>
+    <section id="panel-blast" class="panel" role="tabpanel" aria-labelledby="tab-blast" hidden></section>
+    <section id="panel-graph" class="panel" role="tabpanel" aria-labelledby="tab-graph" hidden>
+      <div class="graph-head">
+        <form id="graph-search" class="search" role="search" autocomplete="off">
+          <label class="sr" for="graph-q">Find a node by id or name</label>
+          <input id="graph-q" type="search" placeholder="Find a node: 03.05.03, CTRL-REAP-6, EV-044, Dana&hellip;" enterkeyhint="search">
+          <button class="btn small" type="submit">Find</button>
+          <button class="btn small ghost" type="button" id="graph-clear">Clear</button>
+        </form>
+        <ul id="graph-results" class="results" hidden></ul>
+      </div>
+      <div class="graph-body">
+        <div id="cy" class="cy" role="img" aria-label="Interactive graph. Click a node to see its neighbours."></div>
+        <aside id="graph-info" class="info" aria-live="polite"></aside>
+      </div>
+      <ul class="legend" id="graph-legend" aria-label="Node types"></ul>
+    </section>
+    <section id="panel-agent" class="panel" role="tabpanel" aria-labelledby="tab-agent" hidden></section>
+    <section id="panel-scorecard" class="panel" role="tabpanel" aria-labelledby="tab-scorecard" hidden></section>
+  </main>
+
+  <dialog id="dlg-expire" aria-labelledby="dlg-expire-title">
+    <form method="dialog" class="dlg">
+      <h2 id="dlg-expire-title">Expire an evidence item</h2>
+      <p class="muted">Sets its expiry to the day before the demo date, in memory only. Coverage, blast radius and the agent log recompute at once.</p>
+      <label for="sel-expire">Evidence</label>
+      <select id="sel-expire"></select>
+      <div class="dlg-actions">
+        <button class="btn ghost" value="cancel">Cancel</button>
+        <button class="btn primary" value="ok" id="ok-expire">Expire it</button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="dlg-remove" aria-labelledby="dlg-remove-title">
+    <form method="dialog" class="dlg">
+      <h2 id="dlg-remove-title">Remove a person</h2>
+      <p class="muted">Deletes the person and their ownership links, in memory only. Controls they solely owned become unowned.</p>
+      <label for="sel-remove">Person</label>
+      <select id="sel-remove"></select>
+      <div class="dlg-actions">
+        <button class="btn ghost" value="cancel">Cancel</button>
+        <button class="btn primary" value="ok" id="ok-remove">Remove them</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p><strong>Fictional data.</strong> Harbor &amp; Pine is an invented company. Its people, systems, evidence and dates are made up for this demo; the framework text is NIST's and the policy wording comes from an open-source policy template set. Nothing here is compliance advice.</p>
+      <p class="muted" id="foot-stats"></p>
+      <p class="muted">Runs entirely in your browser: <a href="https://relatedb.ai">Relate</a> 1.2.0 (WebAssembly) and <a href="https://js.cytoscape.org">Cytoscape.js</a> 3.35.0, both vendored. Changes you make with What-if live in memory only. Reload to reset.</p>
+    </div>
+  </footer>
+
+  <script src="vendor/cytoscape/cytoscape.min.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

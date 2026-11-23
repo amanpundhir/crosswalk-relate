@@ -1,0 +1,512 @@
+{
+  "title": "Crosswalk scorecard",
+  "as_of": "2026-12-02",
+  "mode": "full",
+  "note": "Company data is fictional. Sections A and the repeat-rejection metric are read from recorded agent runs; everything else is computed now from the store with no AI call. Timings are the only non-deterministic numbers and live in the timings block.",
+  "headline": [
+    {
+      "row": "Agent accuracy, spreadsheet vs graph + claim checker",
+      "value": "9/20 (45%) -> 19/20 (95%)",
+      "note": "recorded runs, Claude Sonnet 5.5 subagents, same prompts, same 20 golden questions"
+    },
+    {
+      "row": "Wrong claims shown to the user (graph agent without checker -> with checker)",
+      "value": "3 -> 0",
+      "note": "spreadsheet agent: 11 wrong answers shown, no citations to check"
+    },
+    {
+      "row": "Evidence reuse ratio",
+      "value": "2.15 requirements per evidence item (mean)",
+      "note": "108 valid items; median 2.0; max 9 (EV-065, 3 frameworks); mean incl. one crosswalk hop 8.71"
+    },
+    {
+      "row": "Live catch caught",
+      "value": "yes (10/10 replays)",
+      "note": "expired EV-044 and the proposed-only mapping PR-005 flagged with reasons"
+    }
+  ],
+  "summary": {
+    "pass": 24,
+    "miss": 0,
+    "info": 18,
+    "misses": []
+  },
+  "sections": [
+    {
+      "id": "D",
+      "title": "D. Core correctness (Cypher vs ground truth, no AI)",
+      "metrics": [
+        {
+          "id": "D1",
+          "name": "Planted-gap catch rate (Q1 gaps vs oracle, 3 frameworks)",
+          "value": "1041/1041 (100%)",
+          "target": "100%",
+          "status": "pass",
+          "source": "queries.coverage vs ground_truth.q1_coverage"
+        },
+        {
+          "id": "D1b",
+          "name": "Live-catch scenario S1 found by explain (expired EV-044, PR-005 proposed only)",
+          "value": true,
+          "target": "true",
+          "status": "pass",
+          "source": "queries.explain(800-171:03.05.03)"
+        },
+        {
+          "id": "D1c",
+          "name": "Q1 id-set exact match per framework",
+          "value": "3/3 (100%)",
+          "target": "all exact",
+          "status": "pass",
+          "source": "covered/inherited/gap id sets"
+        },
+        {
+          "id": "D2",
+          "name": "Blast-radius accuracy (Q3: 30-day window and every audit)",
+          "value": "87/87 (100%)",
+          "target": "exact match",
+          "status": "pass",
+          "source": "queries.blast vs ground_truth.q3_*",
+          "note": "4 scenarios; evidence, broken requirements, inherited flags, audits, counts"
+        },
+        {
+          "id": "D3",
+          "name": "Adopt accuracy (Q2: inherited set, neighbours, controls, evidence)",
+          "value": "2/2 (100%)",
+          "target": "exact match",
+          "status": "pass",
+          "source": "queries.adopt vs ground_truth.q2_adopt"
+        },
+        {
+          "id": "D4",
+          "name": "False alarms (flagged, not planted)",
+          "value": 0,
+          "target": "0",
+          "status": "pass",
+          "source": "extra gaps + extra blast items + stale rows outside legacy_stale + decoys flagged",
+          "note": "gaps 0, blast 0, stale 0, decoys 0"
+        },
+        {
+          "id": "D5",
+          "name": "Explain agrees with the oracle (every requirement)",
+          "value": "154/154 (100%)",
+          "target": "exact match",
+          "status": "pass",
+          "source": "queries.explain vs ground_truth.explain"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "title": "C. Guardrails",
+      "metrics": [
+        {
+          "id": "C1",
+          "name": "Claim-checker catch rate, crafted wrong claims",
+          "value": "7/7 (100%)",
+          "target": "100%",
+          "status": "pass",
+          "source": "claims.check_claims",
+          "note": "expired evidence cited as coverage; proposed mapping counted as covered; fabricated path id; claim with no receipt; evidence that does not prove the control; mapping with no evidence shown as coverage; tracker says Compliant, evidence expired"
+        },
+        {
+          "id": "C1b",
+          "name": "Claim checker passes a correct claim (no false alarm)",
+          "value": true,
+          "target": "true",
+          "status": "pass",
+          "source": "claims.check_claims"
+        },
+        {
+          "id": "C2",
+          "name": "Bad-proposal catch rate (verify, expected reason code)",
+          "value": "8/8 (100%)",
+          "target": "100%",
+          "status": "pass",
+          "source": "eval/bad_proposals.yaml via verify.verify"
+        },
+        {
+          "id": "C3",
+          "name": "Live-catch reproducibility (expired EV-044 + proposed-only PR-005)",
+          "value": "10/10 replays",
+          "target": "10 / 10 replays",
+          "status": "pass",
+          "source": "demo_live.run on a fresh temp copy each time"
+        },
+        {
+          "id": "C4",
+          "name": "Repeat-rejection rate, session 2 (recorded 2-session run)",
+          "value": "session 1: 0%, session 2: 0%",
+          "target": "session 2: 0",
+          "status": "pass",
+          "source": "eval/agent-runs/results-run2.json",
+          "note": "decisions consulted first: True; 0 repeats reached the verifier"
+        },
+        {
+          "id": "C5",
+          "name": "Unauthorised writes (new SATISFIES / Decision / status change after propose tools)",
+          "value": 0,
+          "target": "0",
+          "status": "pass",
+          "source": "proposals.create_proposal on a temp copy",
+          "note": "7 proposals written, all pending; also asserted by tests/test_mcp_server.py"
+        },
+        {
+          "id": "C6",
+          "name": "Concurrent-write integrity (lost updates / writes, both modes)",
+          "value": "0/4",
+          "target": "0",
+          "status": "pass",
+          "source": "demo_concurrency.run_embedded + run_server on temp copies",
+          "note": "embedded: lost 0, conflicts retried 0, lock refusals 11; server: lost 0, conflicts retried 1, lock refusals 0"
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "title": "B. Mapping quality (hand-labelled 800-53 targets)",
+      "metrics": [
+        {
+          "id": "B1",
+          "name": "Full-text only: Precision@5 / Recall@10 / MRR",
+          "value": "0.165 / 0.433 / 0.418",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/mapping_scores.json",
+          "note": "40 hand-labelled controls, 800-53, leave-one-out"
+        },
+        {
+          "id": "B2",
+          "name": "Vector only: Precision@5 / Recall@10 / MRR",
+          "value": "0.175 / 0.479 / 0.495",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/mapping_scores.json",
+          "note": "40 hand-labelled controls, 800-53, leave-one-out"
+        },
+        {
+          "id": "B3",
+          "name": "Hybrid (WRRF): Precision@5 / Recall@10 / MRR",
+          "value": "0.195 / 0.542 / 0.554",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/mapping_scores.json",
+          "note": "40 hand-labelled controls, 800-53, leave-one-out"
+        },
+        {
+          "id": "B4",
+          "name": "Hybrid plus graph re-rank: Precision@5 / Recall@10 / MRR",
+          "value": "0.195 / 0.562 / 0.573",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/mapping_scores.json",
+          "note": "40 hand-labelled controls, 800-53, leave-one-out"
+        },
+        {
+          "id": "B5",
+          "name": "Hybrid MRR beats each single method",
+          "value": "0.554 vs 0.495",
+          "target": "hybrid > both",
+          "status": "pass",
+          "source": "eval/mapping_scores.json"
+        },
+        {
+          "id": "B6",
+          "name": "Graph re-rank MRR improves on hybrid",
+          "value": "0.573 vs 0.554",
+          "target": "re-rank > hybrid",
+          "status": "pass",
+          "source": "eval/mapping_scores.json"
+        },
+        {
+          "id": "B7",
+          "name": "Mapper agent row",
+          "value": "not measured",
+          "target": "improves on hybrid",
+          "status": "info",
+          "source": "n/a",
+          "note": "needs a model key; not part of mapping_scores.json"
+        }
+      ]
+    },
+    {
+      "id": "A",
+      "title": "A. Agent reliability (recorded runs, Claude Sonnet 5.5 subagents, same prompts, same 20 golden questions)",
+      "metrics": [
+        {
+          "id": "A1",
+          "name": "Answer accuracy, spreadsheet agent",
+          "value": "9/20 (45%)",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A2",
+          "name": "Answer accuracy, graph agent without claim check",
+          "value": "19/20 (95%)",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A3",
+          "name": "Answer accuracy, graph agent + claim checker",
+          "value": "19/20 (95%)",
+          "target": ">= 90%",
+          "status": "pass",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A4",
+          "name": "Claims with a valid citation, graph + checker",
+          "value": "109/109",
+          "target": "100% of shown claims",
+          "status": "pass",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A4b",
+          "name": "Claims with a valid citation, graph without checker",
+          "value": "69/72",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A5",
+          "name": "Wrong claims shown, graph + checker (without checker: 3)",
+          "value": 0,
+          "target": "0",
+          "status": "pass",
+          "source": "eval/agent-runs/results-run2.json",
+          "note": "the checker flagged 13/13 wrong draft claims; wrong ANSWERS still shown with checker: 1"
+        },
+        {
+          "id": "A5b",
+          "name": "Wrong answers shown, spreadsheet agent",
+          "value": 11,
+          "target": "measured",
+          "status": "info",
+          "source": "eval/agent-runs/results-run2.json",
+          "note": "spreadsheet answers carry no citations, so wrong claims cannot be checked"
+        },
+        {
+          "id": "A6",
+          "name": "Trap hits, graph + checker (spreadsheet: 6, graph only: 0)",
+          "value": 0,
+          "target": "0",
+          "status": "pass",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A7",
+          "name": "Tool calls per question (A / B / C)",
+          "value": "2.0 / 1.2 / 2.5",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/agent-runs/results-run2.json"
+        },
+        {
+          "id": "A8",
+          "name": "Tokens per question (A / B / C)",
+          "value": "4632 / 5162 / 5562",
+          "target": "measured",
+          "status": "info",
+          "source": "eval/agent-runs/results-run2.json"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "title": "E. User impact",
+      "metrics": [
+        {
+          "id": "E1",
+          "name": "Evidence reuse ratio (mean distinct requirements per valid evidence item)",
+          "value": 2.15,
+          "target": "measured (README headline)",
+          "status": "info",
+          "source": "queries.reuse",
+          "note": "108 valid items; median 2.0; max 9 (EV-065, 3 frameworks); mean incl. one crosswalk hop 8.71"
+        },
+        {
+          "id": "E2",
+          "name": "Evidence items serving 2+ frameworks (one collection answers several audits)",
+          "value": "105/108 (97%)",
+          "target": "measured",
+          "status": "info",
+          "source": "queries.reuse",
+          "note": "186 duplicate collections avoided across frameworks"
+        },
+        {
+          "id": "E3-800-171",
+          "name": "Inherited coverage of 800-171 (met through the crosswalk before any new work)",
+          "value": "23/97 (24%)",
+          "target": "measured (adopt output)",
+          "status": "info",
+          "source": "queries.adopt"
+        },
+        {
+          "id": "E3-CSF",
+          "name": "Inherited coverage of CSF (met through the crosswalk before any new work)",
+          "value": "81/106 (76%)",
+          "target": "measured (adopt output)",
+          "status": "info",
+          "source": "queries.adopt"
+        },
+        {
+          "id": "E4",
+          "name": "Early-warning lead time (days from as_of to the first affected audit)",
+          "value": 44,
+          "target": "measured",
+          "status": "info",
+          "source": "queries.blast(audit=AUD-171)",
+          "note": "AUD-171 on 2027-01-15; first expiry 2026-12-18 is 16 days out, 28 days before that audit"
+        },
+        {
+          "id": "E5",
+          "name": "Stale tracker rows contradicted by the graph",
+          "value": "5 of 46 marked Compliant",
+          "target": "measured",
+          "status": "info",
+          "source": "queries.stale",
+          "note": "4 have only expired evidence (CTRL-ASP-12, CTRL-BCP-4, CTRL-REAP-3, CTRL-REAP-6); the rest: CTRL-MCP-13"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "title": "F. System",
+      "metrics": [
+        {
+          "id": "F1",
+          "name": "Store size (data/crosswalk)",
+          "value": "5.93 MB",
+          "target": "< 25 MB",
+          "status": "pass",
+          "source": "build.store_size"
+        },
+        {
+          "id": "F2",
+          "name": "Browser graph.cypher size",
+          "value": "0.62 MB",
+          "target": "measured",
+          "status": "info",
+          "source": "web/data/graph.cypher"
+        },
+        {
+          "id": "F3",
+          "name": "crosswalk build time (embeddings cached)",
+          "value": "2.5 s",
+          "target": "<= 60 s",
+          "status": "pass",
+          "source": "build.build into a temp dir"
+        },
+        {
+          "id": "F4",
+          "name": "Query latency p95, worst of the core queries",
+          "value": "48.6 ms",
+          "target": "< 200 ms",
+          "status": "pass",
+          "source": "20 runs per query after one warm-up",
+          "note": "per query in timings.query_latency"
+        },
+        {
+          "id": "F5",
+          "name": "Claim-check time per answer",
+          "value": "438.8 ms",
+          "target": "< 500 ms",
+          "status": "pass",
+          "source": "claims.check_claims",
+          "note": "worst case: crafted answer on a cold path registry (a fabricated id forces full path discovery)"
+        }
+      ]
+    }
+  ],
+  "agent_run_history": {
+    "run1": {
+      "A": {
+        "accuracy": 0.45,
+        "wrong_claims_shown": null,
+        "wrong_answers_shown": 11,
+        "trap_hits": 6
+      },
+      "B": {
+        "accuracy": 0.85,
+        "wrong_claims_shown": 5,
+        "wrong_answers_shown": 3,
+        "trap_hits": 1
+      },
+      "C": {
+        "accuracy": 0.8,
+        "wrong_claims_shown": 0,
+        "wrong_answers_shown": 4,
+        "trap_hits": 1
+      }
+    },
+    "run2": {
+      "A": {
+        "accuracy": 0.45,
+        "wrong_claims_shown": null,
+        "wrong_answers_shown": 11,
+        "trap_hits": 6
+      },
+      "B": {
+        "accuracy": 0.95,
+        "wrong_claims_shown": 3,
+        "wrong_answers_shown": 1,
+        "trap_hits": 0
+      },
+      "C": {
+        "accuracy": 0.95,
+        "wrong_claims_shown": 0,
+        "wrong_answers_shown": 1,
+        "trap_hits": 0
+      }
+    },
+    "label": "recorded runs, Claude Sonnet 5.5 subagents, same prompts, same 20 golden questions",
+    "note": "run1 was the first attempt; prompts were tightened for run2"
+  },
+  "timings": {
+    "claim_check_ms_crafted": 438.8,
+    "live_catch_check_ms_p50": 9.6,
+    "query_latency": {
+      "coverage 800-171": {
+        "p50_ms": 20.6,
+        "p95_ms": 24.3
+      },
+      "adopt 800-171": {
+        "p50_ms": 9.2,
+        "p95_ms": 10.6
+      },
+      "blast AUD-171": {
+        "p50_ms": 15.4,
+        "p95_ms": 17.1
+      },
+      "reuse": {
+        "p50_ms": 42.9,
+        "p95_ms": 48.6
+      },
+      "owners": {
+        "p50_ms": 41.5,
+        "p95_ms": 46.2
+      },
+      "explain 03.05.03": {
+        "p50_ms": 1.5,
+        "p95_ms": 1.7
+      },
+      "stale": {
+        "p50_ms": 30.7,
+        "p95_ms": 35.1
+      },
+      "check_path": {
+        "p50_ms": 4.4,
+        "p95_ms": 5.8
+      }
+    },
+    "query_p95_worst_ms": 48.6,
+    "claim_check_ms_live_catch": 10.3,
+    "build_s": 2.5
+  }
+}

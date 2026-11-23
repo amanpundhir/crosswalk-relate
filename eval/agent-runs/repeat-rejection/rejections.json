@@ -1,0 +1,20 @@
+[
+  {
+    "proposal": "PR-019",
+    "control": "CTRL-AP-11",
+    "requirement": "800-53:CP-9(5)",
+    "score": 0.902277
+  },
+  {
+    "proposal": "PR-010",
+    "control": "CTRL-AOTP-4",
+    "requirement": "800-53:AC-2(1)",
+    "score": 0.925729
+  },
+  {
+    "proposal": "PR-018",
+    "control": "CTRL-LMP-15",
+    "requirement": "800-53:AU-6(4)",
+    "score": 1.078295
+  }
+]

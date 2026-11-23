@@ -1,0 +1,96 @@
+{
+  "as_of": "2026-12-02",
+  "audits": [
+    {
+      "date": "2027-01-15",
+      "framework": "800-171",
+      "id": "AUD-171",
+      "name": "NIST SP 800-171 Rev 3 assessment (customer-driven)",
+      "scope_baseline": null
+    },
+    {
+      "date": "2027-02-20",
+      "framework": "800-53",
+      "id": "AUD-53",
+      "name": "NIST SP 800-53 Rev 5 moderate baseline internal review",
+      "scope_baseline": "MODERATE"
+    },
+    {
+      "date": "2027-03-31",
+      "framework": "CSF",
+      "id": "AUD-CSF",
+      "name": "NIST CSF 2.0 board self-assessment",
+      "scope_baseline": null
+    }
+  ],
+  "company": "Harbor & Pine (fictional)",
+  "frameworks": [
+    {
+      "id": "800-53",
+      "name": "NIST SP 800-53",
+      "requirements": 1014,
+      "version": "Rev 5.2.0"
+    },
+    {
+      "id": "800-171",
+      "name": "NIST SP 800-171",
+      "requirements": 97,
+      "version": "Rev 3"
+    },
+    {
+      "id": "CSF",
+      "name": "NIST Cybersecurity Framework",
+      "requirements": 106,
+      "version": "2.0"
+    }
+  ],
+  "graph_cypher_sha256": "d1dc18aae0b122e6b2d357129b214ea1c1fccaa28ffa293c0c68a55fe8d7573c",
+  "has_live_catch": true,
+  "has_scorecard": true,
+  "nodes": {
+    "Agent": 1,
+    "Audit": 3,
+    "Control": 430,
+    "Decision": 4,
+    "Evidence": 120,
+    "Family": 59,
+    "Framework": 3,
+    "Meta": 1,
+    "Person": 15,
+    "Policy": 25,
+    "Proposal": 8,
+    "Requirement": 1217,
+    "System": 25,
+    "TrackerRow": 60
+  },
+  "queries": [
+    "q1_coverage",
+    "q1_paths",
+    "q2_adopt",
+    "q3_blast",
+    "q4_reuse",
+    "q6_owner_risk",
+    "explain",
+    "check_path",
+    "proposed_paths"
+  ],
+  "relationships": {
+    "ABOUT": 68,
+    "APPLIES_TO": 88,
+    "BY": 8,
+    "ENHANCES": 714,
+    "EQUIVALENT_TO": 1204,
+    "MANDATES": 430,
+    "ON": 4,
+    "OWNS": 180,
+    "PART_OF": 1276,
+    "PROVES": 133,
+    "REQUESTS": 135,
+    "SATISFIES": 124,
+    "SCOPES": 3,
+    "TARGET": 8
+  },
+  "statements": 56,
+  "total_nodes": 1971,
+  "total_relationships": 4375
+}

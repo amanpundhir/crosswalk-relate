@@ -1,0 +1,160 @@
+# Planted scenarios S1..S8 for Harbor & Pine (fictional), with concrete ids and the
+# expected facts as computed by eval/oracle.py (pure Python, no Relate).
+# as_of = 2026-12-02. tests/test_planted.py asserts every fact below against the oracle.
+#
+# Deviations from inputs/company/PLANTED.md are marked "oracle_note". They are reported to the
+# architect; inputs/ is untouched.
+as_of: '2026-12-02'
+
+S1:
+  name: live catch
+  control: CTRL-REAP-6            # spec MFA-CTRL: VPN access with multi-factor authentication
+  evidence: EV-044                # sole evidence for CTRL-REAP-6
+  evidence_expires_at: '2026-12-01'
+  proposal_only_control: CTRL-PWP-4   # spec CTRL-X
+  proposal: PR-005
+  requirement: '800-171:03.05.03'
+  legacy_tracker_status_contains: Compliant
+  expected:
+    requirement_covered_direct: false
+    requirement_inherited: false     # no 1-hop neighbour is covered directly
+    approved_paths_with_valid_evidence: 0
+    evidence_valid_at_as_of: false
+    audits_requesting_evidence: [AUD-171, AUD-53, AUD-CSF]
+    legacy_stale_controls: [CTRL-ASP-12, CTRL-BCP-4, CTRL-REAP-3, CTRL-REAP-6]
+
+S2:
+  name: expiring before audit
+  audit: AUD-171
+  audit_date: '2027-01-15'
+  evidence: [EV-100, EV-101, EV-102]
+  controls: {EV-100: CTRL-LMP-15, EV-101: CTRL-SDLCP-46, EV-102: CTRL-DP-3}
+  expires_at: {EV-100: '2026-12-18', EV-101: '2027-01-05', EV-102: '2026-12-30'}
+  expected:
+    expiring_until_audit_171: [EV-100, EV-101, EV-102]
+    expiring_within_30_days: [EV-100, EV-102]          # EV-101 only falls inside the window to the audit date
+    controls_left_without_evidence: [CTRL-DP-3, CTRL-LMP-15, CTRL-SDLCP-46]
+    broken_800_171_count: 9
+    broken_800_171:
+      - '800-171:03.03.01'
+      - '800-171:03.03.03'
+      - '800-171:03.03.05'
+      - '800-171:03.10.01'
+      - '800-171:03.10.02'
+      - '800-171:03.10.07'
+      - '800-171:03.11.02'
+      - '800-171:03.12.01'
+      - '800-171:03.14.01'
+    broken_800_171_within_30_days_count: 6
+    broken_800_53_until_audit_171: ['800-53:AU-6', '800-53:AU-6(3)', '800-53:CA-2', '800-53:PE-8', '800-53:RA-5']
+    broken_800_53_within_30_days: ['800-53:AU-6', '800-53:AU-6(3)', '800-53:PE-8']
+    still_inherited: ['800-171:03.03.01', '800-171:03.03.03', '800-171:03.10.01', '800-171:03.10.07', '800-171:03.14.01']
+    broken_and_not_inherited: ['800-171:03.03.05', '800-171:03.10.02', '800-171:03.11.02', '800-171:03.12.01']
+    affected_audits_until_audit_171: [AUD-171, AUD-53]
+    affected_audits_within_30_days: [AUD-171, AUD-53]
+  oracle_note: >
+    PLANTED.md says all 9 broken 800-171 requirements are "inherited" via 800-53 neighbours. At 1 hop,
+    only 5 are still inherited; 4 have no covered neighbour. The count of 9 broken is confirmed.
+
+S3:
+  name: single owner
+  person: P-dana-okafor
+  expected:
+    sole_owned_controls: [CTRL-AOTP-8, CTRL-AOTP-11, CTRL-AP-8, CTRL-EP-8, CTRL-PWP-1, CTRL-REAP-6]
+    sole_owned_count: 6
+    controls_touching_high_criticality_systems: 6      # all six
+  oracle_note: >
+    Dana is not the unique top sole owner. Omar Haddad solely owns 7 controls (6 touch high-criticality systems) and
+    Hugo Silva solely owns 9 (2 touch high). The scenario fact holds (Dana: exactly 6, all high) but questions must
+    not ask who is THE single point of failure.
+
+S4:
+  name: rejected suggestion
+  control: CTRL-AOTP-11            # spec C-VPN; monthly account review
+  requirement: '800-53:AC-17'
+  decision: D-001
+  proposal: PR-001
+  decided_by: P-maya-chen
+  decided_at: '2026-11-25'
+  reason: AC-17 is remote access; this control is local account review
+  new_control: CTRL-AOTP-4         # spec C-VPN-REVIEW; in the library, not adopted
+  expected:
+    new_control_in_library: true
+    new_control_adopted: true
+    rejection_recorded: true
+    other_rejection: {control: CTRL-REAP-7, requirement: '800-53:SC-8', decided_at: '2026-11-20'}
+
+S5:
+  name: inherited coverage
+  expected:
+    direct_171: 15
+    inherited_171_at_1_hop: 23
+    gap_171: 59
+    csf_direct: 0
+    csf_inherited: 81
+    csf_gap: 25
+    inherited_171:
+      - '800-171:03.01.01'
+      - '800-171:03.01.04'
+      - '800-171:03.01.10'
+      - '800-171:03.02.01'
+      - '800-171:03.03.07'
+      - '800-171:03.04.03'
+      - '800-171:03.04.04'
+      - '800-171:03.04.05'
+      - '800-171:03.05.07'
+      - '800-171:03.06.01'
+      - '800-171:03.06.02'
+      - '800-171:03.06.04'
+      - '800-171:03.06.05'
+      - '800-171:03.08.05'
+      - '800-171:03.11.01'
+      - '800-171:03.11.04'
+      - '800-171:03.13.10'
+      - '800-171:03.13.11'
+      - '800-171:03.14.02'
+      - '800-171:03.15.01'
+      - '800-171:03.15.03'
+      - '800-171:03.16.03'
+      - '800-171:03.17.03'
+    no_mapping_targets_csf: true
+
+S6:
+  name: decoy
+  control: CTRL-AP-9
+  expired_evidence: EV-103
+  expired_at: '2026-11-20'
+  replacements: [EV-068, EV-104]
+  requirement: '800-53:CP-9'
+  expected:
+    flagged_by_blast_30d: false
+    flagged_by_blast_until_audit_171: false
+    requirement_covered_direct: true
+    control_left_without_evidence: false
+
+S7:
+  name: duplicate evidence
+  evidence: EV-065
+  controls: [CTRL-AOTP-8, CTRL-AOTP-11, CTRL-LMP-10, CTRL-OSP-5, CTRL-PWP-1]
+  expected:
+    reuse_rank: 1
+    direct_requirements: 9
+    frameworks_direct: ['800-53', '800-171']
+    frameworks_reached: ['800-53', '800-171', CSF]    # CSF only through the 1-hop crosswalk
+    reach_count_1_hop: 20
+    requested_by: [AUD-171, AUD-53, AUD-CSF]
+    next_best: {evidence: EV-100, direct_requirements: 6}
+  oracle_note: >
+    PLANTED.md implies EV-065 tops a ranking by direct plus 1-hop reach. In the oracle EV-069 has a larger
+    1-hop reach (28 vs 20) because one 800-53 control has many CSF neighbours. The oracle ranks by distinct
+    direct requirements (then frameworks reached, then reach), which puts EV-065 first as the spec intends.
+
+S8:
+  name: unowned control
+  control: CTRL-MCP-13
+  expected:
+    unowned_controls: [CTRL-MCP-13]
+    status: implemented
+    has_valid_evidence: true
+    legacy_owner_name: Marcus Webb
+    legacy_owner_in_people: false

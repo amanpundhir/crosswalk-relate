@@ -1,0 +1,17 @@
+# Harbor & Pine (fictional). Every person, system, date and record in this file is invented
+# for the Crosswalk demo. No real company or individual is described.
+- {id: P-maya-chen, name: Maya Chen, team: Security, role: Security lead}
+- {id: P-dana-okafor, name: Dana Okafor, team: IT, role: IT admin}
+- {id: P-tomas-ferreira, name: Tomas Ferreira, team: Engineering, role: Head of engineering}
+- {id: P-lena-brandt, name: Lena Brandt, team: People, role: HR manager}
+- {id: P-omar-haddad, name: Omar Haddad, team: Platform, role: Site reliability engineer}
+- {id: P-sofia-lindqvist, name: Sofia Lindqvist, team: Platform, role: Platform engineer}
+- {id: P-kenji-aoki, name: Kenji Aoki, team: Security, role: Security engineer}
+- {id: P-ruth-abara, name: Ruth Abara, team: Finance, role: Finance and legal manager}
+- {id: P-ivan-petrov, name: Ivan Petrov, team: Operations, role: Facilities coordinator}
+- {id: P-nia-walker, name: Nia Walker, team: Engineering, role: Engineering manager}
+- {id: P-hugo-silva, name: Hugo Silva, team: Platform, role: DevOps engineer}
+- {id: P-amara-osei, name: Amara Osei, team: Security, role: Compliance analyst}
+- {id: P-felix-novak, name: Felix Novak, team: Support, role: Support lead}
+- {id: P-grace-liu, name: Grace Liu, team: Data, role: Data engineer}
+- {id: P-ben-carver, name: Ben Carver, team: Executive, role: Chief executive officer}

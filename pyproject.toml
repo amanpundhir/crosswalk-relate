@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crosswalk"
+version = "0.1.0"
+description = "Audit-prep agents that answer with receipts, on a Relate compliance graph"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.12"
+dependencies = [
+  "relate-db==1.2.0",
+  "openpyxl==3.1.5",
+  "PyYAML==6.0.4",
+  "typer==0.29.2",
+  "rich==15.0.0",
+  "fastembed==0.9.1",
+  "mcp==1.30.0",
+]
+
+[project.scripts]
+crosswalk = "crosswalk.cli:app"
+crosswalk-mcp = "crosswalk_mcp.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]

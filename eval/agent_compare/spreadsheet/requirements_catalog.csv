@@ -1,0 +1,1218 @@
+framework,requirement_id,family,title
+800-53,800-53:AC-1,Access Control,Policy and Procedures
+800-53,800-53:AC-2,Access Control,Account Management
+800-53,800-53:AC-2(1),Access Control,Automated System Account Management
+800-53,800-53:AC-2(2),Access Control,Automated Temporary and Emergency Account Management
+800-53,800-53:AC-2(3),Access Control,Disable Accounts
+800-53,800-53:AC-2(4),Access Control,Automated Audit Actions
+800-53,800-53:AC-2(5),Access Control,Inactivity Logout
+800-53,800-53:AC-2(6),Access Control,Dynamic Privilege Management
+800-53,800-53:AC-2(7),Access Control,Privileged User Accounts
+800-53,800-53:AC-2(8),Access Control,Dynamic Account Management
+800-53,800-53:AC-2(9),Access Control,Restrictions on Use of Shared and Group Accounts
+800-53,800-53:AC-2(11),Access Control,Usage Conditions
+800-53,800-53:AC-2(12),Access Control,Account Monitoring for Atypical Usage
+800-53,800-53:AC-2(13),Access Control,Disable Accounts for High-risk Individuals
+800-53,800-53:AC-3,Access Control,Access Enforcement
+800-53,800-53:AC-3(2),Access Control,Dual Authorization
+800-53,800-53:AC-3(3),Access Control,Mandatory Access Control
+800-53,800-53:AC-3(4),Access Control,Discretionary Access Control
+800-53,800-53:AC-3(5),Access Control,Security-relevant Information
+800-53,800-53:AC-3(7),Access Control,Role-based Access Control
+800-53,800-53:AC-3(8),Access Control,Revocation of Access Authorizations
+800-53,800-53:AC-3(9),Access Control,Controlled Release
+800-53,800-53:AC-3(10),Access Control,Audited Override of Access Control Mechanisms
+800-53,800-53:AC-3(11),Access Control,Restrict Access to Specific Information Types
+800-53,800-53:AC-3(12),Access Control,Assert and Enforce Application Access
+800-53,800-53:AC-3(13),Access Control,Attribute-based Access Control
+800-53,800-53:AC-3(14),Access Control,Individual Access
+800-53,800-53:AC-3(15),Access Control,Discretionary and Mandatory Access Control
+800-53,800-53:AC-4,Access Control,Information Flow Enforcement
+800-53,800-53:AC-4(1),Access Control,Object Security and Privacy Attributes
+800-53,800-53:AC-4(2),Access Control,Processing Domains
+800-53,800-53:AC-4(3),Access Control,Dynamic Information Flow Control
+800-53,800-53:AC-4(4),Access Control,Flow Control of Encrypted Information
+800-53,800-53:AC-4(5),Access Control,Embedded Data Types
+800-53,800-53:AC-4(6),Access Control,Metadata
+800-53,800-53:AC-4(7),Access Control,One-way Flow Mechanisms
+800-53,800-53:AC-4(8),Access Control,Security and Privacy Policy Filters
+800-53,800-53:AC-4(9),Access Control,Human Reviews
+800-53,800-53:AC-4(10),Access Control,Enable and Disable Security or Privacy Policy Filters
+800-53,800-53:AC-4(11),Access Control,Configuration of Security or Privacy Policy Filters
+800-53,800-53:AC-4(12),Access Control,Data Type Identifiers
+800-53,800-53:AC-4(13),Access Control,Decomposition into Policy-relevant Subcomponents
+800-53,800-53:AC-4(14),Access Control,Security or Privacy Policy Filter Constraints
+800-53,800-53:AC-4(15),Access Control,Detection of Unsanctioned Information
+800-53,800-53:AC-4(17),Access Control,Domain Authentication
+800-53,800-53:AC-4(19),Access Control,Validation of Metadata
+800-53,800-53:AC-4(20),Access Control,Approved Solutions
+800-53,800-53:AC-4(21),Access Control,Physical or Logical Separation of Information Flows
+800-53,800-53:AC-4(22),Access Control,Access Only
+800-53,800-53:AC-4(23),Access Control,Modify Non-releasable Information
+800-53,800-53:AC-4(24),Access Control,Internal Normalized Format
+800-53,800-53:AC-4(25),Access Control,Data Sanitization
+800-53,800-53:AC-4(26),Access Control,Audit Filtering Actions
+800-53,800-53:AC-4(27),Access Control,Redundant/Independent Filtering Mechanisms
+800-53,800-53:AC-4(28),Access Control,Linear Filter Pipelines
+800-53,800-53:AC-4(29),Access Control,Filter Orchestration Engines
+800-53,800-53:AC-4(30),Access Control,Filter Mechanisms Using Multiple Processes
+800-53,800-53:AC-4(31),Access Control,Failed Content Transfer Prevention
+800-53,800-53:AC-4(32),Access Control,Process Requirements for Information Transfer
+800-53,800-53:AC-5,Access Control,Separation of Duties
+800-53,800-53:AC-6,Access Control,Least Privilege
+800-53,800-53:AC-6(1),Access Control,Authorize Access to Security Functions
+800-53,800-53:AC-6(2),Access Control,Non-privileged Access for Nonsecurity Functions
+800-53,800-53:AC-6(3),Access Control,Network Access to Privileged Commands
+800-53,800-53:AC-6(4),Access Control,Separate Processing Domains
+800-53,800-53:AC-6(5),Access Control,Privileged Accounts
+800-53,800-53:AC-6(6),Access Control,Privileged Access by Non-organizational Users
+800-53,800-53:AC-6(7),Access Control,Review of User Privileges
+800-53,800-53:AC-6(8),Access Control,Privilege Levels for Code Execution
+800-53,800-53:AC-6(9),Access Control,Log Use of Privileged Functions
+800-53,800-53:AC-6(10),Access Control,Prohibit Non-privileged Users from Executing Privileged Functions
+800-53,800-53:AC-7,Access Control,Unsuccessful Logon Attempts
+800-53,800-53:AC-7(2),Access Control,Purge or Wipe Mobile Device
+800-53,800-53:AC-7(3),Access Control,Biometric Attempt Limiting
+800-53,800-53:AC-7(4),Access Control,Use of Alternate Authentication Factor
+800-53,800-53:AC-8,Access Control,System Use Notification
+800-53,800-53:AC-9,Access Control,Previous Logon Notification
+800-53,800-53:AC-9(1),Access Control,Unsuccessful Logons
+800-53,800-53:AC-9(2),Access Control,Successful and Unsuccessful Logons
+800-53,800-53:AC-9(3),Access Control,Notification of Account Changes
+800-53,800-53:AC-9(4),Access Control,Additional Logon Information
+800-53,800-53:AC-10,Access Control,Concurrent Session Control
+800-53,800-53:AC-11,Access Control,Device Lock
+800-53,800-53:AC-11(1),Access Control,Pattern-hiding Displays
+800-53,800-53:AC-12,Access Control,Session Termination
+800-53,800-53:AC-12(1),Access Control,User-initiated Logouts
+800-53,800-53:AC-12(2),Access Control,Termination Message
+800-53,800-53:AC-12(3),Access Control,Timeout Warning Message
+800-53,800-53:AC-14,Access Control,Permitted Actions Without Identification or Authentication
+800-53,800-53:AC-16,Access Control,Security and Privacy Attributes
+800-53,800-53:AC-16(1),Access Control,Dynamic Attribute Association
+800-53,800-53:AC-16(2),Access Control,Attribute Value Changes by Authorized Individuals
+800-53,800-53:AC-16(3),Access Control,Maintenance of Attribute Associations by System
+800-53,800-53:AC-16(4),Access Control,Association of Attributes by Authorized Individuals
+800-53,800-53:AC-16(5),Access Control,Attribute Displays on Objects to Be Output
+800-53,800-53:AC-16(6),Access Control,Maintenance of Attribute Association
+800-53,800-53:AC-16(7),Access Control,Consistent Attribute Interpretation
+800-53,800-53:AC-16(8),Access Control,Association Techniques and Technologies
+800-53,800-53:AC-16(9),Access Control,Attribute Reassignment — Regrading Mechanisms
+800-53,800-53:AC-16(10),Access Control,Attribute Configuration by Authorized Individuals
+800-53,800-53:AC-17,Access Control,Remote Access
+800-53,800-53:AC-17(1),Access Control,Monitoring and Control
+800-53,800-53:AC-17(2),Access Control,Protection of Confidentiality and Integrity Using Encryption
+800-53,800-53:AC-17(3),Access Control,Managed Access Control Points
+800-53,800-53:AC-17(4),Access Control,Privileged Commands and Access
+800-53,800-53:AC-17(6),Access Control,Protection of Mechanism Information
+800-53,800-53:AC-17(9),Access Control,Disconnect or Disable Access
+800-53,800-53:AC-17(10),Access Control,Authenticate Remote Commands
+800-53,800-53:AC-18,Access Control,Wireless Access
+800-53,800-53:AC-18(1),Access Control,Authentication and Encryption
+800-53,800-53:AC-18(3),Access Control,Disable Wireless Networking
+800-53,800-53:AC-18(4),Access Control,Restrict Configurations by Users
+800-53,800-53:AC-18(5),Access Control,Antennas and Transmission Power Levels
+800-53,800-53:AC-19,Access Control,Access Control for Mobile Devices
+800-53,800-53:AC-19(4),Access Control,Restrictions for Classified Information
+800-53,800-53:AC-19(5),Access Control,Full Device or Container-based Encryption
+800-53,800-53:AC-20,Access Control,Use of External Systems
+800-53,800-53:AC-20(1),Access Control,Limits on Authorized Use
+800-53,800-53:AC-20(2),Access Control,Portable Storage Devices — Restricted Use
+800-53,800-53:AC-20(3),Access Control,Non-organizationally Owned Systems — Restricted Use
+800-53,800-53:AC-20(4),Access Control,Network Accessible Storage Devices — Prohibited Use
+800-53,800-53:AC-20(5),Access Control,Portable Storage Devices — Prohibited Use
+800-53,800-53:AC-21,Access Control,Information Sharing
+800-53,800-53:AC-21(1),Access Control,Automated Decision Support
+800-53,800-53:AC-21(2),Access Control,Information Search and Retrieval
+800-53,800-53:AC-22,Access Control,Publicly Accessible Content
+800-53,800-53:AC-23,Access Control,Data Mining Protection
+800-53,800-53:AC-24,Access Control,Access Control Decisions
+800-53,800-53:AC-24(1),Access Control,Transmit Access Authorization Information
+800-53,800-53:AC-24(2),Access Control,No User or Process Identity
+800-53,800-53:AC-25,Access Control,Reference Monitor
+800-53,800-53:AT-1,Awareness and Training,Policy and Procedures
+800-53,800-53:AT-2,Awareness and Training,Literacy Training and Awareness
+800-53,800-53:AT-2(1),Awareness and Training,Practical Exercises
+800-53,800-53:AT-2(2),Awareness and Training,Insider Threat
+800-53,800-53:AT-2(3),Awareness and Training,Social Engineering and Mining
+800-53,800-53:AT-2(4),Awareness and Training,Suspicious Communications and Anomalous System Behavior
+800-53,800-53:AT-2(5),Awareness and Training,Advanced Persistent Threat
+800-53,800-53:AT-2(6),Awareness and Training,Cyber Threat Environment
+800-53,800-53:AT-3,Awareness and Training,Role-based Training
+800-53,800-53:AT-3(1),Awareness and Training,Environmental Controls
+800-53,800-53:AT-3(2),Awareness and Training,Physical Security Controls
+800-53,800-53:AT-3(3),Awareness and Training,Practical Exercises
+800-53,800-53:AT-3(5),Awareness and Training,Processing Personally Identifiable Information
+800-53,800-53:AT-4,Awareness and Training,Training Records
+800-53,800-53:AT-6,Awareness and Training,Training Feedback
+800-53,800-53:AU-1,Audit and Accountability,Policy and Procedures
+800-53,800-53:AU-2,Audit and Accountability,Event Logging
+800-53,800-53:AU-3,Audit and Accountability,Content of Audit Records
+800-53,800-53:AU-3(1),Audit and Accountability,Additional Audit Information
+800-53,800-53:AU-3(3),Audit and Accountability,Limit Personally Identifiable Information Elements
+800-53,800-53:AU-4,Audit and Accountability,Audit Log Storage Capacity
+800-53,800-53:AU-4(1),Audit and Accountability,Transfer to Alternate Storage
+800-53,800-53:AU-5,Audit and Accountability,Response to Audit Logging Process Failures
+800-53,800-53:AU-5(1),Audit and Accountability,Storage Capacity Warning
+800-53,800-53:AU-5(2),Audit and Accountability,Real-time Alerts
+800-53,800-53:AU-5(3),Audit and Accountability,Configurable Traffic Volume Thresholds
+800-53,800-53:AU-5(4),Audit and Accountability,Shutdown on Failure
+800-53,800-53:AU-5(5),Audit and Accountability,Alternate Audit Logging Capability
+800-53,800-53:AU-6,Audit and Accountability,"Audit Record Review, Analysis, and Reporting"
+800-53,800-53:AU-6(1),Audit and Accountability,Automated Process Integration
+800-53,800-53:AU-6(3),Audit and Accountability,Correlate Audit Record Repositories
+800-53,800-53:AU-6(4),Audit and Accountability,Central Review and Analysis
+800-53,800-53:AU-6(5),Audit and Accountability,Integrated Analysis of Audit Records
+800-53,800-53:AU-6(6),Audit and Accountability,Correlation with Physical Monitoring
+800-53,800-53:AU-6(7),Audit and Accountability,Permitted Actions
+800-53,800-53:AU-6(8),Audit and Accountability,Full Text Analysis of Privileged Commands
+800-53,800-53:AU-6(9),Audit and Accountability,Correlation with Information from Nontechnical Sources
+800-53,800-53:AU-7,Audit and Accountability,Audit Record Reduction and Report Generation
+800-53,800-53:AU-7(1),Audit and Accountability,Automatic Processing
+800-53,800-53:AU-8,Audit and Accountability,Time Stamps
+800-53,800-53:AU-9,Audit and Accountability,Protection of Audit Information
+800-53,800-53:AU-9(1),Audit and Accountability,Hardware Write-once Media
+800-53,800-53:AU-9(2),Audit and Accountability,Store on Separate Physical Systems or Components
+800-53,800-53:AU-9(3),Audit and Accountability,Cryptographic Protection
+800-53,800-53:AU-9(4),Audit and Accountability,Access by Subset of Privileged Users
+800-53,800-53:AU-9(5),Audit and Accountability,Dual Authorization
+800-53,800-53:AU-9(6),Audit and Accountability,Read-only Access
+800-53,800-53:AU-9(7),Audit and Accountability,Store on Component with Different Operating System
+800-53,800-53:AU-10,Audit and Accountability,Non-repudiation
+800-53,800-53:AU-10(1),Audit and Accountability,Association of Identities
+800-53,800-53:AU-10(2),Audit and Accountability,Validate Binding of Information Producer Identity
+800-53,800-53:AU-10(3),Audit and Accountability,Chain of Custody
+800-53,800-53:AU-10(4),Audit and Accountability,Validate Binding of Information Reviewer Identity
+800-53,800-53:AU-11,Audit and Accountability,Audit Record Retention
+800-53,800-53:AU-11(1),Audit and Accountability,Long-term Retrieval Capability
+800-53,800-53:AU-12,Audit and Accountability,Audit Record Generation
+800-53,800-53:AU-12(1),Audit and Accountability,System-wide and Time-correlated Audit Trail
+800-53,800-53:AU-12(2),Audit and Accountability,Standardized Formats
+800-53,800-53:AU-12(3),Audit and Accountability,Changes by Authorized Individuals
+800-53,800-53:AU-12(4),Audit and Accountability,Query Parameter Audits of Personally Identifiable Information
+800-53,800-53:AU-13,Audit and Accountability,Monitoring for Information Disclosure
+800-53,800-53:AU-13(1),Audit and Accountability,Use of Automated Tools
+800-53,800-53:AU-13(2),Audit and Accountability,Review of Monitored Sites
+800-53,800-53:AU-13(3),Audit and Accountability,Unauthorized Replication of Information
+800-53,800-53:AU-14,Audit and Accountability,Session Audit
+800-53,800-53:AU-14(1),Audit and Accountability,System Start-up
+800-53,800-53:AU-14(3),Audit and Accountability,Remote Viewing and Listening
+800-53,800-53:AU-16,Audit and Accountability,Cross-organizational Audit Logging
+800-53,800-53:AU-16(1),Audit and Accountability,Identity Preservation
+800-53,800-53:AU-16(2),Audit and Accountability,Sharing of Audit Information
+800-53,800-53:AU-16(3),Audit and Accountability,Disassociability
+800-53,800-53:CA-1,"Assessment, Authorization, and Monitoring",Policy and Procedures
+800-53,800-53:CA-2,"Assessment, Authorization, and Monitoring",Control Assessments
+800-53,800-53:CA-2(1),"Assessment, Authorization, and Monitoring",Independent Assessors
+800-53,800-53:CA-2(2),"Assessment, Authorization, and Monitoring",Specialized Assessments
+800-53,800-53:CA-2(3),"Assessment, Authorization, and Monitoring",Leveraging Results from External Organizations
+800-53,800-53:CA-3,"Assessment, Authorization, and Monitoring",Information Exchange
+800-53,800-53:CA-3(6),"Assessment, Authorization, and Monitoring",Transfer Authorizations
+800-53,800-53:CA-3(7),"Assessment, Authorization, and Monitoring",Transitive Information Exchanges
+800-53,800-53:CA-5,"Assessment, Authorization, and Monitoring",Plan of Action and Milestones
+800-53,800-53:CA-5(1),"Assessment, Authorization, and Monitoring",Automation Support for Accuracy and Currency
+800-53,800-53:CA-6,"Assessment, Authorization, and Monitoring",Authorization
+800-53,800-53:CA-6(1),"Assessment, Authorization, and Monitoring",Joint Authorization — Intra-organization
+800-53,800-53:CA-6(2),"Assessment, Authorization, and Monitoring",Joint Authorization — Inter-organization
+800-53,800-53:CA-7,"Assessment, Authorization, and Monitoring",Continuous Monitoring
+800-53,800-53:CA-7(1),"Assessment, Authorization, and Monitoring",Independent Assessment
+800-53,800-53:CA-7(3),"Assessment, Authorization, and Monitoring",Trend Analyses
+800-53,800-53:CA-7(4),"Assessment, Authorization, and Monitoring",Risk Monitoring
+800-53,800-53:CA-7(5),"Assessment, Authorization, and Monitoring",Consistency Analysis
+800-53,800-53:CA-7(6),"Assessment, Authorization, and Monitoring",Automation Support for Monitoring
+800-53,800-53:CA-8,"Assessment, Authorization, and Monitoring",Penetration Testing
+800-53,800-53:CA-8(1),"Assessment, Authorization, and Monitoring",Independent Penetration Testing Agent or Team
+800-53,800-53:CA-8(2),"Assessment, Authorization, and Monitoring",Red Team Exercises
+800-53,800-53:CA-8(3),"Assessment, Authorization, and Monitoring",Facility Penetration Testing
+800-53,800-53:CA-9,"Assessment, Authorization, and Monitoring",Internal System Connections
+800-53,800-53:CA-9(1),"Assessment, Authorization, and Monitoring",Compliance Checks
+800-53,800-53:CM-1,Configuration Management,Policy and Procedures
+800-53,800-53:CM-2,Configuration Management,Baseline Configuration
+800-53,800-53:CM-2(2),Configuration Management,Automation Support for Accuracy and Currency
+800-53,800-53:CM-2(3),Configuration Management,Retention of Previous Configurations
+800-53,800-53:CM-2(6),Configuration Management,Development and Test Environments
+800-53,800-53:CM-2(7),Configuration Management,Configure Systems and Components for High-risk Areas
+800-53,800-53:CM-3,Configuration Management,Configuration Change Control
+800-53,800-53:CM-3(1),Configuration Management,"Automated Documentation, Notification, and Prohibition of Changes"
+800-53,800-53:CM-3(2),Configuration Management,"Testing, Validation, and Documentation of Changes"
+800-53,800-53:CM-3(3),Configuration Management,Automated Change Implementation
+800-53,800-53:CM-3(4),Configuration Management,Security and Privacy Representatives
+800-53,800-53:CM-3(5),Configuration Management,Automated Security Response
+800-53,800-53:CM-3(6),Configuration Management,Cryptography Management
+800-53,800-53:CM-3(7),Configuration Management,Review System Changes
+800-53,800-53:CM-3(8),Configuration Management,Prevent or Restrict Configuration Changes
+800-53,800-53:CM-4,Configuration Management,Impact Analyses
+800-53,800-53:CM-4(1),Configuration Management,Separate Test Environments
+800-53,800-53:CM-4(2),Configuration Management,Verification of Controls
+800-53,800-53:CM-5,Configuration Management,Access Restrictions for Change
+800-53,800-53:CM-5(1),Configuration Management,Automated Access Enforcement and Audit Records
+800-53,800-53:CM-5(4),Configuration Management,Dual Authorization
+800-53,800-53:CM-5(5),Configuration Management,Privilege Limitation for Production and Operation
+800-53,800-53:CM-5(6),Configuration Management,Limit Library Privileges
+800-53,800-53:CM-6,Configuration Management,Configuration Settings
+800-53,800-53:CM-6(1),Configuration Management,"Automated Management, Application, and Verification"
+800-53,800-53:CM-6(2),Configuration Management,Respond to Unauthorized Changes
+800-53,800-53:CM-7,Configuration Management,Least Functionality
+800-53,800-53:CM-7(1),Configuration Management,Periodic Review
+800-53,800-53:CM-7(2),Configuration Management,Prevent Program Execution
+800-53,800-53:CM-7(3),Configuration Management,Registration Compliance
+800-53,800-53:CM-7(4),Configuration Management,Unauthorized Software — Deny-by-exception
+800-53,800-53:CM-7(5),Configuration Management,Authorized Software — Allow-by-exception
+800-53,800-53:CM-7(6),Configuration Management,Confined Environments with Limited Privileges
+800-53,800-53:CM-7(7),Configuration Management,Code Execution in Protected Environments
+800-53,800-53:CM-7(8),Configuration Management,Binary or Machine Executable Code
+800-53,800-53:CM-7(9),Configuration Management,Prohibiting The Use of Unauthorized Hardware
+800-53,800-53:CM-8,Configuration Management,System Component Inventory
+800-53,800-53:CM-8(1),Configuration Management,Updates During Installation and Removal
+800-53,800-53:CM-8(2),Configuration Management,Automated Maintenance
+800-53,800-53:CM-8(3),Configuration Management,Automated Unauthorized Component Detection
+800-53,800-53:CM-8(4),Configuration Management,Accountability Information
+800-53,800-53:CM-8(6),Configuration Management,Assessed Configurations and Approved Deviations
+800-53,800-53:CM-8(7),Configuration Management,Centralized Repository
+800-53,800-53:CM-8(8),Configuration Management,Automated Location Tracking
+800-53,800-53:CM-8(9),Configuration Management,Assignment of Components to Systems
+800-53,800-53:CM-9,Configuration Management,Configuration Management Plan
+800-53,800-53:CM-9(1),Configuration Management,Assignment of Responsibility
+800-53,800-53:CM-10,Configuration Management,Software Usage Restrictions
+800-53,800-53:CM-10(1),Configuration Management,Open-source Software
+800-53,800-53:CM-11,Configuration Management,User-installed Software
+800-53,800-53:CM-11(2),Configuration Management,Software Installation with Privileged Status
+800-53,800-53:CM-11(3),Configuration Management,Automated Enforcement and Monitoring
+800-53,800-53:CM-12,Configuration Management,Information Location
+800-53,800-53:CM-12(1),Configuration Management,Automated Tools to Support Information Location
+800-53,800-53:CM-13,Configuration Management,Data Action Mapping
+800-53,800-53:CM-14,Configuration Management,Signed Components
+800-53,800-53:CP-1,Contingency Planning,Policy and Procedures
+800-53,800-53:CP-2,Contingency Planning,Contingency Plan
+800-53,800-53:CP-2(1),Contingency Planning,Coordinate with Related Plans
+800-53,800-53:CP-2(2),Contingency Planning,Capacity Planning
+800-53,800-53:CP-2(3),Contingency Planning,Resume Mission and Business Functions
+800-53,800-53:CP-2(5),Contingency Planning,Continue Mission and Business Functions
+800-53,800-53:CP-2(6),Contingency Planning,Alternate Processing and Storage Sites
+800-53,800-53:CP-2(7),Contingency Planning,Coordinate with External Service Providers
+800-53,800-53:CP-2(8),Contingency Planning,Identify Critical Assets
+800-53,800-53:CP-3,Contingency Planning,Contingency Training
+800-53,800-53:CP-3(1),Contingency Planning,Simulated Events
+800-53,800-53:CP-3(2),Contingency Planning,Mechanisms Used in Training Environments
+800-53,800-53:CP-4,Contingency Planning,Contingency Plan Testing
+800-53,800-53:CP-4(1),Contingency Planning,Coordinate with Related Plans
+800-53,800-53:CP-4(2),Contingency Planning,Alternate Processing Site
+800-53,800-53:CP-4(3),Contingency Planning,Automated Testing
+800-53,800-53:CP-4(4),Contingency Planning,Full Recovery and Reconstitution
+800-53,800-53:CP-4(5),Contingency Planning,Self-challenge
+800-53,800-53:CP-6,Contingency Planning,Alternate Storage Site
+800-53,800-53:CP-6(1),Contingency Planning,Separation from Primary Site
+800-53,800-53:CP-6(2),Contingency Planning,Recovery Time and Recovery Point Objectives
+800-53,800-53:CP-6(3),Contingency Planning,Accessibility
+800-53,800-53:CP-7,Contingency Planning,Alternate Processing Site
+800-53,800-53:CP-7(1),Contingency Planning,Separation from Primary Site
+800-53,800-53:CP-7(2),Contingency Planning,Accessibility
+800-53,800-53:CP-7(3),Contingency Planning,Priority of Service
+800-53,800-53:CP-7(4),Contingency Planning,Preparation for Use
+800-53,800-53:CP-7(6),Contingency Planning,Inability to Return to Primary Site
+800-53,800-53:CP-8,Contingency Planning,Telecommunications Services
+800-53,800-53:CP-8(1),Contingency Planning,Priority of Service Provisions
+800-53,800-53:CP-8(2),Contingency Planning,Single Points of Failure
+800-53,800-53:CP-8(3),Contingency Planning,Separation of Primary and Alternate Providers
+800-53,800-53:CP-8(4),Contingency Planning,Provider Contingency Plan
+800-53,800-53:CP-8(5),Contingency Planning,Alternate Telecommunication Service Testing
+800-53,800-53:CP-9,Contingency Planning,System Backup
+800-53,800-53:CP-9(1),Contingency Planning,Testing for Reliability and Integrity
+800-53,800-53:CP-9(2),Contingency Planning,Test Restoration Using Sampling
+800-53,800-53:CP-9(3),Contingency Planning,Separate Storage for Critical Information
+800-53,800-53:CP-9(5),Contingency Planning,Transfer to Alternate Storage Site
+800-53,800-53:CP-9(6),Contingency Planning,Redundant Secondary System
+800-53,800-53:CP-9(7),Contingency Planning,Dual Authorization for Deletion or Destruction
+800-53,800-53:CP-9(8),Contingency Planning,Cryptographic Protection
+800-53,800-53:CP-10,Contingency Planning,System Recovery and Reconstitution
+800-53,800-53:CP-10(2),Contingency Planning,Transaction Recovery
+800-53,800-53:CP-10(4),Contingency Planning,Restore Within Time Period
+800-53,800-53:CP-10(6),Contingency Planning,Component Protection
+800-53,800-53:CP-11,Contingency Planning,Alternate Communications Protocols
+800-53,800-53:CP-12,Contingency Planning,Safe Mode
+800-53,800-53:CP-13,Contingency Planning,Alternative Security Mechanisms
+800-53,800-53:IA-1,Identification and Authentication,Policy and Procedures
+800-53,800-53:IA-2,Identification and Authentication,Identification and Authentication (Organizational Users)
+800-53,800-53:IA-2(1),Identification and Authentication,Multi-factor Authentication to Privileged Accounts
+800-53,800-53:IA-2(2),Identification and Authentication,Multi-factor Authentication to Non-privileged Accounts
+800-53,800-53:IA-2(5),Identification and Authentication,Individual Authentication with Group Authentication
+800-53,800-53:IA-2(6),Identification and Authentication,Access to Accounts —separate Device
+800-53,800-53:IA-2(8),Identification and Authentication,Access to Accounts — Replay Resistant
+800-53,800-53:IA-2(10),Identification and Authentication,Single Sign-on
+800-53,800-53:IA-2(12),Identification and Authentication,Acceptance of PIV Credentials
+800-53,800-53:IA-2(13),Identification and Authentication,Out-of-band Authentication
+800-53,800-53:IA-3,Identification and Authentication,Device Identification and Authentication
+800-53,800-53:IA-3(1),Identification and Authentication,Cryptographic Bidirectional Authentication
+800-53,800-53:IA-3(3),Identification and Authentication,Dynamic Address Allocation
+800-53,800-53:IA-3(4),Identification and Authentication,Device Attestation
+800-53,800-53:IA-4,Identification and Authentication,Identifier Management
+800-53,800-53:IA-4(1),Identification and Authentication,Prohibit Account Identifiers as Public Identifiers
+800-53,800-53:IA-4(4),Identification and Authentication,Identify User Status
+800-53,800-53:IA-4(5),Identification and Authentication,Dynamic Management
+800-53,800-53:IA-4(6),Identification and Authentication,Cross-organization Management
+800-53,800-53:IA-4(8),Identification and Authentication,Pairwise Pseudonymous Identifiers
+800-53,800-53:IA-4(9),Identification and Authentication,Attribute Maintenance and Protection
+800-53,800-53:IA-5,Identification and Authentication,Authenticator Management
+800-53,800-53:IA-5(1),Identification and Authentication,Password-based Authentication
+800-53,800-53:IA-5(2),Identification and Authentication,Public Key-based Authentication
+800-53,800-53:IA-5(5),Identification and Authentication,Change Authenticators Prior to Delivery
+800-53,800-53:IA-5(6),Identification and Authentication,Protection of Authenticators
+800-53,800-53:IA-5(7),Identification and Authentication,No Embedded Unencrypted Static Authenticators
+800-53,800-53:IA-5(8),Identification and Authentication,Multiple System Accounts
+800-53,800-53:IA-5(9),Identification and Authentication,Federated Credential Management
+800-53,800-53:IA-5(10),Identification and Authentication,Dynamic Credential Binding
+800-53,800-53:IA-5(12),Identification and Authentication,Biometric Authentication Performance
+800-53,800-53:IA-5(13),Identification and Authentication,Expiration of Cached Authenticators
+800-53,800-53:IA-5(14),Identification and Authentication,Managing Content of PKI Trust Stores
+800-53,800-53:IA-5(15),Identification and Authentication,GSA-approved Products and Services
+800-53,800-53:IA-5(16),Identification and Authentication,In-person or Trusted External Party Authenticator Issuance
+800-53,800-53:IA-5(17),Identification and Authentication,Presentation Attack Detection for Biometric Authenticators
+800-53,800-53:IA-5(18),Identification and Authentication,Password Managers
+800-53,800-53:IA-6,Identification and Authentication,Authentication Feedback
+800-53,800-53:IA-7,Identification and Authentication,Cryptographic Module Authentication
+800-53,800-53:IA-8,Identification and Authentication,Identification and Authentication (Non-organizational Users)
+800-53,800-53:IA-8(1),Identification and Authentication,Acceptance of PIV Credentials from Other Agencies
+800-53,800-53:IA-8(2),Identification and Authentication,Acceptance of External Authenticators
+800-53,800-53:IA-8(4),Identification and Authentication,Use of Defined Profiles
+800-53,800-53:IA-8(5),Identification and Authentication,Acceptance of PIV-I Credentials
+800-53,800-53:IA-8(6),Identification and Authentication,Disassociability
+800-53,800-53:IA-9,Identification and Authentication,Service Identification and Authentication
+800-53,800-53:IA-10,Identification and Authentication,Adaptive Authentication
+800-53,800-53:IA-11,Identification and Authentication,Re-authentication
+800-53,800-53:IA-12,Identification and Authentication,Identity Proofing
+800-53,800-53:IA-12(1),Identification and Authentication,Supervisor Authorization
+800-53,800-53:IA-12(2),Identification and Authentication,Identity Evidence
+800-53,800-53:IA-12(3),Identification and Authentication,Identity Evidence Validation and Verification
+800-53,800-53:IA-12(4),Identification and Authentication,In-person Validation and Verification
+800-53,800-53:IA-12(5),Identification and Authentication,Address Confirmation
+800-53,800-53:IA-12(6),Identification and Authentication,Accept Externally-proofed Identities
+800-53,800-53:IA-13,Identification and Authentication,Identity Providers and Authorization Servers
+800-53,800-53:IA-13(1),Identification and Authentication,Protection of Cryptographic Keys
+800-53,800-53:IA-13(2),Identification and Authentication,Verification of Identity Assertions and Access Tokens
+800-53,800-53:IA-13(3),Identification and Authentication,Token Management
+800-53,800-53:IR-1,Incident Response,Policy and Procedures
+800-53,800-53:IR-2,Incident Response,Incident Response Training
+800-53,800-53:IR-2(1),Incident Response,Simulated Events
+800-53,800-53:IR-2(2),Incident Response,Automated Training Environments
+800-53,800-53:IR-2(3),Incident Response,Breach
+800-53,800-53:IR-3,Incident Response,Incident Response Testing
+800-53,800-53:IR-3(1),Incident Response,Automated Testing
+800-53,800-53:IR-3(2),Incident Response,Coordination with Related Plans
+800-53,800-53:IR-3(3),Incident Response,Continuous Improvement
+800-53,800-53:IR-4,Incident Response,Incident Handling
+800-53,800-53:IR-4(1),Incident Response,Automated Incident Handling Processes
+800-53,800-53:IR-4(2),Incident Response,Dynamic Reconfiguration
+800-53,800-53:IR-4(3),Incident Response,Continuity of Operations
+800-53,800-53:IR-4(4),Incident Response,Information Correlation
+800-53,800-53:IR-4(5),Incident Response,Automatic Disabling of System
+800-53,800-53:IR-4(6),Incident Response,Insider Threats
+800-53,800-53:IR-4(7),Incident Response,Insider Threats — Intra-organization Coordination
+800-53,800-53:IR-4(8),Incident Response,Correlation with External Organizations
+800-53,800-53:IR-4(9),Incident Response,Dynamic Response Capability
+800-53,800-53:IR-4(10),Incident Response,Supply Chain Coordination
+800-53,800-53:IR-4(11),Incident Response,Integrated Incident Response Team
+800-53,800-53:IR-4(12),Incident Response,Malicious Code and Forensic Analysis
+800-53,800-53:IR-4(13),Incident Response,Behavior Analysis
+800-53,800-53:IR-4(14),Incident Response,Security Operations Center
+800-53,800-53:IR-4(15),Incident Response,Public Relations and Reputation Repair
+800-53,800-53:IR-5,Incident Response,Incident Monitoring
+800-53,800-53:IR-5(1),Incident Response,"Automated Tracking, Data Collection, and Analysis"
+800-53,800-53:IR-6,Incident Response,Incident Reporting
+800-53,800-53:IR-6(1),Incident Response,Automated Reporting
+800-53,800-53:IR-6(2),Incident Response,Vulnerabilities Related to Incidents
+800-53,800-53:IR-6(3),Incident Response,Supply Chain Coordination
+800-53,800-53:IR-7,Incident Response,Incident Response Assistance
+800-53,800-53:IR-7(1),Incident Response,Automation Support for Availability of Information and Support
+800-53,800-53:IR-7(2),Incident Response,Coordination with External Providers
+800-53,800-53:IR-8,Incident Response,Incident Response Plan
+800-53,800-53:IR-8(1),Incident Response,Breaches
+800-53,800-53:IR-9,Incident Response,Information Spillage Response
+800-53,800-53:IR-9(2),Incident Response,Training
+800-53,800-53:IR-9(3),Incident Response,Post-spill Operations
+800-53,800-53:IR-9(4),Incident Response,Exposure to Unauthorized Personnel
+800-53,800-53:MA-1,Maintenance,Policy and Procedures
+800-53,800-53:MA-2,Maintenance,Controlled Maintenance
+800-53,800-53:MA-2(2),Maintenance,Automated Maintenance Activities
+800-53,800-53:MA-3,Maintenance,Maintenance Tools
+800-53,800-53:MA-3(1),Maintenance,Inspect Tools
+800-53,800-53:MA-3(2),Maintenance,Inspect Media
+800-53,800-53:MA-3(3),Maintenance,Prevent Unauthorized Removal
+800-53,800-53:MA-3(4),Maintenance,Restricted Tool Use
+800-53,800-53:MA-3(5),Maintenance,Execution with Privilege
+800-53,800-53:MA-3(6),Maintenance,Software Updates and Patches
+800-53,800-53:MA-4,Maintenance,Nonlocal Maintenance
+800-53,800-53:MA-4(1),Maintenance,Logging and Review
+800-53,800-53:MA-4(3),Maintenance,Comparable Security and Sanitization
+800-53,800-53:MA-4(4),Maintenance,Authentication and Separation of Maintenance Sessions
+800-53,800-53:MA-4(5),Maintenance,Approvals and Notifications
+800-53,800-53:MA-4(6),Maintenance,Cryptographic Protection
+800-53,800-53:MA-4(7),Maintenance,Disconnect Verification
+800-53,800-53:MA-5,Maintenance,Maintenance Personnel
+800-53,800-53:MA-5(1),Maintenance,Individuals Without Appropriate Access
+800-53,800-53:MA-5(2),Maintenance,Security Clearances for Classified Systems
+800-53,800-53:MA-5(3),Maintenance,Citizenship Requirements for Classified Systems
+800-53,800-53:MA-5(4),Maintenance,Foreign Nationals
+800-53,800-53:MA-5(5),Maintenance,Non-system Maintenance
+800-53,800-53:MA-6,Maintenance,Timely Maintenance
+800-53,800-53:MA-6(1),Maintenance,Preventive Maintenance
+800-53,800-53:MA-6(2),Maintenance,Predictive Maintenance
+800-53,800-53:MA-6(3),Maintenance,Automated Support for Predictive Maintenance
+800-53,800-53:MA-7,Maintenance,Field Maintenance
+800-53,800-53:MP-1,Media Protection,Policy and Procedures
+800-53,800-53:MP-2,Media Protection,Media Access
+800-53,800-53:MP-3,Media Protection,Media Marking
+800-53,800-53:MP-4,Media Protection,Media Storage
+800-53,800-53:MP-4(2),Media Protection,Automated Restricted Access
+800-53,800-53:MP-5,Media Protection,Media Transport
+800-53,800-53:MP-5(3),Media Protection,Custodians
+800-53,800-53:MP-6,Media Protection,Media Sanitization
+800-53,800-53:MP-6(1),Media Protection,"Review, Approve, Track, Document, and Verify"
+800-53,800-53:MP-6(2),Media Protection,Equipment Testing
+800-53,800-53:MP-6(3),Media Protection,Nondestructive Techniques
+800-53,800-53:MP-6(7),Media Protection,Dual Authorization
+800-53,800-53:MP-6(8),Media Protection,Remote Purging or Wiping of Information
+800-53,800-53:MP-7,Media Protection,Media Use
+800-53,800-53:MP-7(2),Media Protection,Prohibit Use of Sanitization-resistant Media
+800-53,800-53:MP-8,Media Protection,Media Downgrading
+800-53,800-53:MP-8(1),Media Protection,Documentation of Process
+800-53,800-53:MP-8(2),Media Protection,Equipment Testing
+800-53,800-53:MP-8(3),Media Protection,Controlled Unclassified Information
+800-53,800-53:MP-8(4),Media Protection,Classified Information
+800-53,800-53:PE-1,Physical and Environmental Protection,Policy and Procedures
+800-53,800-53:PE-2,Physical and Environmental Protection,Physical Access Authorizations
+800-53,800-53:PE-2(1),Physical and Environmental Protection,Access by Position or Role
+800-53,800-53:PE-2(2),Physical and Environmental Protection,Two Forms of Identification
+800-53,800-53:PE-2(3),Physical and Environmental Protection,Restrict Unescorted Access
+800-53,800-53:PE-3,Physical and Environmental Protection,Physical Access Control
+800-53,800-53:PE-3(1),Physical and Environmental Protection,System Access
+800-53,800-53:PE-3(2),Physical and Environmental Protection,Facility and Systems
+800-53,800-53:PE-3(3),Physical and Environmental Protection,Continuous Guards
+800-53,800-53:PE-3(4),Physical and Environmental Protection,Lockable Casings
+800-53,800-53:PE-3(5),Physical and Environmental Protection,Tamper Protection
+800-53,800-53:PE-3(7),Physical and Environmental Protection,Physical Barriers
+800-53,800-53:PE-3(8),Physical and Environmental Protection,Access Control Vestibules
+800-53,800-53:PE-4,Physical and Environmental Protection,Access Control for Transmission
+800-53,800-53:PE-5,Physical and Environmental Protection,Access Control for Output Devices
+800-53,800-53:PE-5(2),Physical and Environmental Protection,Link to Individual Identity
+800-53,800-53:PE-6,Physical and Environmental Protection,Monitoring Physical Access
+800-53,800-53:PE-6(1),Physical and Environmental Protection,Intrusion Alarms and Surveillance Equipment
+800-53,800-53:PE-6(2),Physical and Environmental Protection,Automated Intrusion Recognition and Responses
+800-53,800-53:PE-6(3),Physical and Environmental Protection,Video Surveillance
+800-53,800-53:PE-6(4),Physical and Environmental Protection,Monitoring Physical Access to Systems
+800-53,800-53:PE-8,Physical and Environmental Protection,Visitor Access Records
+800-53,800-53:PE-8(1),Physical and Environmental Protection,Automated Records Maintenance and Review
+800-53,800-53:PE-8(3),Physical and Environmental Protection,Limit Personally Identifiable Information Elements
+800-53,800-53:PE-9,Physical and Environmental Protection,Power Equipment and Cabling
+800-53,800-53:PE-9(1),Physical and Environmental Protection,Redundant Cabling
+800-53,800-53:PE-9(2),Physical and Environmental Protection,Automatic Voltage Controls
+800-53,800-53:PE-10,Physical and Environmental Protection,Emergency Shutoff
+800-53,800-53:PE-11,Physical and Environmental Protection,Emergency Power
+800-53,800-53:PE-11(1),Physical and Environmental Protection,Alternate Power Supply — Minimal Operational Capability
+800-53,800-53:PE-11(2),Physical and Environmental Protection,Alternate Power Supply — Self-contained
+800-53,800-53:PE-12,Physical and Environmental Protection,Emergency Lighting
+800-53,800-53:PE-12(1),Physical and Environmental Protection,Essential Mission and Business Functions
+800-53,800-53:PE-13,Physical and Environmental Protection,Fire Protection
+800-53,800-53:PE-13(1),Physical and Environmental Protection,Detection Systems — Automatic Activation and Notification
+800-53,800-53:PE-13(2),Physical and Environmental Protection,Suppression Systems — Automatic Activation and Notification
+800-53,800-53:PE-13(4),Physical and Environmental Protection,Inspections
+800-53,800-53:PE-14,Physical and Environmental Protection,Environmental Controls
+800-53,800-53:PE-14(1),Physical and Environmental Protection,Automatic Controls
+800-53,800-53:PE-14(2),Physical and Environmental Protection,Monitoring with Alarms and Notifications
+800-53,800-53:PE-15,Physical and Environmental Protection,Water Damage Protection
+800-53,800-53:PE-15(1),Physical and Environmental Protection,Automation Support
+800-53,800-53:PE-16,Physical and Environmental Protection,Delivery and Removal
+800-53,800-53:PE-17,Physical and Environmental Protection,Alternate Work Site
+800-53,800-53:PE-18,Physical and Environmental Protection,Location of System Components
+800-53,800-53:PE-19,Physical and Environmental Protection,Information Leakage
+800-53,800-53:PE-19(1),Physical and Environmental Protection,National Emissions Policies and Procedures
+800-53,800-53:PE-20,Physical and Environmental Protection,Asset Monitoring and Tracking
+800-53,800-53:PE-21,Physical and Environmental Protection,Electromagnetic Pulse Protection
+800-53,800-53:PE-22,Physical and Environmental Protection,Component Marking
+800-53,800-53:PE-23,Physical and Environmental Protection,Facility Location
+800-53,800-53:PL-1,Planning,Policy and Procedures
+800-53,800-53:PL-2,Planning,System Security and Privacy Plans
+800-53,800-53:PL-4,Planning,Rules of Behavior
+800-53,800-53:PL-4(1),Planning,Social Media and External Site/Application Usage Restrictions
+800-53,800-53:PL-7,Planning,Concept of Operations
+800-53,800-53:PL-8,Planning,Security and Privacy Architectures
+800-53,800-53:PL-8(1),Planning,Defense in Depth
+800-53,800-53:PL-8(2),Planning,Supplier Diversity
+800-53,800-53:PL-9,Planning,Central Management
+800-53,800-53:PL-10,Planning,Baseline Selection
+800-53,800-53:PL-11,Planning,Baseline Tailoring
+800-53,800-53:PM-1,Program Management,Information Security Program Plan
+800-53,800-53:PM-2,Program Management,Information Security Program Leadership Role
+800-53,800-53:PM-3,Program Management,Information Security and Privacy Resources
+800-53,800-53:PM-4,Program Management,Plan of Action and Milestones Process
+800-53,800-53:PM-5,Program Management,System Inventory
+800-53,800-53:PM-5(1),Program Management,Inventory of Personally Identifiable Information
+800-53,800-53:PM-6,Program Management,Measures of Performance
+800-53,800-53:PM-7,Program Management,Enterprise Architecture
+800-53,800-53:PM-7(1),Program Management,Offloading
+800-53,800-53:PM-8,Program Management,Critical Infrastructure Plan
+800-53,800-53:PM-9,Program Management,Risk Management Strategy
+800-53,800-53:PM-10,Program Management,Authorization Process
+800-53,800-53:PM-11,Program Management,Mission and Business Process Definition
+800-53,800-53:PM-12,Program Management,Insider Threat Program
+800-53,800-53:PM-13,Program Management,Security and Privacy Workforce
+800-53,800-53:PM-14,Program Management,"Testing, Training, and Monitoring"
+800-53,800-53:PM-15,Program Management,Security and Privacy Groups and Associations
+800-53,800-53:PM-16,Program Management,Threat Awareness Program
+800-53,800-53:PM-16(1),Program Management,Automated Means for Sharing Threat Intelligence
+800-53,800-53:PM-17,Program Management,Protecting Controlled Unclassified Information on External Systems
+800-53,800-53:PM-18,Program Management,Privacy Program Plan
+800-53,800-53:PM-19,Program Management,Privacy Program Leadership Role
+800-53,800-53:PM-20,Program Management,Dissemination of Privacy Program Information
+800-53,800-53:PM-20(1),Program Management,"Privacy Policies on Websites, Applications, and Digital Services"
+800-53,800-53:PM-21,Program Management,Accounting of Disclosures
+800-53,800-53:PM-22,Program Management,Personally Identifiable Information Quality Management
+800-53,800-53:PM-23,Program Management,Data Governance Body
+800-53,800-53:PM-24,Program Management,Data Integrity Board
+800-53,800-53:PM-25,Program Management,"Minimization of Personally Identifiable Information Used in Testing, Training, and Research"
+800-53,800-53:PM-26,Program Management,Complaint Management
+800-53,800-53:PM-27,Program Management,Privacy Reporting
+800-53,800-53:PM-28,Program Management,Risk Framing
+800-53,800-53:PM-29,Program Management,Risk Management Program Leadership Roles
+800-53,800-53:PM-30,Program Management,Supply Chain Risk Management Strategy
+800-53,800-53:PM-30(1),Program Management,Suppliers of Critical or Mission-essential Items
+800-53,800-53:PM-31,Program Management,Continuous Monitoring Strategy
+800-53,800-53:PM-32,Program Management,Purposing
+800-53,800-53:PS-1,Personnel Security,Policy and Procedures
+800-53,800-53:PS-2,Personnel Security,Position Risk Designation
+800-53,800-53:PS-3,Personnel Security,Personnel Screening
+800-53,800-53:PS-3(1),Personnel Security,Classified Information
+800-53,800-53:PS-3(2),Personnel Security,Formal Indoctrination
+800-53,800-53:PS-3(3),Personnel Security,Information Requiring Special Protective Measures
+800-53,800-53:PS-3(4),Personnel Security,Citizenship Requirements
+800-53,800-53:PS-4,Personnel Security,Personnel Termination
+800-53,800-53:PS-4(1),Personnel Security,Post-employment Requirements
+800-53,800-53:PS-4(2),Personnel Security,Automated Actions
+800-53,800-53:PS-5,Personnel Security,Personnel Transfer
+800-53,800-53:PS-6,Personnel Security,Access Agreements
+800-53,800-53:PS-6(2),Personnel Security,Classified Information Requiring Special Protection
+800-53,800-53:PS-6(3),Personnel Security,Post-employment Requirements
+800-53,800-53:PS-7,Personnel Security,External Personnel Security
+800-53,800-53:PS-8,Personnel Security,Personnel Sanctions
+800-53,800-53:PS-9,Personnel Security,Position Descriptions
+800-53,800-53:PT-1,Personally Identifiable Information Processing and Transparency,Policy and Procedures
+800-53,800-53:PT-2,Personally Identifiable Information Processing and Transparency,Authority to Process Personally Identifiable Information
+800-53,800-53:PT-2(1),Personally Identifiable Information Processing and Transparency,Data Tagging
+800-53,800-53:PT-2(2),Personally Identifiable Information Processing and Transparency,Automation
+800-53,800-53:PT-3,Personally Identifiable Information Processing and Transparency,Personally Identifiable Information Processing Purposes
+800-53,800-53:PT-3(1),Personally Identifiable Information Processing and Transparency,Data Tagging
+800-53,800-53:PT-3(2),Personally Identifiable Information Processing and Transparency,Automation
+800-53,800-53:PT-4,Personally Identifiable Information Processing and Transparency,Consent
+800-53,800-53:PT-4(1),Personally Identifiable Information Processing and Transparency,Tailored Consent
+800-53,800-53:PT-4(2),Personally Identifiable Information Processing and Transparency,Just-in-time Consent
+800-53,800-53:PT-4(3),Personally Identifiable Information Processing and Transparency,Revocation
+800-53,800-53:PT-5,Personally Identifiable Information Processing and Transparency,Privacy Notice
+800-53,800-53:PT-5(1),Personally Identifiable Information Processing and Transparency,Just-in-time Notice
+800-53,800-53:PT-5(2),Personally Identifiable Information Processing and Transparency,Privacy Act Statements
+800-53,800-53:PT-6,Personally Identifiable Information Processing and Transparency,System of Records Notice
+800-53,800-53:PT-6(1),Personally Identifiable Information Processing and Transparency,Routine Uses
+800-53,800-53:PT-6(2),Personally Identifiable Information Processing and Transparency,Exemption Rules
+800-53,800-53:PT-7,Personally Identifiable Information Processing and Transparency,Specific Categories of Personally Identifiable Information
+800-53,800-53:PT-7(1),Personally Identifiable Information Processing and Transparency,Social Security Numbers
+800-53,800-53:PT-7(2),Personally Identifiable Information Processing and Transparency,First Amendment Information
+800-53,800-53:PT-8,Personally Identifiable Information Processing and Transparency,Computer Matching Requirements
+800-53,800-53:RA-1,Risk Assessment,Policy and Procedures
+800-53,800-53:RA-2,Risk Assessment,Security Categorization
+800-53,800-53:RA-2(1),Risk Assessment,Impact-level Prioritization
+800-53,800-53:RA-3,Risk Assessment,Risk Assessment
+800-53,800-53:RA-3(1),Risk Assessment,Supply Chain Risk Assessment
+800-53,800-53:RA-3(2),Risk Assessment,Use of All-source Intelligence
+800-53,800-53:RA-3(3),Risk Assessment,Dynamic Threat Awareness
+800-53,800-53:RA-3(4),Risk Assessment,Predictive Cyber Analytics
+800-53,800-53:RA-5,Risk Assessment,Vulnerability Monitoring and Scanning
+800-53,800-53:RA-5(2),Risk Assessment,Update Vulnerabilities to Be Scanned
+800-53,800-53:RA-5(3),Risk Assessment,Breadth and Depth of Coverage
+800-53,800-53:RA-5(4),Risk Assessment,Discoverable Information
+800-53,800-53:RA-5(5),Risk Assessment,Privileged Access
+800-53,800-53:RA-5(6),Risk Assessment,Automated Trend Analyses
+800-53,800-53:RA-5(8),Risk Assessment,Review Historic Audit Logs
+800-53,800-53:RA-5(10),Risk Assessment,Correlate Scanning Information
+800-53,800-53:RA-5(11),Risk Assessment,Public Disclosure Program
+800-53,800-53:RA-6,Risk Assessment,Technical Surveillance Countermeasures Survey
+800-53,800-53:RA-7,Risk Assessment,Risk Response
+800-53,800-53:RA-8,Risk Assessment,Privacy Impact Assessments
+800-53,800-53:RA-9,Risk Assessment,Criticality Analysis
+800-53,800-53:RA-10,Risk Assessment,Threat Hunting
+800-53,800-53:SA-1,System and Services Acquisition,Policy and Procedures
+800-53,800-53:SA-2,System and Services Acquisition,Allocation of Resources
+800-53,800-53:SA-3,System and Services Acquisition,System Development Life Cycle
+800-53,800-53:SA-3(1),System and Services Acquisition,Manage Preproduction Environment
+800-53,800-53:SA-3(2),System and Services Acquisition,Use of Live or Operational Data
+800-53,800-53:SA-3(3),System and Services Acquisition,Technology Refresh
+800-53,800-53:SA-4,System and Services Acquisition,Acquisition Process
+800-53,800-53:SA-4(1),System and Services Acquisition,Functional Properties of Controls
+800-53,800-53:SA-4(2),System and Services Acquisition,Design and Implementation Information for Controls
+800-53,800-53:SA-4(3),System and Services Acquisition,"Development Methods, Techniques, and Practices"
+800-53,800-53:SA-4(5),System and Services Acquisition,"System, Component, and Service Configurations"
+800-53,800-53:SA-4(6),System and Services Acquisition,Use of Information Assurance Products
+800-53,800-53:SA-4(7),System and Services Acquisition,NIAP-approved Protection Profiles 
+800-53,800-53:SA-4(8),System and Services Acquisition,Continuous Monitoring Plan for Controls
+800-53,800-53:SA-4(9),System and Services Acquisition,"Functions, Ports, Protocols, and Services in Use"
+800-53,800-53:SA-4(10),System and Services Acquisition,Use of Approved PIV Products
+800-53,800-53:SA-4(11),System and Services Acquisition,System of Records
+800-53,800-53:SA-4(12),System and Services Acquisition,Data Ownership
+800-53,800-53:SA-5,System and Services Acquisition,System Documentation
+800-53,800-53:SA-8,System and Services Acquisition,Security and Privacy Engineering Principles
+800-53,800-53:SA-8(1),System and Services Acquisition,Clear Abstractions
+800-53,800-53:SA-8(2),System and Services Acquisition,Least Common Mechanism
+800-53,800-53:SA-8(3),System and Services Acquisition,Modularity and Layering
+800-53,800-53:SA-8(4),System and Services Acquisition,Partially Ordered Dependencies
+800-53,800-53:SA-8(5),System and Services Acquisition,Efficiently Mediated Access
+800-53,800-53:SA-8(6),System and Services Acquisition,Minimized Sharing
+800-53,800-53:SA-8(7),System and Services Acquisition,Reduced Complexity
+800-53,800-53:SA-8(8),System and Services Acquisition,Secure Evolvability
+800-53,800-53:SA-8(9),System and Services Acquisition,Trusted Components
+800-53,800-53:SA-8(10),System and Services Acquisition,Hierarchical Trust
+800-53,800-53:SA-8(11),System and Services Acquisition,Inverse Modification Threshold
+800-53,800-53:SA-8(12),System and Services Acquisition,Hierarchical Protection
+800-53,800-53:SA-8(13),System and Services Acquisition,Minimized Security Elements
+800-53,800-53:SA-8(14),System and Services Acquisition,Least Privilege
+800-53,800-53:SA-8(15),System and Services Acquisition,Predicate Permission
+800-53,800-53:SA-8(16),System and Services Acquisition,Self-reliant Trustworthiness
+800-53,800-53:SA-8(17),System and Services Acquisition,Secure Distributed Composition
+800-53,800-53:SA-8(18),System and Services Acquisition,Trusted Communications Channels
+800-53,800-53:SA-8(19),System and Services Acquisition,Continuous Protection
+800-53,800-53:SA-8(20),System and Services Acquisition,Secure Metadata Management
+800-53,800-53:SA-8(21),System and Services Acquisition,Self-analysis
+800-53,800-53:SA-8(22),System and Services Acquisition,Accountability and Traceability
+800-53,800-53:SA-8(23),System and Services Acquisition,Secure Defaults
+800-53,800-53:SA-8(24),System and Services Acquisition,Secure Failure and Recovery
+800-53,800-53:SA-8(25),System and Services Acquisition,Economic Security
+800-53,800-53:SA-8(26),System and Services Acquisition,Performance Security
+800-53,800-53:SA-8(27),System and Services Acquisition,Human Factored Security
+800-53,800-53:SA-8(28),System and Services Acquisition,Acceptable Security
+800-53,800-53:SA-8(29),System and Services Acquisition,Repeatable and Documented Procedures
+800-53,800-53:SA-8(30),System and Services Acquisition,Procedural Rigor
+800-53,800-53:SA-8(31),System and Services Acquisition,Secure System Modification
+800-53,800-53:SA-8(32),System and Services Acquisition,Sufficient Documentation
+800-53,800-53:SA-8(33),System and Services Acquisition,Minimization
+800-53,800-53:SA-9,System and Services Acquisition,External System Services
+800-53,800-53:SA-9(1),System and Services Acquisition,Risk Assessments and Organizational Approvals
+800-53,800-53:SA-9(2),System and Services Acquisition,"Identification of Functions, Ports, Protocols, and Services"
+800-53,800-53:SA-9(3),System and Services Acquisition,Establish and Maintain Trust Relationship with Providers
+800-53,800-53:SA-9(4),System and Services Acquisition,Consistent Interests of Consumers and Providers
+800-53,800-53:SA-9(5),System and Services Acquisition,"Processing, Storage, and Service Location"
+800-53,800-53:SA-9(6),System and Services Acquisition,Organization-controlled Cryptographic Keys
+800-53,800-53:SA-9(7),System and Services Acquisition,Organization-controlled Integrity Checking
+800-53,800-53:SA-9(8),System and Services Acquisition,Processing and Storage Location — U.S. Jurisdiction
+800-53,800-53:SA-10,System and Services Acquisition,Developer Configuration Management
+800-53,800-53:SA-10(1),System and Services Acquisition,Software and Firmware Integrity Verification
+800-53,800-53:SA-10(2),System and Services Acquisition,Alternative Configuration Management Processes
+800-53,800-53:SA-10(3),System and Services Acquisition,Hardware Integrity Verification
+800-53,800-53:SA-10(4),System and Services Acquisition,Trusted Generation
+800-53,800-53:SA-10(5),System and Services Acquisition,Mapping Integrity for Version Control
+800-53,800-53:SA-10(6),System and Services Acquisition,Trusted Distribution
+800-53,800-53:SA-10(7),System and Services Acquisition,Security and Privacy Representatives
+800-53,800-53:SA-11,System and Services Acquisition,Developer Testing and Evaluation
+800-53,800-53:SA-11(1),System and Services Acquisition,Static Code Analysis
+800-53,800-53:SA-11(2),System and Services Acquisition,Threat Modeling and Vulnerability Analyses
+800-53,800-53:SA-11(3),System and Services Acquisition,Independent Verification of Assessment Plans and Evidence
+800-53,800-53:SA-11(4),System and Services Acquisition,Manual Code Reviews
+800-53,800-53:SA-11(5),System and Services Acquisition,Penetration Testing
+800-53,800-53:SA-11(6),System and Services Acquisition,Attack Surface Reviews
+800-53,800-53:SA-11(7),System and Services Acquisition,Verify Scope of Testing and Evaluation
+800-53,800-53:SA-11(8),System and Services Acquisition,Dynamic Code Analysis
+800-53,800-53:SA-11(9),System and Services Acquisition,Interactive Application Security Testing
+800-53,800-53:SA-15,System and Services Acquisition,"Development Process, Standards, and Tools"
+800-53,800-53:SA-15(1),System and Services Acquisition,Quality Metrics
+800-53,800-53:SA-15(2),System and Services Acquisition,Security and Privacy Tracking Tools
+800-53,800-53:SA-15(3),System and Services Acquisition,Criticality Analysis
+800-53,800-53:SA-15(5),System and Services Acquisition,Attack Surface Reduction
+800-53,800-53:SA-15(6),System and Services Acquisition,Continuous Improvement
+800-53,800-53:SA-15(7),System and Services Acquisition,Automated Vulnerability Analysis
+800-53,800-53:SA-15(8),System and Services Acquisition,Reuse of Threat and Vulnerability Information
+800-53,800-53:SA-15(10),System and Services Acquisition,Incident Response Plan
+800-53,800-53:SA-15(11),System and Services Acquisition,Archive System or Component
+800-53,800-53:SA-15(12),System and Services Acquisition,Minimize Personally Identifiable Information
+800-53,800-53:SA-15(13),System and Services Acquisition,Logging Syntax
+800-53,800-53:SA-16,System and Services Acquisition,Developer-provided Training
+800-53,800-53:SA-17,System and Services Acquisition,Developer Security and Privacy Architecture and Design
+800-53,800-53:SA-17(1),System and Services Acquisition,Formal Policy Model
+800-53,800-53:SA-17(2),System and Services Acquisition,Security-relevant Components
+800-53,800-53:SA-17(3),System and Services Acquisition,Formal Correspondence
+800-53,800-53:SA-17(4),System and Services Acquisition,Informal Correspondence
+800-53,800-53:SA-17(5),System and Services Acquisition,Conceptually Simple Design
+800-53,800-53:SA-17(6),System and Services Acquisition,Structure for Testing
+800-53,800-53:SA-17(7),System and Services Acquisition,Structure for Least Privilege
+800-53,800-53:SA-17(8),System and Services Acquisition,Orchestration
+800-53,800-53:SA-17(9),System and Services Acquisition,Design Diversity
+800-53,800-53:SA-20,System and Services Acquisition,Customized Development of Critical Components
+800-53,800-53:SA-21,System and Services Acquisition,Developer Screening
+800-53,800-53:SA-22,System and Services Acquisition,Unsupported System Components
+800-53,800-53:SA-23,System and Services Acquisition,Specialization
+800-53,800-53:SA-24,System and Services Acquisition,Design For Cyber Resiliency
+800-53,800-53:SC-1,System and Communications Protection,Policy and Procedures
+800-53,800-53:SC-2,System and Communications Protection,Separation of System and User Functionality
+800-53,800-53:SC-2(1),System and Communications Protection,Interfaces for Non-privileged Users
+800-53,800-53:SC-2(2),System and Communications Protection,Disassociability
+800-53,800-53:SC-3,System and Communications Protection,Security Function Isolation
+800-53,800-53:SC-3(1),System and Communications Protection,Hardware Separation
+800-53,800-53:SC-3(2),System and Communications Protection,Access and Flow Control Functions
+800-53,800-53:SC-3(3),System and Communications Protection,Minimize Nonsecurity Functionality
+800-53,800-53:SC-3(4),System and Communications Protection,Module Coupling and Cohesiveness
+800-53,800-53:SC-3(5),System and Communications Protection,Layered Structures
+800-53,800-53:SC-4,System and Communications Protection,Information in Shared System Resources
+800-53,800-53:SC-4(2),System and Communications Protection,Multilevel or Periods Processing
+800-53,800-53:SC-5,System and Communications Protection,Denial-of-service Protection
+800-53,800-53:SC-5(1),System and Communications Protection,Restrict Ability to Attack Other Systems
+800-53,800-53:SC-5(2),System and Communications Protection,"Capacity, Bandwidth, and Redundancy"
+800-53,800-53:SC-5(3),System and Communications Protection,Detection and Monitoring
+800-53,800-53:SC-6,System and Communications Protection,Resource Availability
+800-53,800-53:SC-7,System and Communications Protection,Boundary Protection
+800-53,800-53:SC-7(3),System and Communications Protection,Access Points
+800-53,800-53:SC-7(4),System and Communications Protection,External Telecommunications Services
+800-53,800-53:SC-7(5),System and Communications Protection,Deny by Default — Allow by Exception
+800-53,800-53:SC-7(7),System and Communications Protection,Split Tunneling for Remote Devices
+800-53,800-53:SC-7(8),System and Communications Protection,Route Traffic to Authenticated Proxy Servers
+800-53,800-53:SC-7(9),System and Communications Protection,Restrict Threatening Outgoing Communications Traffic
+800-53,800-53:SC-7(10),System and Communications Protection,Prevent Exfiltration
+800-53,800-53:SC-7(11),System and Communications Protection,Restrict Incoming Communications Traffic
+800-53,800-53:SC-7(12),System and Communications Protection,Host-based Protection
+800-53,800-53:SC-7(13),System and Communications Protection,"Isolation of Security Tools, Mechanisms, and Support Components"
+800-53,800-53:SC-7(14),System and Communications Protection,Protect Against Unauthorized Physical Connections
+800-53,800-53:SC-7(15),System and Communications Protection,Networked Privileged Accesses
+800-53,800-53:SC-7(16),System and Communications Protection,Prevent Discovery of System Components
+800-53,800-53:SC-7(17),System and Communications Protection,Automated Enforcement of Protocol Formats
+800-53,800-53:SC-7(18),System and Communications Protection,Fail Secure
+800-53,800-53:SC-7(19),System and Communications Protection,Block Communication from Non-organizationally Configured Hosts
+800-53,800-53:SC-7(20),System and Communications Protection,Dynamic Isolation and Segregation
+800-53,800-53:SC-7(21),System and Communications Protection,Isolation of System Components
+800-53,800-53:SC-7(22),System and Communications Protection,Separate Subnets for Connecting to Different Security Domains
+800-53,800-53:SC-7(23),System and Communications Protection,Disable Sender Feedback on Protocol Validation Failure
+800-53,800-53:SC-7(24),System and Communications Protection,Personally Identifiable Information
+800-53,800-53:SC-7(25),System and Communications Protection,Unclassified National Security System Connections
+800-53,800-53:SC-7(26),System and Communications Protection,Classified National Security System Connections
+800-53,800-53:SC-7(27),System and Communications Protection,Unclassified Non-national Security System Connections
+800-53,800-53:SC-7(28),System and Communications Protection,Connections to Public Networks
+800-53,800-53:SC-7(29),System and Communications Protection,Separate Subnets to Isolate Functions
+800-53,800-53:SC-8,System and Communications Protection,Transmission Confidentiality and Integrity
+800-53,800-53:SC-8(1),System and Communications Protection,Cryptographic Protection
+800-53,800-53:SC-8(2),System and Communications Protection,Pre- and Post-transmission Handling
+800-53,800-53:SC-8(3),System and Communications Protection,Cryptographic Protection for Message Externals
+800-53,800-53:SC-8(4),System and Communications Protection,Conceal or Randomize Communications
+800-53,800-53:SC-8(5),System and Communications Protection,Protected Distribution System
+800-53,800-53:SC-10,System and Communications Protection,Network Disconnect
+800-53,800-53:SC-11,System and Communications Protection,Trusted Path
+800-53,800-53:SC-11(1),System and Communications Protection,Irrefutable Communications Path
+800-53,800-53:SC-12,System and Communications Protection,Cryptographic Key Establishment and Management
+800-53,800-53:SC-12(1),System and Communications Protection,Availability
+800-53,800-53:SC-12(2),System and Communications Protection,Symmetric Keys
+800-53,800-53:SC-12(3),System and Communications Protection,Asymmetric Keys
+800-53,800-53:SC-12(6),System and Communications Protection,Physical Control of Keys
+800-53,800-53:SC-13,System and Communications Protection,Cryptographic Protection
+800-53,800-53:SC-15,System and Communications Protection,Collaborative Computing Devices and Applications
+800-53,800-53:SC-15(1),System and Communications Protection,Physical or Logical Disconnect
+800-53,800-53:SC-15(3),System and Communications Protection,Disabling and Removal in Secure Work Areas
+800-53,800-53:SC-15(4),System and Communications Protection,Explicitly Indicate Current Participants
+800-53,800-53:SC-16,System and Communications Protection,Transmission of Security and Privacy Attributes
+800-53,800-53:SC-16(1),System and Communications Protection,Integrity Verification
+800-53,800-53:SC-16(2),System and Communications Protection,Anti-spoofing Mechanisms
+800-53,800-53:SC-16(3),System and Communications Protection,Cryptographic Binding
+800-53,800-53:SC-17,System and Communications Protection,Public Key Infrastructure Certificates
+800-53,800-53:SC-18,System and Communications Protection,Mobile Code
+800-53,800-53:SC-18(1),System and Communications Protection,Identify Unacceptable Code and Take Corrective Actions
+800-53,800-53:SC-18(2),System and Communications Protection,"Acquisition, Development, and Use"
+800-53,800-53:SC-18(3),System and Communications Protection,Prevent Downloading and Execution
+800-53,800-53:SC-18(4),System and Communications Protection,Prevent Automatic Execution
+800-53,800-53:SC-18(5),System and Communications Protection,Allow Execution Only in Confined Environments
+800-53,800-53:SC-20,System and Communications Protection,Secure Name/Address Resolution Service (Authoritative Source)
+800-53,800-53:SC-20(2),System and Communications Protection,Data Origin and Integrity
+800-53,800-53:SC-21,System and Communications Protection,Secure Name/Address Resolution Service (Recursive or Caching Resolver)
+800-53,800-53:SC-22,System and Communications Protection,Architecture and Provisioning for Name/Address Resolution Service
+800-53,800-53:SC-23,System and Communications Protection,Session Authenticity
+800-53,800-53:SC-23(1),System and Communications Protection,Invalidate Session Identifiers at Logout
+800-53,800-53:SC-23(3),System and Communications Protection,Unique System-generated Session Identifiers
+800-53,800-53:SC-23(5),System and Communications Protection,Allowed Certificate Authorities
+800-53,800-53:SC-24,System and Communications Protection,Fail in Known State
+800-53,800-53:SC-25,System and Communications Protection,Thin Nodes
+800-53,800-53:SC-26,System and Communications Protection,Decoys
+800-53,800-53:SC-27,System and Communications Protection,Platform-independent Applications
+800-53,800-53:SC-28,System and Communications Protection,Protection of Information at Rest
+800-53,800-53:SC-28(1),System and Communications Protection,Cryptographic Protection
+800-53,800-53:SC-28(2),System and Communications Protection,Offline Storage
+800-53,800-53:SC-28(3),System and Communications Protection,Cryptographic Keys
+800-53,800-53:SC-29,System and Communications Protection,Heterogeneity
+800-53,800-53:SC-29(1),System and Communications Protection,Virtualization Techniques
+800-53,800-53:SC-30,System and Communications Protection,Concealment and Misdirection
+800-53,800-53:SC-30(2),System and Communications Protection,Randomness
+800-53,800-53:SC-30(3),System and Communications Protection,Change Processing and Storage Locations
+800-53,800-53:SC-30(4),System and Communications Protection,Misleading Information
+800-53,800-53:SC-30(5),System and Communications Protection,Concealment of System Components
+800-53,800-53:SC-31,System and Communications Protection,Covert Channel Analysis
+800-53,800-53:SC-31(1),System and Communications Protection,Test Covert Channels for Exploitability
+800-53,800-53:SC-31(2),System and Communications Protection,Maximum Bandwidth
+800-53,800-53:SC-31(3),System and Communications Protection,Measure Bandwidth in Operational Environments
+800-53,800-53:SC-32,System and Communications Protection,System Partitioning
+800-53,800-53:SC-32(1),System and Communications Protection,Separate Physical Domains for Privileged Functions
+800-53,800-53:SC-34,System and Communications Protection,Non-modifiable Executable Programs
+800-53,800-53:SC-34(1),System and Communications Protection,No Writable Storage
+800-53,800-53:SC-34(2),System and Communications Protection,Integrity Protection on Read-only Media
+800-53,800-53:SC-35,System and Communications Protection,External Malicious Code Identification
+800-53,800-53:SC-36,System and Communications Protection,Distributed Processing and Storage
+800-53,800-53:SC-36(1),System and Communications Protection,Polling Techniques
+800-53,800-53:SC-36(2),System and Communications Protection,Synchronization
+800-53,800-53:SC-37,System and Communications Protection,Out-of-band Channels
+800-53,800-53:SC-37(1),System and Communications Protection,Ensure Delivery and Transmission
+800-53,800-53:SC-38,System and Communications Protection,Operations Security
+800-53,800-53:SC-39,System and Communications Protection,Process Isolation
+800-53,800-53:SC-39(1),System and Communications Protection,Hardware Separation
+800-53,800-53:SC-39(2),System and Communications Protection,Separate Execution Domain Per Thread
+800-53,800-53:SC-40,System and Communications Protection,Wireless Link Protection
+800-53,800-53:SC-40(1),System and Communications Protection,Electromagnetic Interference
+800-53,800-53:SC-40(2),System and Communications Protection,Reduce Detection Potential
+800-53,800-53:SC-40(3),System and Communications Protection,Imitative or Manipulative Communications Deception
+800-53,800-53:SC-40(4),System and Communications Protection,Signal Parameter Identification
+800-53,800-53:SC-41,System and Communications Protection,Port and I/O Device Access
+800-53,800-53:SC-42,System and Communications Protection,Sensor Capability and Data
+800-53,800-53:SC-42(1),System and Communications Protection,Reporting to Authorized Individuals or Roles
+800-53,800-53:SC-42(2),System and Communications Protection,Authorized Use
+800-53,800-53:SC-42(4),System and Communications Protection,Notice of Collection
+800-53,800-53:SC-42(5),System and Communications Protection,Collection Minimization
+800-53,800-53:SC-43,System and Communications Protection,Usage Restrictions
+800-53,800-53:SC-44,System and Communications Protection,Detonation Chambers
+800-53,800-53:SC-45,System and Communications Protection,System Time Synchronization
+800-53,800-53:SC-45(1),System and Communications Protection,Synchronization with Authoritative Time Source
+800-53,800-53:SC-45(2),System and Communications Protection,Secondary Authoritative Time Source
+800-53,800-53:SC-46,System and Communications Protection,Cross Domain Policy Enforcement
+800-53,800-53:SC-47,System and Communications Protection,Alternate Communications Paths
+800-53,800-53:SC-48,System and Communications Protection,Sensor Relocation
+800-53,800-53:SC-48(1),System and Communications Protection,Dynamic Relocation of Sensors or Monitoring Capabilities
+800-53,800-53:SC-49,System and Communications Protection,Hardware-enforced Separation and Policy Enforcement
+800-53,800-53:SC-50,System and Communications Protection,Software-enforced Separation and Policy Enforcement
+800-53,800-53:SC-51,System and Communications Protection,Hardware-based Protection
+800-53,800-53:SI-1,System and Information Integrity,Policy and Procedures
+800-53,800-53:SI-2,System and Information Integrity,Flaw Remediation
+800-53,800-53:SI-2(2),System and Information Integrity,Automated Flaw Remediation Status
+800-53,800-53:SI-2(3),System and Information Integrity,Time to Remediate Flaws and Benchmarks for Corrective Actions
+800-53,800-53:SI-2(4),System and Information Integrity,Automated Patch Management Tools
+800-53,800-53:SI-2(5),System and Information Integrity,Automatic Software and Firmware Updates
+800-53,800-53:SI-2(6),System and Information Integrity,Removal of Previous Versions of Software and Firmware
+800-53,800-53:SI-2(7),System and Information Integrity,Root Cause Analysis
+800-53,800-53:SI-3,System and Information Integrity,Malicious Code Protection
+800-53,800-53:SI-3(4),System and Information Integrity,Updates Only by Privileged Users
+800-53,800-53:SI-3(6),System and Information Integrity,Testing and Verification
+800-53,800-53:SI-3(8),System and Information Integrity,Detect Unauthorized Commands
+800-53,800-53:SI-3(10),System and Information Integrity,Malicious Code Analysis
+800-53,800-53:SI-4,System and Information Integrity,System Monitoring
+800-53,800-53:SI-4(1),System and Information Integrity,System-wide Intrusion Detection System
+800-53,800-53:SI-4(2),System and Information Integrity,Automated Tools and Mechanisms for Real-time Analysis
+800-53,800-53:SI-4(3),System and Information Integrity,Automated Tool and Mechanism Integration
+800-53,800-53:SI-4(4),System and Information Integrity,Inbound and Outbound Communications Traffic
+800-53,800-53:SI-4(5),System and Information Integrity,System-generated Alerts
+800-53,800-53:SI-4(7),System and Information Integrity,Automated Response to Suspicious Events
+800-53,800-53:SI-4(9),System and Information Integrity,Testing of Monitoring Tools and Mechanisms
+800-53,800-53:SI-4(10),System and Information Integrity,Visibility of Encrypted Communications
+800-53,800-53:SI-4(11),System and Information Integrity,Analyze Communications Traffic Anomalies
+800-53,800-53:SI-4(12),System and Information Integrity,Automated Organization-generated Alerts
+800-53,800-53:SI-4(13),System and Information Integrity,Analyze Traffic and Event Patterns
+800-53,800-53:SI-4(14),System and Information Integrity,Wireless Intrusion Detection
+800-53,800-53:SI-4(15),System and Information Integrity,Wireless to Wireline Communications
+800-53,800-53:SI-4(16),System and Information Integrity,Correlate Monitoring Information
+800-53,800-53:SI-4(17),System and Information Integrity,Integrated Situational Awareness
+800-53,800-53:SI-4(18),System and Information Integrity,Analyze Traffic and Covert Exfiltration
+800-53,800-53:SI-4(19),System and Information Integrity,Risk for Individuals
+800-53,800-53:SI-4(20),System and Information Integrity,Privileged Users
+800-53,800-53:SI-4(21),System and Information Integrity,Probationary Periods
+800-53,800-53:SI-4(22),System and Information Integrity,Unauthorized Network Services
+800-53,800-53:SI-4(23),System and Information Integrity,Host-based Devices
+800-53,800-53:SI-4(24),System and Information Integrity,Indicators of Compromise
+800-53,800-53:SI-4(25),System and Information Integrity,Optimize Network Traffic Analysis
+800-53,800-53:SI-5,System and Information Integrity,"Security Alerts, Advisories, and Directives"
+800-53,800-53:SI-5(1),System and Information Integrity,Automated Alerts and Advisories
+800-53,800-53:SI-6,System and Information Integrity,Security and Privacy Function Verification
+800-53,800-53:SI-6(2),System and Information Integrity,Automation Support for Distributed Testing
+800-53,800-53:SI-6(3),System and Information Integrity,Report Verification Results
+800-53,800-53:SI-7,System and Information Integrity,"Software, Firmware, and Information Integrity"
+800-53,800-53:SI-7(1),System and Information Integrity,Integrity Checks
+800-53,800-53:SI-7(2),System and Information Integrity,Automated Notifications of Integrity Violations
+800-53,800-53:SI-7(3),System and Information Integrity,Centrally Managed Integrity Tools
+800-53,800-53:SI-7(5),System and Information Integrity,Automated Response to Integrity Violations
+800-53,800-53:SI-7(6),System and Information Integrity,Cryptographic Protection
+800-53,800-53:SI-7(7),System and Information Integrity,Integration of Detection and Response
+800-53,800-53:SI-7(8),System and Information Integrity,Auditing Capability for Significant Events
+800-53,800-53:SI-7(9),System and Information Integrity,Verify Boot Process
+800-53,800-53:SI-7(10),System and Information Integrity,Protection of Boot Firmware
+800-53,800-53:SI-7(12),System and Information Integrity,Integrity Verification
+800-53,800-53:SI-7(15),System and Information Integrity,Code Authentication
+800-53,800-53:SI-7(16),System and Information Integrity,Time Limit on Process Execution Without Supervision
+800-53,800-53:SI-7(17),System and Information Integrity,Runtime Application Self-protection
+800-53,800-53:SI-8,System and Information Integrity,Spam Protection
+800-53,800-53:SI-8(2),System and Information Integrity,Automatic Updates
+800-53,800-53:SI-8(3),System and Information Integrity,Continuous Learning Capability
+800-53,800-53:SI-10,System and Information Integrity,Information Input Validation
+800-53,800-53:SI-10(1),System and Information Integrity,Manual Override Capability
+800-53,800-53:SI-10(2),System and Information Integrity,Review and Resolve Errors
+800-53,800-53:SI-10(3),System and Information Integrity,Predictable Behavior
+800-53,800-53:SI-10(4),System and Information Integrity,Timing Interactions
+800-53,800-53:SI-10(5),System and Information Integrity,Restrict Inputs to Trusted Sources and Approved Formats
+800-53,800-53:SI-10(6),System and Information Integrity,Injection Prevention
+800-53,800-53:SI-11,System and Information Integrity,Error Handling
+800-53,800-53:SI-12,System and Information Integrity,Information Management and Retention
+800-53,800-53:SI-12(1),System and Information Integrity,Limit Personally Identifiable Information Elements
+800-53,800-53:SI-12(2),System and Information Integrity,"Minimize Personally Identifiable Information in Testing, Training, and Research"
+800-53,800-53:SI-12(3),System and Information Integrity,Information Disposal
+800-53,800-53:SI-13,System and Information Integrity,Predictable Failure Prevention
+800-53,800-53:SI-13(1),System and Information Integrity,Transferring Component Responsibilities
+800-53,800-53:SI-13(3),System and Information Integrity,Manual Transfer Between Components
+800-53,800-53:SI-13(4),System and Information Integrity,Standby Component Installation and Notification
+800-53,800-53:SI-13(5),System and Information Integrity,Failover Capability
+800-53,800-53:SI-14,System and Information Integrity,Non-persistence
+800-53,800-53:SI-14(1),System and Information Integrity,Refresh from Trusted Sources
+800-53,800-53:SI-14(2),System and Information Integrity,Non-persistent Information
+800-53,800-53:SI-14(3),System and Information Integrity,Non-persistent Connectivity
+800-53,800-53:SI-15,System and Information Integrity,Information Output Filtering
+800-53,800-53:SI-16,System and Information Integrity,Memory Protection
+800-53,800-53:SI-17,System and Information Integrity,Fail-safe Procedures
+800-53,800-53:SI-18,System and Information Integrity,Personally Identifiable Information Quality Operations
+800-53,800-53:SI-18(1),System and Information Integrity,Automation Support
+800-53,800-53:SI-18(2),System and Information Integrity,Data Tags
+800-53,800-53:SI-18(3),System and Information Integrity,Collection
+800-53,800-53:SI-18(4),System and Information Integrity,Individual Requests
+800-53,800-53:SI-18(5),System and Information Integrity,Notice of Correction or Deletion
+800-53,800-53:SI-19,System and Information Integrity,De-identification
+800-53,800-53:SI-19(1),System and Information Integrity,Collection
+800-53,800-53:SI-19(2),System and Information Integrity,Archiving
+800-53,800-53:SI-19(3),System and Information Integrity,Release
+800-53,800-53:SI-19(4),System and Information Integrity,"Removal, Masking, Encryption, Hashing, or Replacement of Direct Identifiers"
+800-53,800-53:SI-19(5),System and Information Integrity,Statistical Disclosure Control
+800-53,800-53:SI-19(6),System and Information Integrity,Differential Privacy
+800-53,800-53:SI-19(7),System and Information Integrity,Validated Algorithms and Software
+800-53,800-53:SI-19(8),System and Information Integrity,Motivated Intruder
+800-53,800-53:SI-20,System and Information Integrity,Tainting
+800-53,800-53:SI-21,System and Information Integrity,Information Refresh
+800-53,800-53:SI-22,System and Information Integrity,Information Diversity
+800-53,800-53:SI-23,System and Information Integrity,Information Fragmentation
+800-53,800-53:SR-1,Supply Chain Risk Management,Policy and Procedures
+800-53,800-53:SR-2,Supply Chain Risk Management,Supply Chain Risk Management Plan
+800-53,800-53:SR-2(1),Supply Chain Risk Management,Establish SCRM Team
+800-53,800-53:SR-3,Supply Chain Risk Management,Supply Chain Controls and Processes
+800-53,800-53:SR-3(1),Supply Chain Risk Management,Diverse Supply Base
+800-53,800-53:SR-3(2),Supply Chain Risk Management,Limitation of Harm
+800-53,800-53:SR-3(3),Supply Chain Risk Management,Sub-tier Flow Down
+800-53,800-53:SR-4,Supply Chain Risk Management,Provenance
+800-53,800-53:SR-4(1),Supply Chain Risk Management,Identity
+800-53,800-53:SR-4(2),Supply Chain Risk Management,Track and Trace
+800-53,800-53:SR-4(3),Supply Chain Risk Management,Validate as Genuine and Not Altered
+800-53,800-53:SR-4(4),Supply Chain Risk Management,Supply Chain Integrity — Pedigree
+800-53,800-53:SR-5,Supply Chain Risk Management,"Acquisition Strategies, Tools, and Methods"
+800-53,800-53:SR-5(1),Supply Chain Risk Management,Adequate Supply
+800-53,800-53:SR-5(2),Supply Chain Risk Management,"Assessments Prior to Selection, Acceptance, Modification, or Update"
+800-53,800-53:SR-6,Supply Chain Risk Management,Supplier Assessments and Reviews
+800-53,800-53:SR-6(1),Supply Chain Risk Management,Testing and Analysis
+800-53,800-53:SR-7,Supply Chain Risk Management,Supply Chain Operations Security
+800-53,800-53:SR-8,Supply Chain Risk Management,Notification Agreements
+800-53,800-53:SR-9,Supply Chain Risk Management,Tamper Resistance and Detection
+800-53,800-53:SR-9(1),Supply Chain Risk Management,Multiple Stages of System Development Life Cycle
+800-53,800-53:SR-10,Supply Chain Risk Management,Inspection of Systems or Components
+800-53,800-53:SR-11,Supply Chain Risk Management,Component Authenticity
+800-53,800-53:SR-11(1),Supply Chain Risk Management,Anti-counterfeit Training
+800-53,800-53:SR-11(2),Supply Chain Risk Management,Configuration Control for Component Service and Repair
+800-53,800-53:SR-11(3),Supply Chain Risk Management,Anti-counterfeit Scanning
+800-53,800-53:SR-12,Supply Chain Risk Management,Component Disposal
+800-171,800-171:03.01.01,Access Control,Account Management
+800-171,800-171:03.01.02,Access Control,Access Enforcement
+800-171,800-171:03.01.03,Access Control,Information Flow Enforcement
+800-171,800-171:03.01.04,Access Control,Separation of Duties
+800-171,800-171:03.01.05,Access Control,Least Privilege
+800-171,800-171:03.01.06,Access Control,Least Privilege – Privileged Accounts
+800-171,800-171:03.01.07,Access Control,Least Privilege – Privileged Functions
+800-171,800-171:03.01.08,Access Control,Unsuccessful Logon Attempts
+800-171,800-171:03.01.09,Access Control,System Use Notification
+800-171,800-171:03.01.10,Access Control,Device Lock
+800-171,800-171:03.01.11,Access Control,Session Termination
+800-171,800-171:03.01.12,Access Control,Remote Access
+800-171,800-171:03.01.16,Access Control,Wireless Access
+800-171,800-171:03.01.18,Access Control,Access Control for Mobile Devices
+800-171,800-171:03.01.20,Access Control,Use of External Systems
+800-171,800-171:03.01.22,Access Control,Publicly Accessible Content
+800-171,800-171:03.02.01,Awareness and Training,Literacy Training and Awareness
+800-171,800-171:03.02.02,Awareness and Training,Role-Based Training
+800-171,800-171:03.03.01,Audit and Accountability,Event Logging
+800-171,800-171:03.03.02,Audit and Accountability,Audit Record Content
+800-171,800-171:03.03.03,Audit and Accountability,Audit Record Generation
+800-171,800-171:03.03.04,Audit and Accountability,Response to Audit Logging Process Failures
+800-171,800-171:03.03.05,Audit and Accountability,"Audit Record Review, Analysis, and Reporting"
+800-171,800-171:03.03.06,Audit and Accountability,Audit Record Reduction and Report Generation
+800-171,800-171:03.03.07,Audit and Accountability,Time Stamps
+800-171,800-171:03.03.08,Audit and Accountability,Protection of Audit Information
+800-171,800-171:03.04.01,Configuration Management,Baseline Configuration
+800-171,800-171:03.04.02,Configuration Management,Configuration Settings
+800-171,800-171:03.04.03,Configuration Management,Configuration Change Control
+800-171,800-171:03.04.04,Configuration Management,Impact Analyses
+800-171,800-171:03.04.05,Configuration Management,Access Restrictions for Change
+800-171,800-171:03.04.06,Configuration Management,Least Functionality
+800-171,800-171:03.04.08,Configuration Management,Authorized Software – Allow by Exception
+800-171,800-171:03.04.10,Configuration Management,System Component Inventory
+800-171,800-171:03.04.11,Configuration Management,Information Location
+800-171,800-171:03.04.12,Configuration Management,System and Component Configuration for High-Risk Areas
+800-171,800-171:03.05.01,Identification and Authentication,User Identification and Authentication
+800-171,800-171:03.05.02,Identification and Authentication,Device Identification and Authentication
+800-171,800-171:03.05.03,Identification and Authentication,Multi-Factor Authentication
+800-171,800-171:03.05.04,Identification and Authentication,Replay-Resistant Authentication
+800-171,800-171:03.05.05,Identification and Authentication,Identifier Management
+800-171,800-171:03.05.07,Identification and Authentication,Password Management
+800-171,800-171:03.05.11,Identification and Authentication,Authentication Feedback
+800-171,800-171:03.05.12,Identification and Authentication,Authenticator Management
+800-171,800-171:03.06.01,Incident Response,Incident Handling
+800-171,800-171:03.06.02,Incident Response,"Incident Monitoring, Reporting, and Response Assistance"
+800-171,800-171:03.06.03,Incident Response,Incident Response Testing
+800-171,800-171:03.06.04,Incident Response,Incident Response Training
+800-171,800-171:03.06.05,Incident Response,Incident Response Plan
+800-171,800-171:03.07.04,Maintenance,Maintenance Tools
+800-171,800-171:03.07.05,Maintenance,Nonlocal Maintenance
+800-171,800-171:03.07.06,Maintenance,Maintenance Personnel
+800-171,800-171:03.08.01,Media Protection,Media Storage
+800-171,800-171:03.08.02,Media Protection,Media Access
+800-171,800-171:03.08.03,Media Protection,Media Sanitization
+800-171,800-171:03.08.04,Media Protection,Media Marking
+800-171,800-171:03.08.05,Media Protection,Media Transport
+800-171,800-171:03.08.07,Media Protection,Media Use
+800-171,800-171:03.08.09,Media Protection,System Backup – Cryptographic Protection
+800-171,800-171:03.09.01,Personnel Security,Personnel Screening
+800-171,800-171:03.09.02,Personnel Security,Personnel Termination and Transfer
+800-171,800-171:03.10.01,Physical Protection,Physical Access Authorizations
+800-171,800-171:03.10.02,Physical Protection,Monitoring Physical Access
+800-171,800-171:03.10.06,Physical Protection,Alternate Work Site
+800-171,800-171:03.10.07,Physical Protection,Physical Access Control
+800-171,800-171:03.10.08,Physical Protection,Access Control for Transmission
+800-171,800-171:03.11.01,Risk Assessment,Risk Assessment
+800-171,800-171:03.11.02,Risk Assessment,Vulnerability Monitoring and Scanning
+800-171,800-171:03.11.04,Risk Assessment,Risk Response
+800-171,800-171:03.12.01,Security Assessment and Monitoring,Security Assessment
+800-171,800-171:03.12.02,Security Assessment and Monitoring,Plan of Action and Milestones
+800-171,800-171:03.12.03,Security Assessment and Monitoring,Continuous Monitoring
+800-171,800-171:03.12.05,Security Assessment and Monitoring,Information Exchange
+800-171,800-171:03.13.01,System and Communications Protection,Boundary Protection
+800-171,800-171:03.13.04,System and Communications Protection,Information in Shared System Resources
+800-171,800-171:03.13.06,System and Communications Protection,Network Communications – Deny by Default – Allow by Exception
+800-171,800-171:03.13.08,System and Communications Protection,Transmission and Storage Confidentiality
+800-171,800-171:03.13.09,System and Communications Protection,Network Disconnect
+800-171,800-171:03.13.10,System and Communications Protection,Cryptographic Key Establishment and Management
+800-171,800-171:03.13.11,System and Communications Protection,Cryptographic Protection
+800-171,800-171:03.13.12,System and Communications Protection,Collaborative Computing Devices and Applications
+800-171,800-171:03.13.13,System and Communications Protection,Mobile Code
+800-171,800-171:03.13.15,System and Communications Protection,Session Authenticity
+800-171,800-171:03.14.01,System and Information Integrity,Flaw Remediation
+800-171,800-171:03.14.02,System and Information Integrity,Malicious Code Protection
+800-171,800-171:03.14.03,System and Information Integrity,"Security Alerts, Advisories, and Directives"
+800-171,800-171:03.14.06,System and Information Integrity,System Monitoring
+800-171,800-171:03.14.08,System and Information Integrity,Information Management and Retention
+800-171,800-171:03.15.01,Planning,Policy and Procedures
+800-171,800-171:03.15.02,Planning,System Security Plan
+800-171,800-171:03.15.03,Planning,Rules of Behavior
+800-171,800-171:03.16.01,System and Services Acquisition,Security Engineering Principles
+800-171,800-171:03.16.02,System and Services Acquisition,Unsupported System Components
+800-171,800-171:03.16.03,System and Services Acquisition,External System Services
+800-171,800-171:03.17.01,Supply Chain Risk Management,Supply Chain Risk Management Plan
+800-171,800-171:03.17.02,Supply Chain Risk Management,"Acquisition Strategies, Tools, and Methods"
+800-171,800-171:03.17.03,Supply Chain Risk Management,Supply Chain Requirements and Processes
+CSF,CSF:DE.AE-02,Adverse Event Analysis,Potentially adverse events are analyzed to better understand associated activities
+CSF,CSF:DE.AE-03,Adverse Event Analysis,Information is correlated from multiple sources
+CSF,CSF:DE.AE-04,Adverse Event Analysis,The estimated impact and scope of adverse events are understood
+CSF,CSF:DE.AE-06,Adverse Event Analysis,Information on adverse events is provided to authorized staff and tools
+CSF,CSF:DE.AE-07,Adverse Event Analysis,Cyber threat intelligence and other contextual information are integrated into the analysis
+CSF,CSF:DE.AE-08,Adverse Event Analysis,Incidents are declared when adverse events meet the defined incident criteria
+CSF,CSF:DE.CM-01,Continuous Monitoring,Networks and network services are monitored to find potentially adverse events
+CSF,CSF:DE.CM-02,Continuous Monitoring,The physical environment is monitored to find potentially adverse events
+CSF,CSF:DE.CM-03,Continuous Monitoring,Personnel activity and technology usage are monitored to find potentially adverse events
+CSF,CSF:DE.CM-06,Continuous Monitoring,External service provider activities and services are monitored to find potentially adverse events
+CSF,CSF:DE.CM-09,Continuous Monitoring,"Computing hardware and software, runtime environments, and their data are monitored to find potentially adverse events"
+CSF,CSF:GV.OC-01,Organizational Context,The organizational mission is understood and informs cybersecurity risk management
+CSF,CSF:GV.OC-02,Organizational Context,"Internal and external stakeholders are understood, and their needs and expectations regarding cybersecurity risk management are understood and considered"
+CSF,CSF:GV.OC-03,Organizational Context,"Legal, regulatory, and contractual requirements regarding cybersecurity - including privacy and civil liberties obligations - are understood and managed"
+CSF,CSF:GV.OC-04,Organizational Context,"Critical objectives, capabilities, and services that external stakeholders depend on or expect from the organization are understood and communicated"
+CSF,CSF:GV.OC-05,Organizational Context,"Outcomes, capabilities, and services that the organization depends on are understood and communicated"
+CSF,CSF:GV.OV-01,Oversight,Cybersecurity risk management strategy outcomes are reviewed to inform and adjust strategy and direction
+CSF,CSF:GV.OV-02,Oversight,The cybersecurity risk management strategy is reviewed and adjusted to ensure coverage of organizational requirements and risks
+CSF,CSF:GV.OV-03,Oversight,Organizational cybersecurity risk management performance is evaluated and reviewed for adjustments needed
+CSF,CSF:GV.PO-01,Policy,"Policy for managing cybersecurity risks is established based on organizational context, cybersecurity strategy, and priorities and is communicated and enforced"
+CSF,CSF:GV.PO-02,Policy,"Policy for managing cybersecurity risks is reviewed, updated, communicated, and enforced to reflect changes in requirements, threats, technology, and organizational mission"
+CSF,CSF:GV.RM-01,Risk Management Strategy,Risk management objectives are established and agreed to by organizational stakeholders
+CSF,CSF:GV.RM-02,Risk Management Strategy,"Risk appetite and risk tolerance statements are established, communicated, and maintained"
+CSF,CSF:GV.RM-03,Risk Management Strategy,Cybersecurity risk management activities and outcomes are included in enterprise risk management processes
+CSF,CSF:GV.RM-04,Risk Management Strategy,Strategic direction that describes appropriate risk response options is established and communicated
+CSF,CSF:GV.RM-05,Risk Management Strategy,"Lines of communication across the organization are established for cybersecurity risks, including risks from suppliers and other third parties"
+CSF,CSF:GV.RM-06,Risk Management Strategy,"A standardized method for calculating, documenting, categorizing, and prioritizing cybersecurity risks is established and communicated"
+CSF,CSF:GV.RM-07,Risk Management Strategy,"Strategic opportunities (i.e., positive risks) are characterized and are included in organizational cybersecurity risk discussions"
+CSF,CSF:GV.RR-01,"Roles, Responsibilities, and Authorities","Organizational leadership is responsible and accountable for cybersecurity risk and fosters a culture that is risk-aware, ethical, and continually improving"
+CSF,CSF:GV.RR-02,"Roles, Responsibilities, and Authorities","Roles, responsibilities, and authorities related to cybersecurity risk management are established, communicated, understood, and enforced"
+CSF,CSF:GV.RR-03,"Roles, Responsibilities, and Authorities","Adequate resources are allocated commensurate with the cybersecurity risk strategy, roles, responsibilities, and policies"
+CSF,CSF:GV.RR-04,"Roles, Responsibilities, and Authorities",Cybersecurity is included in human resources practices
+CSF,CSF:GV.SC-01,Cybersecurity Supply Chain Risk Management,"A cybersecurity supply chain risk management program, strategy, objectives, policies, and processes are established and agreed to by organizational stakeholders"
+CSF,CSF:GV.SC-02,Cybersecurity Supply Chain Risk Management,"Cybersecurity roles and responsibilities for suppliers, customers, and partners are established, communicated, and coordinated internally and externally"
+CSF,CSF:GV.SC-03,Cybersecurity Supply Chain Risk Management,"Cybersecurity supply chain risk management is integrated into cybersecurity and enterprise risk management, risk assessment, and improvement processes"
+CSF,CSF:GV.SC-04,Cybersecurity Supply Chain Risk Management,Suppliers are known and prioritized by criticality
+CSF,CSF:GV.SC-05,Cybersecurity Supply Chain Risk Management,"Requirements to address cybersecurity risks in supply chains are established, prioritized, and integrated into contracts and other types of agreements with suppliers and other relevant third parties"
+CSF,CSF:GV.SC-06,Cybersecurity Supply Chain Risk Management,Planning and due diligence are performed to reduce risks before entering into formal supplier or other third-party relationships
+CSF,CSF:GV.SC-07,Cybersecurity Supply Chain Risk Management,"The risks posed by a supplier, their products and services, and other third parties are understood, recorded, prioritized, assessed, responded to, and monitored over the course of the relationship"
+CSF,CSF:GV.SC-08,Cybersecurity Supply Chain Risk Management,"Relevant suppliers and other third parties are included in incident planning, response, and recovery activities"
+CSF,CSF:GV.SC-09,Cybersecurity Supply Chain Risk Management,"Supply chain security practices are integrated into cybersecurity and enterprise risk management programs, and their performance is monitored throughout the technology product and service life cycle"
+CSF,CSF:GV.SC-10,Cybersecurity Supply Chain Risk Management,Cybersecurity supply chain risk management plans include provisions for activities that occur after the conclusion of a partnership or service agreement
+CSF,CSF:ID.AM-01,Asset Management,Inventories of hardware managed by the organization are maintained
+CSF,CSF:ID.AM-02,Asset Management,"Inventories of software, services, and systems managed by the organization are maintained"
+CSF,CSF:ID.AM-03,Asset Management,Representations of the organization's authorized network communication and internal and external network data flows are maintained
+CSF,CSF:ID.AM-04,Asset Management,Inventories of services provided by suppliers are maintained
+CSF,CSF:ID.AM-05,Asset Management,"Assets are prioritized based on classification, criticality, resources, and impact on the mission"
+CSF,CSF:ID.AM-07,Asset Management,Inventories of data and corresponding metadata for designated data types are maintained
+CSF,CSF:ID.AM-08,Asset Management,"Systems, hardware, software, services, and data are managed throughout their life cycles"
+CSF,CSF:ID.IM-01,Improvement,Improvements are identified from evaluations
+CSF,CSF:ID.IM-02,Improvement,"Improvements are identified from security tests and exercises, including those done in coordination with suppliers and relevant third parties"
+CSF,CSF:ID.IM-03,Improvement,"Improvements are identified from execution of operational processes, procedures, and activities"
+CSF,CSF:ID.IM-04,Improvement,"Incident response plans and other cybersecurity plans that affect operations are established, communicated, maintained, and improved"
+CSF,CSF:ID.RA-01,Risk Assessment,"Vulnerabilities in assets are identified, validated, and recorded"
+CSF,CSF:ID.RA-02,Risk Assessment,Cyber threat intelligence is received from information sharing forums and sources
+CSF,CSF:ID.RA-03,Risk Assessment,Internal and external threats to the organization are identified and recorded
+CSF,CSF:ID.RA-04,Risk Assessment,Potential impacts and likelihoods of threats exploiting vulnerabilities are identified and recorded
+CSF,CSF:ID.RA-05,Risk Assessment,"Threats, vulnerabilities, likelihoods, and impacts are used to understand inherent risk and inform risk response prioritization"
+CSF,CSF:ID.RA-06,Risk Assessment,"Risk responses are chosen, prioritized, planned, tracked, and communicated"
+CSF,CSF:ID.RA-07,Risk Assessment,"Changes and exceptions are managed, assessed for risk impact, recorded, and tracked"
+CSF,CSF:ID.RA-08,Risk Assessment,"Processes for receiving, analyzing, and responding to vulnerability disclosures are established"
+CSF,CSF:ID.RA-09,Risk Assessment,The authenticity and integrity of hardware and software are assessed prior to acquisition and use
+CSF,CSF:ID.RA-10,Risk Assessment,Critical suppliers are assessed prior to acquisition
+CSF,CSF:PR.AA-01,"Identity Management, Authentication, and Access Control","Identities and credentials for authorized users, services, and hardware are managed by the organization"
+CSF,CSF:PR.AA-02,"Identity Management, Authentication, and Access Control",Identities are proofed and bound to credentials based on the context of interactions
+CSF,CSF:PR.AA-03,"Identity Management, Authentication, and Access Control","Users, services, and hardware are authenticated"
+CSF,CSF:PR.AA-04,"Identity Management, Authentication, and Access Control","Identity assertions are protected, conveyed, and verified"
+CSF,CSF:PR.AA-05,"Identity Management, Authentication, and Access Control","Access permissions, entitlements, and authorizations are defined in a policy, managed, enforced, and reviewed, and incorporate the principles of least privilege and separation of duties"
+CSF,CSF:PR.AA-06,"Identity Management, Authentication, and Access Control","Physical access to assets is managed, monitored, and enforced commensurate with risk"
+CSF,CSF:PR.AT-01,Awareness and Training,Personnel are provided with awareness and training so that they possess the knowledge and skills to perform general tasks with cybersecurity risks in mind
+CSF,CSF:PR.AT-02,Awareness and Training,Individuals in specialized roles are provided with awareness and training so that they possess the knowledge and skills to perform relevant tasks with cybersecurity risks in mind
+CSF,CSF:PR.DS-01,Data Security,"The confidentiality, integrity, and availability of data-at-rest are protected"
+CSF,CSF:PR.DS-02,Data Security,"The confidentiality, integrity, and availability of data-in-transit are protected"
+CSF,CSF:PR.DS-10,Data Security,"The confidentiality, integrity, and availability of data-in-use are protected"
+CSF,CSF:PR.DS-11,Data Security,"Backups of data are created, protected, maintained, and tested"
+CSF,CSF:PR.IR-01,Technology Infrastructure Resilience,Networks and environments are protected from unauthorized logical access and usage
+CSF,CSF:PR.IR-02,Technology Infrastructure Resilience,The organization's technology assets are protected from environmental threats
+CSF,CSF:PR.IR-03,Technology Infrastructure Resilience,Mechanisms are implemented to achieve resilience requirements in normal and adverse situations
+CSF,CSF:PR.IR-04,Technology Infrastructure Resilience,Adequate resource capacity to ensure availability is maintained
+CSF,CSF:PR.PS-01,Platform Security,Configuration management practices are established and applied
+CSF,CSF:PR.PS-02,Platform Security,"Software is maintained, replaced, and removed commensurate with risk"
+CSF,CSF:PR.PS-03,Platform Security,"Hardware is maintained, replaced, and removed commensurate with risk"
+CSF,CSF:PR.PS-04,Platform Security,Log records are generated and made available for continuous monitoring
+CSF,CSF:PR.PS-05,Platform Security,Installation and execution of unauthorized software are prevented
+CSF,CSF:PR.PS-06,Platform Security,"Secure software development practices are integrated, and their performance is monitored throughout the software development life cycle"
+CSF,CSF:RC.CO-03,Incident Recovery Communication,Recovery activities and progress in restoring operational capabilities are communicated to designated internal and external stakeholders
+CSF,CSF:RC.CO-04,Incident Recovery Communication,Public updates on incident recovery are shared using approved methods and messaging
+CSF,CSF:RC.RP-01,Incident Recovery Plan Execution,The recovery portion of the incident response plan is executed once initiated from the incident response process
+CSF,CSF:RC.RP-02,Incident Recovery Plan Execution,"Recovery actions are selected, scoped, prioritized, and performed"
+CSF,CSF:RC.RP-03,Incident Recovery Plan Execution,The integrity of backups and other restoration assets is verified before using them for restoration
+CSF,CSF:RC.RP-04,Incident Recovery Plan Execution,Critical mission functions and cybersecurity risk management are considered to establish post-incident operational norms
+CSF,CSF:RC.RP-05,Incident Recovery Plan Execution,"The integrity of restored assets is verified, systems and services are restored, and normal operating status is confirmed"
+CSF,CSF:RC.RP-06,Incident Recovery Plan Execution,"The end of incident recovery is declared based on criteria, and incident-related documentation is completed"
+CSF,CSF:RS.AN-03,Incident Analysis,Analysis is performed to establish what has taken place during an incident and the root cause of the incident
+CSF,CSF:RS.AN-06,Incident Analysis,"Actions performed during an investigation are recorded, and the records' integrity and provenance are preserved"
+CSF,CSF:RS.AN-07,Incident Analysis,"Incident data and metadata are collected, and their integrity and provenance are preserved"
+CSF,CSF:RS.AN-08,Incident Analysis,An incident's magnitude is estimated and validated
+CSF,CSF:RS.CO-02,Incident Response Reporting and Communication,Internal and external stakeholders are notified of incidents
+CSF,CSF:RS.CO-03,Incident Response Reporting and Communication,Information is shared with designated internal and external stakeholders
+CSF,CSF:RS.MA-01,Incident Management,The incident response plan is executed in coordination with relevant third parties once an incident is declared
+CSF,CSF:RS.MA-02,Incident Management,Incident reports are triaged and validated
+CSF,CSF:RS.MA-03,Incident Management,Incidents are categorized and prioritized
+CSF,CSF:RS.MA-04,Incident Management,Incidents are escalated or elevated as needed
+CSF,CSF:RS.MA-05,Incident Management,The criteria for initiating incident recovery are applied
+CSF,CSF:RS.MI-01,Incident Mitigation,Incidents are contained
+CSF,CSF:RS.MI-02,Incident Mitigation,Incidents are eradicated

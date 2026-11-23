@@ -1,0 +1,68 @@
+# 8 proposals the verifier must reject (spec section 5). Every id is real in the Harbor & Pine
+# (fictional) pack, the NIST catalogs or the control library, except where the point is that an id
+# does not exist. tests/test_oracle.py checks each fact the proposal relies on against the pack.
+# as_of 2026-12-02. `expected_reason` is a stable code; `explanation` is the human wording.
+- id: BP-01
+  kind: duplicate
+  proposal: {type: mapping, control: CTRL-AP-12, requirement: '800-53:CP-4', by: mapper-agent,
+             rationale: Scheduled restore tests exercise recovery capability.}
+  expected_reason: duplicate
+  explanation: CTRL-AP-12 already has an approved SATISFIES to 800-53:CP-4 (approved by P-maya-chen on 2026-11-18, decision D-003).
+  facts: {existing_mapping: [CTRL-AP-12, '800-53:CP-4']}
+
+- id: BP-02
+  kind: non-existent target
+  proposal: {type: mapping, control: CTRL-ASP-8, requirement: '800-53:SC-99', by: mapper-agent,
+             rationale: Encryption of customer data in the application tier.}
+  expected_reason: nonexistent_target
+  explanation: 800-53:SC-99 is not a requirement in 800-53 Rev 5.2.0.
+  facts: {missing_requirement: '800-53:SC-99'}
+
+- id: BP-03
+  kind: withdrawn target
+  proposal: {type: mapping, control: CTRL-REAP-6, requirement: '800-171:03.01.13', by: mapper-agent,
+             rationale: VPN access is encrypted, which looks like remote access confidentiality.}
+  expected_reason: withdrawn_target
+  explanation: 800-171:03.01.13 is withdrawn in Rev 3 (incorporated elsewhere), so it cannot be a mapping target.
+  facts: {withdrawn_requirement: '800-171:03.01.13'}
+
+- id: BP-04
+  kind: previously rejected (S4)
+  proposal: {type: mapping, control: CTRL-AOTP-11, requirement: '800-53:AC-17', by: mapper-agent,
+             rationale: Monthly review of VPN and user accounts relates to remote access.}
+  expected_reason: previously_rejected
+  explanation: P-maya-chen rejected exactly this mapping on 2026-11-25 (D-001), reason "AC-17 is remote access; this control is local account review". New evidence is required to re-propose.
+  facts: {decision: D-001, decided_by: P-maya-chen, decided_at: '2026-11-25'}
+
+- id: BP-05
+  kind: wrong framework
+  proposal: {type: mapping, control: CTRL-ASP-9, requirement: '800-53:AU-3', target_framework: 800-171, by: mapper-agent,
+             rationale: Application audit record content satisfies the 800-171 audit record requirement.}
+  expected_reason: wrong_framework
+  explanation: The proposal declares target_framework 800-171 but the requirement id belongs to 800-53.
+  facts: {declared_framework: 800-171, requirement_framework: 800-53}
+
+- id: BP-06
+  kind: evidence request for non-expiring evidence
+  proposal: {type: evidence_request, evidence: EV-104, audit: AUD-53, by: evidence-agent,
+             rationale: Renew the incremental backup job report before it expires.}
+  expected_reason: evidence_not_expiring
+  explanation: EV-104 is valid until 2027-11-10, well outside the 30-day window and the 2027-02-20 audit date, so a renewal request is not justified.
+  facts: {evidence: EV-104, expires_at: '2027-11-10'}
+
+- id: BP-07
+  kind: unknown person
+  proposal: {type: ownership, control: CTRL-MCP-13, owner: P-marcus-webb, by: mapper-agent,
+             rationale: The legacy tracker still lists Marcus Webb as the owner of the cloud storage control.}
+  expected_reason: unknown_person
+  explanation: P-marcus-webb is not in people.yaml (he is a departed person that only appears in the legacy tracker).
+  facts: {missing_person: P-marcus-webb, control: CTRL-MCP-13}
+
+- id: BP-08
+  kind: self-contradicting status
+  proposal: {type: mapping, control: CTRL-PWP-4, requirement: '800-171:03.05.03', by: mapper-agent, status: approved,
+             decided_by: null, decision: null,
+             rationale: Pending review by the security lead, but marked approved so it counts toward coverage.}
+  expected_reason: contradictory_status
+  explanation: Agents can only propose. A proposal with status approved but no approver, no decision and a rationale that says it is pending contradicts itself (see PR-005, status pending).
+  facts: {related_proposal: PR-005}

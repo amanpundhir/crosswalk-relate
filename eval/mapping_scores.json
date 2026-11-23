@@ -1,0 +1,1013 @@
+{
+  "config": {
+    "boost_crosswalk": 0.25,
+    "boost_family": 0.15,
+    "graph_pool": 30,
+    "penalty_rejected": 1.0,
+    "pool": 50,
+    "rrf_c": 60,
+    "w_ft": 0.3,
+    "w_vec": 0.7
+  },
+  "controls": 40,
+  "framework": "800-53",
+  "k": 10,
+  "leave_one_out": true,
+  "methods": {
+    "fulltext": {
+      "controls_with_a_hit_in_top_10": 31,
+      "mrr": 0.4183,
+      "precision_at_5": 0.165,
+      "recall_at_10": 0.4333
+    },
+    "hybrid": {
+      "controls_with_a_hit_in_top_10": 29,
+      "mrr": 0.5536,
+      "precision_at_5": 0.195,
+      "recall_at_10": 0.5417
+    },
+    "hybrid+graph": {
+      "controls_with_a_hit_in_top_10": 31,
+      "mrr": 0.573,
+      "precision_at_5": 0.195,
+      "recall_at_10": 0.5625
+    },
+    "vector": {
+      "controls_with_a_hit_in_top_10": 32,
+      "mrr": 0.4953,
+      "precision_at_5": 0.175,
+      "recall_at_10": 0.4792
+    }
+  },
+  "per_control": {
+    "fulltext": {
+      "CTRL-AOTP-11": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-AOTP-8": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-AP-11": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-AP-12": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-8": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-ASP-10": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ASP-15": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ASP-19": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ASP-8": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-ASP-9": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-BCP-4": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-EP-5": {
+        "first_hit_rank": 6,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.16666666666666666
+      },
+      "CTRL-EP-8": {
+        "first_hit_rank": 5,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.2
+      },
+      "CTRL-ISP-7": {
+        "first_hit_rank": 10,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.1
+      },
+      "CTRL-LMP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-15": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-16": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-18": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-MCP-13": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-MCP-7": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-OSP-3": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-OSP-5": {
+        "first_hit_rank": 10,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.1
+      },
+      "CTRL-PWP-1": {
+        "first_hit_rank": 9,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.1111111111111111
+      },
+      "CTRL-PWP-4": {
+        "first_hit_rank": 4,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.25
+      },
+      "CTRL-REAP-3": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-REAP-4": {
+        "first_hit_rank": 4,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.25
+      },
+      "CTRL-REAP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 0.6666666666666666,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-7": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-9": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RP-13": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-SCP-1": {
+        "first_hit_rank": 7,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.14285714285714285
+      },
+      "CTRL-SDLCP-41": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.6666666666666666,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-46": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-1": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-SIRP-32": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-SIRP-5": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-VMP-1": {
+        "first_hit_rank": 7,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.14285714285714285
+      },
+      "CTRL-WP-3": {
+        "first_hit_rank": 10,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.1
+      }
+    },
+    "hybrid": {
+      "CTRL-AOTP-11": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-AOTP-8": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-AP-11": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-12": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-8": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-ASP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-15": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-19": {
+        "first_hit_rank": 7,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.14285714285714285
+      },
+      "CTRL-ASP-8": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ASP-9": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-BCP-4": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-EP-5": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-EP-8": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ISP-7": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-15": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-16": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-18": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-MCP-13": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-MCP-7": {
+        "first_hit_rank": 6,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.16666666666666666
+      },
+      "CTRL-OSP-3": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-OSP-5": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-PWP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-PWP-4": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-3": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-4": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.6666666666666666,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-7": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-9": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RP-13": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-SCP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-41": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-46": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-1": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-SIRP-32": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-SIRP-5": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-VMP-1": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-WP-3": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    "hybrid+graph": {
+      "CTRL-AOTP-11": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AOTP-8": {
+        "first_hit_rank": 7,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.14285714285714285
+      },
+      "CTRL-AP-11": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-12": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-8": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-ASP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-15": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-19": {
+        "first_hit_rank": 9,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.1111111111111111
+      },
+      "CTRL-ASP-8": {
+        "first_hit_rank": 4,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.25
+      },
+      "CTRL-ASP-9": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-BCP-4": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-EP-5": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-EP-8": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ISP-7": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-15": {
+        "first_hit_rank": 8,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.3333333333333333,
+        "reciprocal_rank": 0.125
+      },
+      "CTRL-LMP-16": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-18": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-MCP-13": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-MCP-7": {
+        "first_hit_rank": 8,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.125
+      },
+      "CTRL-OSP-3": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-OSP-5": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-PWP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-PWP-4": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-3": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-4": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.6666666666666666,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-7": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-9": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RP-13": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-SCP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-41": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-46": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-1": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-SIRP-32": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-SIRP-5": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-VMP-1": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-WP-3": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    },
+    "vector": {
+      "CTRL-AOTP-11": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-AOTP-8": {
+        "first_hit_rank": 5,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 0.2
+      },
+      "CTRL-AP-11": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-12": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-AP-8": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-ASP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-15": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-19": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-ASP-8": {
+        "first_hit_rank": 6,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.16666666666666666
+      },
+      "CTRL-ASP-9": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-BCP-4": {
+        "first_hit_rank": 8,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.125
+      },
+      "CTRL-EP-5": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-EP-8": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-ISP-7": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-10": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-15": {
+        "first_hit_rank": 10,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.1
+      },
+      "CTRL-LMP-16": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-LMP-18": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-MCP-13": {
+        "first_hit_rank": 7,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.14285714285714285
+      },
+      "CTRL-MCP-7": {
+        "first_hit_rank": 9,
+        "precision_at_5": 0.0,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.1111111111111111
+      },
+      "CTRL-OSP-3": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-OSP-5": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-PWP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-PWP-4": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-3": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-REAP-4": {
+        "first_hit_rank": 8,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.125
+      },
+      "CTRL-REAP-6": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.6666666666666666,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-REAP-7": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-RIAP-9": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-RP-13": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SCP-1": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-41": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.6,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SDLCP-46": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.4,
+        "recall_at_10": 0.5,
+        "reciprocal_rank": 1.0
+      },
+      "CTRL-SIRP-1": {
+        "first_hit_rank": 5,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.2
+      },
+      "CTRL-SIRP-32": {
+        "first_hit_rank": 7,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.14285714285714285
+      },
+      "CTRL-SIRP-5": {
+        "first_hit_rank": 2,
+        "precision_at_5": 0.4,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.5
+      },
+      "CTRL-SIRP-6": {
+        "first_hit_rank": 3,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 0.3333333333333333
+      },
+      "CTRL-VMP-1": {
+        "first_hit_rank": null,
+        "precision_at_5": 0.0,
+        "recall_at_10": 0.0,
+        "reciprocal_rank": 0.0
+      },
+      "CTRL-WP-3": {
+        "first_hit_rank": 1,
+        "precision_at_5": 0.2,
+        "recall_at_10": 1.0,
+        "reciprocal_rank": 1.0
+      }
+    }
+  },
+  "stale_labels": []
+}

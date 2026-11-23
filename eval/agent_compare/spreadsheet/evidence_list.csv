@@ -1,0 +1,121 @@
+evidence_id,title,type,owner,supports_controls,collected,expires,status_as_of_2026-12-02,requested_by_audits
+EV-001,"Offboarding access-removal SLA report, Q3",report,Dana Okafor,CTRL-AOTP-8,2026-04-11,2027-04-11,Current,AUD-171
+EV-002,Sampled offboarding tickets (five terminations),ticket,Dana Okafor,CTRL-AOTP-8,2026-10-03,2027-04-03,Current,AUD-53
+EV-003,Monthly account and permission review sign-off,report,Dana Okafor,CTRL-AOTP-11,2026-01-21,2027-01-21,Current,AUD-CSF
+EV-004,"Role-change access tickets, sampled",ticket,Lena Brandt,CTRL-AOTP-9,2026-04-11,2026-07-11,Expired,AUD-171
+EV-005,Identity provider password rotation settings,config-export,Dana Okafor,CTRL-PWP-1,2026-03-24,2027-03-24,Current,AUD-171
+EV-006,Password manager enterprise policy screen,screenshot,Dana Okafor,CTRL-PWP-1,2026-11-22,2027-05-22,Current,AUD-171
+EV-007,Password manager approval memo from IT,attestation,Kenji Aoki,CTRL-PWP-4,2026-05-17,2027-05-17,Current,
+EV-008,"TLS and storage encryption settings, customer app",config-export,Sofia Lindqvist,CTRL-ASP-8,2026-10-22,2027-10-22,Current,AUD-171
+EV-009,"Encryption posture scan, production",report,Sofia Lindqvist,CTRL-ASP-8,2026-05-16,2027-05-16,Current,AUD-CSF
+EV-010,Application log retention setting,screenshot,Omar Haddad,CTRL-ASP-9,2026-01-20,2027-01-20,Current,AUD-53;AUD-CSF
+EV-011,"Branch protection rules, required reviewers",config-export,Tomas Ferreira,CTRL-ASP-10,2026-10-01,2027-04-01,Current,AUD-53;AUD-CSF
+EV-012,Pull request review statistics,report,Tomas Ferreira,CTRL-ASP-10,2026-09-15,2027-09-15,Current,
+EV-013,"Change tickets with approvals, sampled",ticket,Nia Walker,CTRL-ASP-11,2026-11-20,2027-02-20,Current,AUD-CSF
+EV-014,Release log with change links,report,Nia Walker,CTRL-ASP-11,2026-02-03,2027-02-03,Current,AUD-53
+EV-015,Application baseline configuration document,config-export,Hugo Silva,CTRL-ASP-12,2026-04-27,2026-10-27,Expired,AUD-171;AUD-CSF
+EV-016,Dependency and OS patch compliance report,report,Hugo Silva,CTRL-ASP-19,2026-07-05,2027-07-05,Current,AUD-171
+EV-017,Emergency vendor patch ticket,ticket,Hugo Silva,CTRL-ASP-19,2026-04-01,2026-10-01,Expired,AUD-171;AUD-CSF
+EV-018,Third-party app assessment checklist,attestation,Amara Osei,CTRL-ASP-22,2026-04-03,2027-04-03,Current,AUD-171
+EV-019,Staging data masking job configuration,config-export,Sofia Lindqvist,CTRL-ASP-15,2026-04-05,2027-04-05,Current,
+EV-020,Change request template and sampled requests,ticket,Nia Walker,CTRL-SCP-1,2026-08-04,2027-02-04,Current,AUD-171
+EV-021,Change request intake export,report,Nia Walker,CTRL-SCP-1,2026-10-30,2027-10-30,Current,AUD-171;AUD-53
+EV-022,Change approval log excerpt,report,Nia Walker,CTRL-SCP-8,2026-10-20,2027-01-20,Current,
+EV-023,Weekly full backup schedule,config-export,Dana Okafor,CTRL-AP-8,2026-07-05,2027-07-05,Current,AUD-171
+EV-024,"Backup success report, last 90 days",report,Dana Okafor,CTRL-AP-8,2026-10-03,2027-04-03,Current,AUD-171
+EV-025,Backup vault key settings,screenshot,Omar Haddad,CTRL-AP-11,2026-07-25,2027-07-25,Current,AUD-171
+EV-026,Quarterly restore test results,report,Omar Haddad,CTRL-AP-12,2026-09-28,2027-09-28,Current,AUD-53
+EV-027,Restore test ticket,ticket,Omar Haddad,CTRL-AP-12,2026-03-01,2026-09-01,Expired,AUD-53
+EV-028,Disaster recovery plan sign-off,attestation,Tomas Ferreira,CTRL-BCP-4,2026-02-05,2026-05-05,Expired,AUD-53
+EV-029,Incident report intake examples,ticket,Maya Chen,CTRL-SIRP-1,2026-11-06,2027-05-06,Current,AUD-171
+EV-030,Incident reporting training completion,report,Maya Chen,CTRL-SIRP-2,2026-10-15,2027-10-15,Current,AUD-171
+EV-031,Training content approval,attestation,Maya Chen,CTRL-SIRP-2,2026-11-03,2027-02-03,Current,AUD-53;AUD-CSF
+EV-032,"Evidence preservation checklist, sampled incident",ticket,Kenji Aoki,CTRL-SIRP-3,2026-03-03,2026-06-03,Expired,
+EV-033,Annual incident response procedure review minutes,attestation,Maya Chen,CTRL-SIRP-5,2026-08-13,2027-02-13,Current,AUD-171
+EV-034,Tabletop exercise report,report,Maya Chen,CTRL-SIRP-6,2026-07-31,2027-07-31,Current,AUD-53
+EV-035,"Tabletop exercise report, prior half",report,Maya Chen,CTRL-SIRP-6,2026-03-18,2026-09-18,Expired,AUD-53
+EV-036,"Post-incident review document, sampled incident",report,Kenji Aoki,CTRL-SIRP-32,2026-11-03,2027-11-03,Current,AUD-CSF
+EV-037,Monthly log review record,report,Kenji Aoki,CTRL-LMP-16,2026-04-26,2026-10-26,Expired,AUD-171;AUD-53
+EV-038,Admin and permission change audit report,report,Kenji Aoki,CTRL-LMP-10,2026-08-19,2027-02-19,Current,AUD-171;AUD-53
+EV-039,Key rotation job history,report,Dana Okafor,CTRL-EP-8,2026-07-27,2027-07-27,Current,AUD-53
+EV-040,Laptop patch compliance report,report,Hugo Silva,CTRL-REAP-3,2026-03-09,2026-06-09,Expired,AUD-171
+EV-041,Endpoint protection deployment coverage,screenshot,Hugo Silva,CTRL-REAP-4,2026-04-15,2027-04-15,Current,AUD-171
+EV-042,Endpoint protection health report,report,Hugo Silva,CTRL-REAP-4,2026-10-13,2027-04-13,Current,AUD-53
+EV-043,Encryption exception review,report,Hugo Silva,CTRL-REAP-7,2026-04-28,2027-04-28,Current,AUD-171
+EV-044,MFA enforcement setting for admin VPN and identity provider,screenshot,Dana Okafor,CTRL-REAP-6,2026-06-01,2026-12-01,Expired,AUD-171;AUD-53;AUD-CSF
+EV-045,Antivirus coverage and signature currency report,report,Hugo Silva,CTRL-WP-6,2026-06-07,2027-06-07,Current,AUD-53
+EV-046,Operating system version inventory,report,Hugo Silva,CTRL-WP-1,2026-04-18,2026-10-18,Expired,
+EV-047,Device wipe and disposal records,ticket,Hugo Silva,CTRL-MCP-7,2026-09-13,2027-09-13,Current,
+EV-048,Disposal vendor certificate,attestation,Hugo Silva,CTRL-MCP-7,2026-11-14,2027-05-14,Current,AUD-171;AUD-53
+EV-049,Cloud storage encryption settings,config-export,Sofia Lindqvist,CTRL-MCP-14,2026-04-29,2027-04-29,Current,AUD-53;AUD-CSF
+EV-050,Cloud provider assessment report review,attestation,Amara Osei,CTRL-MCP-13,2026-11-12,2027-02-12,Current,AUD-171
+EV-051,Provider accreditation evidence,report,Amara Osei,CTRL-MCP-13,2026-07-03,2027-07-03,Current,
+EV-052,"Signed vendor security terms, sampled",attestation,Ruth Abara,CTRL-VMP-1,2026-09-10,2027-03-10,Current,AUD-CSF
+EV-053,Vendor register export,report,Ruth Abara,CTRL-VMP-1,2026-02-25,2027-02-25,Current,
+EV-054,Risk register export,report,Maya Chen,CTRL-RIAP-1,2026-03-07,2027-03-07,Current,AUD-171
+EV-055,Risk treatment table,report,Maya Chen,CTRL-RIAP-9,2026-06-06,2027-06-06,Current,AUD-171;AUD-CSF
+EV-056,Physical access role matrix review,report,Ivan Petrov,CTRL-OSP-3,2026-06-02,2027-06-02,Current,AUD-171;AUD-53;AUD-CSF
+EV-057,Key card issuance log,report,Ivan Petrov,CTRL-OSP-4,2026-11-02,2027-05-02,Current,
+EV-058,Badge revocation tickets for leavers,ticket,Lena Brandt,CTRL-OSP-5,2026-07-16,2027-07-16,Current,AUD-171;AUD-53;AUD-CSF
+EV-059,Approved destruction methods list,attestation,Amara Osei,CTRL-RP-13,2026-11-09,2027-02-09,Current,AUD-171
+EV-060,Policy acknowledgement report,report,Lena Brandt,CTRL-ISP-7,2026-11-20,2027-11-20,Current,AUD-171
+EV-061,Annual acknowledgement campaign sign-off,attestation,Lena Brandt,CTRL-ISP-7,2026-11-10,2027-05-10,Current,
+EV-062,Static and dynamic scan results,report,Tomas Ferreira,CTRL-SDLCP-41,2026-06-07,2027-06-07,Current,
+EV-063,CI scanner configuration,config-export,Tomas Ferreira,CTRL-SDLCP-41,2026-05-30,2027-05-30,Current,
+EV-064,Two-reviewer deployment rule,config-export,Tomas Ferreira,CTRL-SDLCP-51,2026-09-05,2027-09-05,Current,
+EV-065,"Quarterly identity and access review package (IdP export, HR roster, signed review)",report,Lena Brandt,CTRL-AOTP-11;CTRL-AOTP-8;CTRL-LMP-10;CTRL-OSP-5;CTRL-PWP-1,2026-04-03,2027-04-03,Current,AUD-171;AUD-53;AUD-CSF
+EV-066,MDM compliance dashboard export,config-export,Hugo Silva,CTRL-REAP-7;CTRL-WP-3,2026-09-24,2027-03-24,Current,AUD-CSF
+EV-067,Key management service configuration export,config-export,Sofia Lindqvist,CTRL-EP-5;CTRL-EP-8,2026-09-12,2027-09-12,Current,AUD-CSF
+EV-068,Backup configuration and job report,report,Omar Haddad,CTRL-AP-11;CTRL-AP-8;CTRL-AP-9,2026-10-16,2027-01-16,Current,AUD-171
+EV-069,Quarterly vendor review pack,report,Ruth Abara,CTRL-ASP-22;CTRL-MCP-13;CTRL-VMP-1,2026-08-06,2027-08-06,Current,AUD-CSF
+EV-070,Risk register review minutes,report,Maya Chen,CTRL-RIAP-1;CTRL-RIAP-9,2026-09-04,2027-03-04,Current,AUD-171;AUD-53
+EV-071,Central log pipeline configuration,config-export,Omar Haddad,CTRL-ASP-9;CTRL-LMP-18;CTRL-LMP-9,2026-09-11,2027-09-11,Current,AUD-CSF
+EV-072,Identity provider session and lockout settings,config-export,Dana Okafor,CTRL-PWP-1,2026-06-22,2027-06-22,Current,AUD-171
+EV-073,Database encryption at rest toggle,screenshot,Sofia Lindqvist,CTRL-ASP-8,2026-04-19,2027-04-19,Current,
+EV-074,Merge request approval screen,screenshot,Tomas Ferreira,CTRL-ASP-10,2026-07-28,2027-07-28,Current,
+EV-075,Container image vulnerability summary,report,Hugo Silva,CTRL-ASP-19,2026-08-15,2027-02-15,Current,AUD-171
+EV-076,Backup schedule console,screenshot,Dana Okafor,CTRL-AP-8,2026-03-13,2027-03-13,Current,AUD-53
+EV-077,Incident reporting channel announcement,attestation,Maya Chen,CTRL-SIRP-1,2026-10-20,2027-01-20,Current,AUD-171;AUD-53;AUD-CSF
+EV-078,Incident response procedure version history,report,Maya Chen,CTRL-SIRP-5,2026-10-22,2027-10-22,Current,AUD-171
+EV-079,Key administrator group membership,screenshot,Sofia Lindqvist,CTRL-EP-5,2026-10-06,2027-04-06,Current,AUD-171
+EV-080,Endpoint protection policy export,config-export,Hugo Silva,CTRL-REAP-4,2026-04-08,2027-04-08,Current,AUD-CSF
+EV-081,Lock screen timeout profile,screenshot,Hugo Silva,CTRL-WP-3,2026-10-18,2027-10-18,Current,AUD-53
+EV-082,Antivirus console overview,screenshot,Hugo Silva,CTRL-WP-6,2026-10-26,2027-10-26,Current,
+EV-083,Storage bucket default encryption,screenshot,Sofia Lindqvist,CTRL-MCP-14,2026-02-21,2027-02-21,Current,AUD-53;AUD-CSF
+EV-084,Scan gate in release pipeline,screenshot,Tomas Ferreira,CTRL-SDLCP-41,2026-11-08,2027-05-08,Current,AUD-53;AUD-CSF
+EV-085,Sampled production deployments with two reviewers,ticket,Tomas Ferreira,CTRL-SDLCP-51,2026-11-03,2027-11-03,Current,AUD-53
+EV-086,Badge system issuance screen,screenshot,Ivan Petrov,CTRL-OSP-4,2026-10-31,2027-01-31,Current,AUD-171;AUD-53;AUD-CSF
+EV-087,Permission change log entry,screenshot,Kenji Aoki,CTRL-LMP-10,2026-05-13,2027-05-13,Current,
+EV-088,Policy portal acknowledgement page,screenshot,Lena Brandt,CTRL-ISP-7,2026-10-27,2027-04-27,Current,AUD-53
+EV-089,Risk assessment methodology approval,attestation,Maya Chen,CTRL-RIAP-1,2026-07-03,2027-07-03,Current,AUD-171;AUD-CSF
+EV-090,Change approval gate in pipeline,screenshot,Nia Walker,CTRL-ASP-11,2026-03-02,2027-03-02,Current,AUD-171;AUD-53
+EV-091,Test data handling statement,attestation,Sofia Lindqvist,CTRL-ASP-15,2026-03-28,2027-03-28,Current,AUD-53
+EV-092,Change policy acknowledgement by engineering,attestation,Nia Walker,CTRL-SCP-1,2026-08-21,2027-08-21,Current,
+EV-093,Disk encryption status on sampled laptop,screenshot,Hugo Silva,CTRL-REAP-7,2026-11-08,2027-05-08,Current,AUD-CSF
+EV-094,Asset disposal log,report,Hugo Silva,CTRL-MCP-7,2026-04-17,2027-04-17,Current,AUD-53
+EV-095,"Vendor onboarding ticket, sampled",ticket,Ruth Abara,CTRL-VMP-1,2026-11-18,2027-02-18,Current,
+EV-096,Post-incident action items,ticket,Kenji Aoki,CTRL-SIRP-32,2026-04-25,2027-04-25,Current,AUD-171;AUD-53
+EV-097,Quarterly access list approval ticket,ticket,Ivan Petrov,CTRL-OSP-3,2026-10-29,2027-04-29,Current,AUD-53
+EV-098,Restore test console output,screenshot,Omar Haddad,CTRL-AP-12,2026-06-25,2027-06-25,Current,AUD-53;AUD-CSF
+EV-099,KMS rotation setting,screenshot,Dana Okafor,CTRL-EP-8,2026-02-18,2027-02-18,Current,AUD-53
+EV-100,Central log aggregation configuration export,config-export,Omar Haddad,CTRL-LMP-15,2026-06-18,2026-12-18,Current,AUD-171;AUD-53
+EV-101,Independent vulnerability assessment report (external tester),report,Kenji Aoki,CTRL-SDLCP-46,2026-01-05,2027-01-05,Current,AUD-171;AUD-53
+EV-102,Visitor access log and secure area inspection record,report,Ivan Petrov,CTRL-DP-3,2026-09-30,2026-12-30,Current,AUD-171;AUD-53
+EV-103,"Incremental backup job report, Q2 (superseded)",report,Omar Haddad,CTRL-AP-9,2026-05-20,2026-11-20,Expired,AUD-171
+EV-104,"Incremental backup job report, Q4",report,Omar Haddad,CTRL-AP-9,2026-11-10,2027-11-10,Current,AUD-53
+EV-105,Application log volume and retention check,report,Omar Haddad,CTRL-ASP-9,2026-10-21,2027-04-21,Current,AUD-171
+EV-106,Time source status screen,screenshot,Omar Haddad,CTRL-LMP-18,2026-11-25,2027-11-25,Current,AUD-171
+EV-107,Backup replica region settings,config-export,Omar Haddad,CTRL-AP-11,2026-08-18,2027-08-18,Current,
+EV-108,"CIO approval email export, sampled change",ticket,Nia Walker,CTRL-SCP-8,2026-08-10,2027-08-10,Current,AUD-53;AUD-CSF
+EV-109,Third-party app inventory,report,Amara Osei,CTRL-ASP-22,2026-10-03,2027-10-03,Current,AUD-53;AUD-CSF
+EV-110,Antivirus policy export,config-export,Hugo Silva,CTRL-WP-6,2026-08-04,2027-02-04,Current,
+EV-111,Application log volume and retention check (sample 2),report,Omar Haddad,CTRL-ASP-9,2026-03-16,2027-03-16,Current,AUD-171
+EV-112,Time source status screen (sample 2),screenshot,Omar Haddad,CTRL-LMP-18,2026-11-21,2027-02-21,Current,AUD-53
+EV-113,Backup replica region settings (sample 2),config-export,Omar Haddad,CTRL-AP-11,2026-06-10,2027-06-10,Current,AUD-171;AUD-53
+EV-114,"CIO approval email export, sampled change (sample 2)",ticket,Nia Walker,CTRL-SCP-8,2026-09-21,2027-03-21,Current,AUD-CSF
+EV-115,Third-party app inventory (sample 2),report,Amara Osei,CTRL-ASP-22,2026-04-04,2027-04-04,Current,AUD-53;AUD-CSF
+EV-116,Antivirus policy export (sample 2),config-export,Hugo Silva,CTRL-WP-6,2026-04-30,2027-04-30,Current,
+EV-117,Application log volume and retention check (sample 3),report,Omar Haddad,CTRL-ASP-9,2026-02-21,2027-02-21,Current,AUD-171
+EV-118,Time source status screen (sample 3),screenshot,Omar Haddad,CTRL-LMP-18,2026-08-18,2027-08-18,Current,AUD-171
+EV-119,Backup replica region settings (sample 3),config-export,Omar Haddad,CTRL-AP-11,2026-07-27,2027-01-27,Current,AUD-171
+EV-120,"CIO approval email export, sampled change (sample 3)",ticket,Nia Walker,CTRL-SCP-8,2026-09-20,2027-09-20,Current,AUD-171;AUD-53

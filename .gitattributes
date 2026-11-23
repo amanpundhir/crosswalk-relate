@@ -1,0 +1,7 @@
+# Keep data byte-identical (SHA-256 pinned in SOURCES.md, deterministic builds)
+inputs/nist/raw/** -text
+inputs/templates/** -text
+data/** -text
+exports/** -text
+inputs/embeddings/** -text
+eval/ground_truth.json -text

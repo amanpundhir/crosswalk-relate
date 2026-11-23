@@ -1,0 +1,50 @@
+{
+  "scenario": "S1 live catch (recorded agent answer; replayed by `crosswalk demo live-catch`)",
+  "as_of": "2026-12-02",
+  "asked_by": "P-maya-chen",
+  "question": "Is MFA covered for the 800-171 audit?",
+  "agent": "audit-prep-agent (recorded)",
+  "answer_text": "Yes. 800-171:03.05.03 (Multi-Factor Authentication) is fully covered by CTRL-REAP-6 and CTRL-PWP-4.",
+  "claims": [
+    {
+      "text": "03.05.03 is covered by CTRL-REAP-6 (VPN access with multi-factor authentication), proven by EV-044",
+      "kind": "coverage",
+      "path_ids": [
+        "P-94fd053fec24"
+      ]
+    },
+    {
+      "text": "03.05.03 is also covered by CTRL-PWP-4 (password manager and single sign-on)",
+      "kind": "coverage",
+      "path_ids": [
+        "P-1a53bde4375b"
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "P-94fd053fec24",
+      "nodes": [
+        "Requirement:800-171:03.05.03",
+        "Control:CTRL-REAP-6",
+        "Evidence:EV-044"
+      ],
+      "rels": [
+        "SATISFIES<-",
+        "PROVES<-"
+      ]
+    },
+    {
+      "id": "P-1a53bde4375b",
+      "nodes": [
+        "Requirement:800-171:03.05.03",
+        "Proposal:PR-005",
+        "Control:CTRL-PWP-4"
+      ],
+      "rels": [
+        "TARGET<-",
+        "ABOUT"
+      ]
+    }
+  ]
+}

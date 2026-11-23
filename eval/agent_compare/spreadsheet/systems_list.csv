@@ -1,0 +1,26 @@
+system_id,name,criticality,data_class
+SYS-admin-vpn,Admin VPN,high,confidential
+SYS-api-gateway,API gateway,high,confidential
+SYS-backups,Backups,high,restricted
+SYS-badge-access,Badge access system,med,confidential
+SYS-central-logging,Central logging,med,confidential
+SYS-ci-pipeline,CI pipeline,med,internal
+SYS-cloud-hosting,Cloud hosting account,high,confidential
+SYS-cloud-storage,Cloud file storage,med,confidential
+SYS-customer-app,Customer web application,high,confidential
+SYS-email,Email and chat suite,med,confidential
+SYS-endpoint-protection,Endpoint protection console,med,internal
+SYS-hr-system,HR system,med,restricted
+SYS-idp,Identity provider,high,restricted
+SYS-kms,Key management service,high,restricted
+SYS-laptop-fleet,Laptop fleet,med,confidential
+SYS-mdm,Mobile device management,med,internal
+SYS-office-network,Office network,med,internal
+SYS-password-manager,Password manager,med,restricted
+SYS-prod-db,Production database,high,restricted
+SYS-risk-register,Risk register,low,internal
+SYS-source-host,Source code host,high,confidential
+SYS-ticketing,Ticketing,low,internal
+SYS-training-platform,Security training platform,low,internal
+SYS-vendor-register,Vendor register,low,internal
+SYS-vuln-scanner,Vulnerability scanner,low,internal

@@ -1,0 +1,962 @@
+# Harbor & Pine (fictional). Every person, system, date and record in this file is invented
+# for the Crosswalk demo. No real company or individual is described.
+- id: EV-001
+  kind: report
+  title: Offboarding access-removal SLA report, Q3
+  proves: [CTRL-AOTP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-04-11'
+  expires_at: '2027-04-11'
+  location: evidence-share/harbor-pine/2026/EV-001_offboarding-access-removal-sla-report-q3.pdf
+- id: EV-002
+  kind: ticket
+  title: Sampled offboarding tickets (five terminations)
+  proves: [CTRL-AOTP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-10-03'
+  expires_at: '2027-04-03'
+  location: evidence-share/harbor-pine/2026/EV-002_sampled-offboarding-tickets-five-terminations.txt
+- id: EV-003
+  kind: report
+  title: Monthly account and permission review sign-off
+  proves: [CTRL-AOTP-11]
+  owner: P-dana-okafor
+  collected_at: '2026-01-21'
+  expires_at: '2027-01-21'
+  location: evidence-share/harbor-pine/2026/EV-003_monthly-account-and-permission-review-sign-off.pdf
+- id: EV-004
+  kind: ticket
+  title: Role-change access tickets, sampled
+  proves: [CTRL-AOTP-9]
+  owner: P-lena-brandt
+  collected_at: '2026-04-11'
+  expires_at: '2026-07-11'
+  location: evidence-share/harbor-pine/2026/EV-004_role-change-access-tickets-sampled.txt
+- id: EV-005
+  kind: config-export
+  title: Identity provider password rotation settings
+  proves: [CTRL-PWP-1]
+  owner: P-dana-okafor
+  collected_at: '2026-03-24'
+  expires_at: '2027-03-24'
+  location: evidence-share/harbor-pine/2026/EV-005_identity-provider-password-rotation-settings.json
+- id: EV-006
+  kind: screenshot
+  title: Password manager enterprise policy screen
+  proves: [CTRL-PWP-1]
+  owner: P-dana-okafor
+  collected_at: '2026-11-22'
+  expires_at: '2027-05-22'
+  location: evidence-share/harbor-pine/2026/EV-006_password-manager-enterprise-policy-screen.png
+- id: EV-007
+  kind: attestation
+  title: Password manager approval memo from IT
+  proves: [CTRL-PWP-4]
+  owner: P-kenji-aoki
+  collected_at: '2026-05-17'
+  expires_at: '2027-05-17'
+  location: evidence-share/harbor-pine/2026/EV-007_password-manager-approval-memo-from-it.pdf
+- id: EV-008
+  kind: config-export
+  title: TLS and storage encryption settings, customer app
+  proves: [CTRL-ASP-8]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-10-22'
+  expires_at: '2027-10-22'
+  location: evidence-share/harbor-pine/2026/EV-008_tls-and-storage-encryption-settings-customer-app.json
+- id: EV-009
+  kind: report
+  title: Encryption posture scan, production
+  proves: [CTRL-ASP-8]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-05-16'
+  expires_at: '2027-05-16'
+  location: evidence-share/harbor-pine/2026/EV-009_encryption-posture-scan-production.pdf
+- id: EV-010
+  kind: screenshot
+  title: Application log retention setting
+  proves: [CTRL-ASP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-01-20'
+  expires_at: '2027-01-20'
+  location: evidence-share/harbor-pine/2026/EV-010_application-log-retention-setting.png
+- id: EV-011
+  kind: config-export
+  title: Branch protection rules, required reviewers
+  proves: [CTRL-ASP-10]
+  owner: P-tomas-ferreira
+  collected_at: '2026-10-01'
+  expires_at: '2027-04-01'
+  location: evidence-share/harbor-pine/2026/EV-011_branch-protection-rules-required-reviewers.json
+- id: EV-012
+  kind: report
+  title: Pull request review statistics
+  proves: [CTRL-ASP-10]
+  owner: P-tomas-ferreira
+  collected_at: '2026-09-15'
+  expires_at: '2027-09-15'
+  location: evidence-share/harbor-pine/2026/EV-012_pull-request-review-statistics.pdf
+- id: EV-013
+  kind: ticket
+  title: Change tickets with approvals, sampled
+  proves: [CTRL-ASP-11]
+  owner: P-nia-walker
+  collected_at: '2026-11-20'
+  expires_at: '2027-02-20'
+  location: evidence-share/harbor-pine/2026/EV-013_change-tickets-with-approvals-sampled.txt
+- id: EV-014
+  kind: report
+  title: Release log with change links
+  proves: [CTRL-ASP-11]
+  owner: P-nia-walker
+  collected_at: '2026-02-03'
+  expires_at: '2027-02-03'
+  location: evidence-share/harbor-pine/2026/EV-014_release-log-with-change-links.pdf
+- id: EV-015
+  kind: config-export
+  title: Application baseline configuration document
+  proves: [CTRL-ASP-12]
+  owner: P-hugo-silva
+  collected_at: '2026-04-27'
+  expires_at: '2026-10-27'
+  location: evidence-share/harbor-pine/2026/EV-015_application-baseline-configuration-document.json
+- id: EV-016
+  kind: report
+  title: Dependency and OS patch compliance report
+  proves: [CTRL-ASP-19]
+  owner: P-hugo-silva
+  collected_at: '2026-07-05'
+  expires_at: '2027-07-05'
+  location: evidence-share/harbor-pine/2026/EV-016_dependency-and-os-patch-compliance-report.pdf
+- id: EV-017
+  kind: ticket
+  title: Emergency vendor patch ticket
+  proves: [CTRL-ASP-19]
+  owner: P-hugo-silva
+  collected_at: '2026-04-01'
+  expires_at: '2026-10-01'
+  location: evidence-share/harbor-pine/2026/EV-017_emergency-vendor-patch-ticket.txt
+- id: EV-018
+  kind: attestation
+  title: Third-party app assessment checklist
+  proves: [CTRL-ASP-22]
+  owner: P-amara-osei
+  collected_at: '2026-04-03'
+  expires_at: '2027-04-03'
+  location: evidence-share/harbor-pine/2026/EV-018_third-party-app-assessment-checklist.pdf
+- id: EV-019
+  kind: config-export
+  title: Staging data masking job configuration
+  proves: [CTRL-ASP-15]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-04-05'
+  expires_at: '2027-04-05'
+  location: evidence-share/harbor-pine/2026/EV-019_staging-data-masking-job-configuration.json
+- id: EV-020
+  kind: ticket
+  title: Change request template and sampled requests
+  proves: [CTRL-SCP-1]
+  owner: P-nia-walker
+  collected_at: '2026-08-04'
+  expires_at: '2027-02-04'
+  location: evidence-share/harbor-pine/2026/EV-020_change-request-template-and-sampled-requests.txt
+- id: EV-021
+  kind: report
+  title: Change request intake export
+  proves: [CTRL-SCP-1]
+  owner: P-nia-walker
+  collected_at: '2026-10-30'
+  expires_at: '2027-10-30'
+  location: evidence-share/harbor-pine/2026/EV-021_change-request-intake-export.pdf
+- id: EV-022
+  kind: report
+  title: Change approval log excerpt
+  proves: [CTRL-SCP-8]
+  owner: P-nia-walker
+  collected_at: '2026-10-20'
+  expires_at: '2027-01-20'
+  location: evidence-share/harbor-pine/2026/EV-022_change-approval-log-excerpt.pdf
+- id: EV-023
+  kind: config-export
+  title: Weekly full backup schedule
+  proves: [CTRL-AP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-07-05'
+  expires_at: '2027-07-05'
+  location: evidence-share/harbor-pine/2026/EV-023_weekly-full-backup-schedule.json
+- id: EV-024
+  kind: report
+  title: Backup success report, last 90 days
+  proves: [CTRL-AP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-10-03'
+  expires_at: '2027-04-03'
+  location: evidence-share/harbor-pine/2026/EV-024_backup-success-report-last-90-days.pdf
+- id: EV-025
+  kind: screenshot
+  title: Backup vault key settings
+  proves: [CTRL-AP-11]
+  owner: P-omar-haddad
+  collected_at: '2026-07-25'
+  expires_at: '2027-07-25'
+  location: evidence-share/harbor-pine/2026/EV-025_backup-vault-key-settings.png
+- id: EV-026
+  kind: report
+  title: Quarterly restore test results
+  proves: [CTRL-AP-12]
+  owner: P-omar-haddad
+  collected_at: '2026-09-28'
+  expires_at: '2027-09-28'
+  location: evidence-share/harbor-pine/2026/EV-026_quarterly-restore-test-results.pdf
+- id: EV-027
+  kind: ticket
+  title: Restore test ticket
+  proves: [CTRL-AP-12]
+  owner: P-omar-haddad
+  collected_at: '2026-03-01'
+  expires_at: '2026-09-01'
+  location: evidence-share/harbor-pine/2026/EV-027_restore-test-ticket.txt
+- id: EV-028
+  kind: attestation
+  title: Disaster recovery plan sign-off
+  proves: [CTRL-BCP-4]
+  owner: P-tomas-ferreira
+  collected_at: '2026-02-05'
+  expires_at: '2026-05-05'
+  location: evidence-share/harbor-pine/2026/EV-028_disaster-recovery-plan-sign-off.pdf
+- id: EV-029
+  kind: ticket
+  title: Incident report intake examples
+  proves: [CTRL-SIRP-1]
+  owner: P-maya-chen
+  collected_at: '2026-11-06'
+  expires_at: '2027-05-06'
+  location: evidence-share/harbor-pine/2026/EV-029_incident-report-intake-examples.txt
+- id: EV-030
+  kind: report
+  title: Incident reporting training completion
+  proves: [CTRL-SIRP-2]
+  owner: P-maya-chen
+  collected_at: '2026-10-15'
+  expires_at: '2027-10-15'
+  location: evidence-share/harbor-pine/2026/EV-030_incident-reporting-training-completion.pdf
+- id: EV-031
+  kind: attestation
+  title: Training content approval
+  proves: [CTRL-SIRP-2]
+  owner: P-maya-chen
+  collected_at: '2026-11-03'
+  expires_at: '2027-02-03'
+  location: evidence-share/harbor-pine/2026/EV-031_training-content-approval.pdf
+- id: EV-032
+  kind: ticket
+  title: Evidence preservation checklist, sampled incident
+  proves: [CTRL-SIRP-3]
+  owner: P-kenji-aoki
+  collected_at: '2026-03-03'
+  expires_at: '2026-06-03'
+  location: evidence-share/harbor-pine/2026/EV-032_evidence-preservation-checklist-sampled-incident.txt
+- id: EV-033
+  kind: attestation
+  title: Annual incident response procedure review minutes
+  proves: [CTRL-SIRP-5]
+  owner: P-maya-chen
+  collected_at: '2026-08-13'
+  expires_at: '2027-02-13'
+  location: evidence-share/harbor-pine/2026/EV-033_annual-incident-response-procedure-review-minute.pdf
+- id: EV-034
+  kind: report
+  title: Tabletop exercise report
+  proves: [CTRL-SIRP-6]
+  owner: P-maya-chen
+  collected_at: '2026-07-31'
+  expires_at: '2027-07-31'
+  location: evidence-share/harbor-pine/2026/EV-034_tabletop-exercise-report.pdf
+- id: EV-035
+  kind: report
+  title: Tabletop exercise report, prior half
+  proves: [CTRL-SIRP-6]
+  owner: P-maya-chen
+  collected_at: '2026-03-18'
+  expires_at: '2026-09-18'
+  location: evidence-share/harbor-pine/2026/EV-035_tabletop-exercise-report-prior-half.pdf
+- id: EV-036
+  kind: report
+  title: Post-incident review document, sampled incident
+  proves: [CTRL-SIRP-32]
+  owner: P-kenji-aoki
+  collected_at: '2026-11-03'
+  expires_at: '2027-11-03'
+  location: evidence-share/harbor-pine/2026/EV-036_post-incident-review-document-sampled-incident.pdf
+- id: EV-037
+  kind: report
+  title: Monthly log review record
+  proves: [CTRL-LMP-16]
+  owner: P-kenji-aoki
+  collected_at: '2026-04-26'
+  expires_at: '2026-10-26'
+  location: evidence-share/harbor-pine/2026/EV-037_monthly-log-review-record.pdf
+- id: EV-038
+  kind: report
+  title: Admin and permission change audit report
+  proves: [CTRL-LMP-10]
+  owner: P-kenji-aoki
+  collected_at: '2026-08-19'
+  expires_at: '2027-02-19'
+  location: evidence-share/harbor-pine/2026/EV-038_admin-and-permission-change-audit-report.pdf
+- id: EV-039
+  kind: report
+  title: Key rotation job history
+  proves: [CTRL-EP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-07-27'
+  expires_at: '2027-07-27'
+  location: evidence-share/harbor-pine/2026/EV-039_key-rotation-job-history.pdf
+- id: EV-040
+  kind: report
+  title: Laptop patch compliance report
+  proves: [CTRL-REAP-3]
+  owner: P-hugo-silva
+  collected_at: '2026-03-09'
+  expires_at: '2026-06-09'
+  location: evidence-share/harbor-pine/2026/EV-040_laptop-patch-compliance-report.pdf
+- id: EV-041
+  kind: screenshot
+  title: Endpoint protection deployment coverage
+  proves: [CTRL-REAP-4]
+  owner: P-hugo-silva
+  collected_at: '2026-04-15'
+  expires_at: '2027-04-15'
+  location: evidence-share/harbor-pine/2026/EV-041_endpoint-protection-deployment-coverage.png
+- id: EV-042
+  kind: report
+  title: Endpoint protection health report
+  proves: [CTRL-REAP-4]
+  owner: P-hugo-silva
+  collected_at: '2026-10-13'
+  expires_at: '2027-04-13'
+  location: evidence-share/harbor-pine/2026/EV-042_endpoint-protection-health-report.pdf
+- id: EV-043
+  kind: report
+  title: Encryption exception review
+  proves: [CTRL-REAP-7]
+  owner: P-hugo-silva
+  collected_at: '2026-04-28'
+  expires_at: '2027-04-28'
+  location: evidence-share/harbor-pine/2026/EV-043_encryption-exception-review.pdf
+- id: EV-044
+  kind: screenshot
+  title: MFA enforcement setting for admin VPN and identity provider
+  proves: [CTRL-REAP-6]
+  owner: P-dana-okafor
+  collected_at: '2026-06-01'
+  expires_at: '2026-12-01'
+  location: evidence-share/harbor-pine/2026/EV-044_mfa-enforcement-setting-for-admin-vpn-and-identi.png
+- id: EV-045
+  kind: report
+  title: Antivirus coverage and signature currency report
+  proves: [CTRL-WP-6]
+  owner: P-hugo-silva
+  collected_at: '2026-06-07'
+  expires_at: '2027-06-07'
+  location: evidence-share/harbor-pine/2026/EV-045_antivirus-coverage-and-signature-currency-report.pdf
+- id: EV-046
+  kind: report
+  title: Operating system version inventory
+  proves: [CTRL-WP-1]
+  owner: P-hugo-silva
+  collected_at: '2026-04-18'
+  expires_at: '2026-10-18'
+  location: evidence-share/harbor-pine/2026/EV-046_operating-system-version-inventory.pdf
+- id: EV-047
+  kind: ticket
+  title: Device wipe and disposal records
+  proves: [CTRL-MCP-7]
+  owner: P-hugo-silva
+  collected_at: '2026-09-13'
+  expires_at: '2027-09-13'
+  location: evidence-share/harbor-pine/2026/EV-047_device-wipe-and-disposal-records.txt
+- id: EV-048
+  kind: attestation
+  title: Disposal vendor certificate
+  proves: [CTRL-MCP-7]
+  owner: P-hugo-silva
+  collected_at: '2026-11-14'
+  expires_at: '2027-05-14'
+  location: evidence-share/harbor-pine/2026/EV-048_disposal-vendor-certificate.pdf
+- id: EV-049
+  kind: config-export
+  title: Cloud storage encryption settings
+  proves: [CTRL-MCP-14]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-04-29'
+  expires_at: '2027-04-29'
+  location: evidence-share/harbor-pine/2026/EV-049_cloud-storage-encryption-settings.json
+- id: EV-050
+  kind: attestation
+  title: Cloud provider assessment report review
+  proves: [CTRL-MCP-13]
+  owner: P-amara-osei
+  collected_at: '2026-11-12'
+  expires_at: '2027-02-12'
+  location: evidence-share/harbor-pine/2026/EV-050_cloud-provider-assessment-report-review.pdf
+- id: EV-051
+  kind: report
+  title: Provider accreditation evidence
+  proves: [CTRL-MCP-13]
+  owner: P-amara-osei
+  collected_at: '2026-07-03'
+  expires_at: '2027-07-03'
+  location: evidence-share/harbor-pine/2026/EV-051_provider-accreditation-evidence.pdf
+- id: EV-052
+  kind: attestation
+  title: Signed vendor security terms, sampled
+  proves: [CTRL-VMP-1]
+  owner: P-ruth-abara
+  collected_at: '2026-09-10'
+  expires_at: '2027-03-10'
+  location: evidence-share/harbor-pine/2026/EV-052_signed-vendor-security-terms-sampled.pdf
+- id: EV-053
+  kind: report
+  title: Vendor register export
+  proves: [CTRL-VMP-1]
+  owner: P-ruth-abara
+  collected_at: '2026-02-25'
+  expires_at: '2027-02-25'
+  location: evidence-share/harbor-pine/2026/EV-053_vendor-register-export.pdf
+- id: EV-054
+  kind: report
+  title: Risk register export
+  proves: [CTRL-RIAP-1]
+  owner: P-maya-chen
+  collected_at: '2026-03-07'
+  expires_at: '2027-03-07'
+  location: evidence-share/harbor-pine/2026/EV-054_risk-register-export.pdf
+- id: EV-055
+  kind: report
+  title: Risk treatment table
+  proves: [CTRL-RIAP-9]
+  owner: P-maya-chen
+  collected_at: '2026-06-06'
+  expires_at: '2027-06-06'
+  location: evidence-share/harbor-pine/2026/EV-055_risk-treatment-table.pdf
+- id: EV-056
+  kind: report
+  title: Physical access role matrix review
+  proves: [CTRL-OSP-3]
+  owner: P-ivan-petrov
+  collected_at: '2026-06-02'
+  expires_at: '2027-06-02'
+  location: evidence-share/harbor-pine/2026/EV-056_physical-access-role-matrix-review.pdf
+- id: EV-057
+  kind: report
+  title: Key card issuance log
+  proves: [CTRL-OSP-4]
+  owner: P-ivan-petrov
+  collected_at: '2026-11-02'
+  expires_at: '2027-05-02'
+  location: evidence-share/harbor-pine/2026/EV-057_key-card-issuance-log.pdf
+- id: EV-058
+  kind: ticket
+  title: Badge revocation tickets for leavers
+  proves: [CTRL-OSP-5]
+  owner: P-lena-brandt
+  collected_at: '2026-07-16'
+  expires_at: '2027-07-16'
+  location: evidence-share/harbor-pine/2026/EV-058_badge-revocation-tickets-for-leavers.txt
+- id: EV-059
+  kind: attestation
+  title: Approved destruction methods list
+  proves: [CTRL-RP-13]
+  owner: P-amara-osei
+  collected_at: '2026-11-09'
+  expires_at: '2027-02-09'
+  location: evidence-share/harbor-pine/2026/EV-059_approved-destruction-methods-list.pdf
+- id: EV-060
+  kind: report
+  title: Policy acknowledgement report
+  proves: [CTRL-ISP-7]
+  owner: P-lena-brandt
+  collected_at: '2026-11-20'
+  expires_at: '2027-11-20'
+  location: evidence-share/harbor-pine/2026/EV-060_policy-acknowledgement-report.pdf
+- id: EV-061
+  kind: attestation
+  title: Annual acknowledgement campaign sign-off
+  proves: [CTRL-ISP-7]
+  owner: P-lena-brandt
+  collected_at: '2026-11-10'
+  expires_at: '2027-05-10'
+  location: evidence-share/harbor-pine/2026/EV-061_annual-acknowledgement-campaign-sign-off.pdf
+- id: EV-062
+  kind: report
+  title: Static and dynamic scan results
+  proves: [CTRL-SDLCP-41]
+  owner: P-tomas-ferreira
+  collected_at: '2026-06-07'
+  expires_at: '2027-06-07'
+  location: evidence-share/harbor-pine/2026/EV-062_static-and-dynamic-scan-results.pdf
+- id: EV-063
+  kind: config-export
+  title: CI scanner configuration
+  proves: [CTRL-SDLCP-41]
+  owner: P-tomas-ferreira
+  collected_at: '2026-05-30'
+  expires_at: '2027-05-30'
+  location: evidence-share/harbor-pine/2026/EV-063_ci-scanner-configuration.json
+- id: EV-064
+  kind: config-export
+  title: Two-reviewer deployment rule
+  proves: [CTRL-SDLCP-51]
+  owner: P-tomas-ferreira
+  collected_at: '2026-09-05'
+  expires_at: '2027-09-05'
+  location: evidence-share/harbor-pine/2026/EV-064_two-reviewer-deployment-rule.json
+- id: EV-065
+  kind: report
+  title: Quarterly identity and access review package (IdP export, HR roster, signed review)
+  proves: [CTRL-AOTP-8, CTRL-AOTP-11, CTRL-LMP-10, CTRL-OSP-5, CTRL-PWP-1]
+  owner: P-lena-brandt
+  collected_at: '2026-04-03'
+  expires_at: '2027-04-03'
+  location: evidence-share/harbor-pine/2026/EV-065_quarterly-identity-and-access-review-package-idp.pdf
+- id: EV-066
+  kind: config-export
+  title: MDM compliance dashboard export
+  proves: [CTRL-REAP-7, CTRL-WP-3]
+  owner: P-hugo-silva
+  collected_at: '2026-09-24'
+  expires_at: '2027-03-24'
+  location: evidence-share/harbor-pine/2026/EV-066_mdm-compliance-dashboard-export.json
+- id: EV-067
+  kind: config-export
+  title: Key management service configuration export
+  proves: [CTRL-EP-5, CTRL-EP-8]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-09-12'
+  expires_at: '2027-09-12'
+  location: evidence-share/harbor-pine/2026/EV-067_key-management-service-configuration-export.json
+- id: EV-068
+  kind: report
+  title: Backup configuration and job report
+  proves: [CTRL-AP-8, CTRL-AP-9, CTRL-AP-11]
+  owner: P-omar-haddad
+  collected_at: '2026-10-16'
+  expires_at: '2027-01-16'
+  location: evidence-share/harbor-pine/2026/EV-068_backup-configuration-and-job-report.pdf
+- id: EV-069
+  kind: report
+  title: Quarterly vendor review pack
+  proves: [CTRL-VMP-1, CTRL-MCP-13, CTRL-ASP-22]
+  owner: P-ruth-abara
+  collected_at: '2026-08-06'
+  expires_at: '2027-08-06'
+  location: evidence-share/harbor-pine/2026/EV-069_quarterly-vendor-review-pack.pdf
+- id: EV-070
+  kind: report
+  title: Risk register review minutes
+  proves: [CTRL-RIAP-1, CTRL-RIAP-9]
+  owner: P-maya-chen
+  collected_at: '2026-09-04'
+  expires_at: '2027-03-04'
+  location: evidence-share/harbor-pine/2026/EV-070_risk-register-review-minutes.pdf
+- id: EV-071
+  kind: config-export
+  title: Central log pipeline configuration
+  proves: [CTRL-ASP-9, CTRL-LMP-18, CTRL-LMP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-09-11'
+  expires_at: '2027-09-11'
+  location: evidence-share/harbor-pine/2026/EV-071_central-log-pipeline-configuration.json
+- id: EV-072
+  kind: config-export
+  title: Identity provider session and lockout settings
+  proves: [CTRL-PWP-1]
+  owner: P-dana-okafor
+  collected_at: '2026-06-22'
+  expires_at: '2027-06-22'
+  location: evidence-share/harbor-pine/2026/EV-072_identity-provider-session-and-lockout-settings.json
+- id: EV-073
+  kind: screenshot
+  title: Database encryption at rest toggle
+  proves: [CTRL-ASP-8]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-04-19'
+  expires_at: '2027-04-19'
+  location: evidence-share/harbor-pine/2026/EV-073_database-encryption-at-rest-toggle.png
+- id: EV-074
+  kind: screenshot
+  title: Merge request approval screen
+  proves: [CTRL-ASP-10]
+  owner: P-tomas-ferreira
+  collected_at: '2026-07-28'
+  expires_at: '2027-07-28'
+  location: evidence-share/harbor-pine/2026/EV-074_merge-request-approval-screen.png
+- id: EV-075
+  kind: report
+  title: Container image vulnerability summary
+  proves: [CTRL-ASP-19]
+  owner: P-hugo-silva
+  collected_at: '2026-08-15'
+  expires_at: '2027-02-15'
+  location: evidence-share/harbor-pine/2026/EV-075_container-image-vulnerability-summary.pdf
+- id: EV-076
+  kind: screenshot
+  title: Backup schedule console
+  proves: [CTRL-AP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-03-13'
+  expires_at: '2027-03-13'
+  location: evidence-share/harbor-pine/2026/EV-076_backup-schedule-console.png
+- id: EV-077
+  kind: attestation
+  title: Incident reporting channel announcement
+  proves: [CTRL-SIRP-1]
+  owner: P-maya-chen
+  collected_at: '2026-10-20'
+  expires_at: '2027-01-20'
+  location: evidence-share/harbor-pine/2026/EV-077_incident-reporting-channel-announcement.pdf
+- id: EV-078
+  kind: report
+  title: Incident response procedure version history
+  proves: [CTRL-SIRP-5]
+  owner: P-maya-chen
+  collected_at: '2026-10-22'
+  expires_at: '2027-10-22'
+  location: evidence-share/harbor-pine/2026/EV-078_incident-response-procedure-version-history.pdf
+- id: EV-079
+  kind: screenshot
+  title: Key administrator group membership
+  proves: [CTRL-EP-5]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-10-06'
+  expires_at: '2027-04-06'
+  location: evidence-share/harbor-pine/2026/EV-079_key-administrator-group-membership.png
+- id: EV-080
+  kind: config-export
+  title: Endpoint protection policy export
+  proves: [CTRL-REAP-4]
+  owner: P-hugo-silva
+  collected_at: '2026-04-08'
+  expires_at: '2027-04-08'
+  location: evidence-share/harbor-pine/2026/EV-080_endpoint-protection-policy-export.json
+- id: EV-081
+  kind: screenshot
+  title: Lock screen timeout profile
+  proves: [CTRL-WP-3]
+  owner: P-hugo-silva
+  collected_at: '2026-10-18'
+  expires_at: '2027-10-18'
+  location: evidence-share/harbor-pine/2026/EV-081_lock-screen-timeout-profile.png
+- id: EV-082
+  kind: screenshot
+  title: Antivirus console overview
+  proves: [CTRL-WP-6]
+  owner: P-hugo-silva
+  collected_at: '2026-10-26'
+  expires_at: '2027-10-26'
+  location: evidence-share/harbor-pine/2026/EV-082_antivirus-console-overview.png
+- id: EV-083
+  kind: screenshot
+  title: Storage bucket default encryption
+  proves: [CTRL-MCP-14]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-02-21'
+  expires_at: '2027-02-21'
+  location: evidence-share/harbor-pine/2026/EV-083_storage-bucket-default-encryption.png
+- id: EV-084
+  kind: screenshot
+  title: Scan gate in release pipeline
+  proves: [CTRL-SDLCP-41]
+  owner: P-tomas-ferreira
+  collected_at: '2026-11-08'
+  expires_at: '2027-05-08'
+  location: evidence-share/harbor-pine/2026/EV-084_scan-gate-in-release-pipeline.png
+- id: EV-085
+  kind: ticket
+  title: Sampled production deployments with two reviewers
+  proves: [CTRL-SDLCP-51]
+  owner: P-tomas-ferreira
+  collected_at: '2026-11-03'
+  expires_at: '2027-11-03'
+  location: evidence-share/harbor-pine/2026/EV-085_sampled-production-deployments-with-two-reviewer.txt
+- id: EV-086
+  kind: screenshot
+  title: Badge system issuance screen
+  proves: [CTRL-OSP-4]
+  owner: P-ivan-petrov
+  collected_at: '2026-10-31'
+  expires_at: '2027-01-31'
+  location: evidence-share/harbor-pine/2026/EV-086_badge-system-issuance-screen.png
+- id: EV-087
+  kind: screenshot
+  title: Permission change log entry
+  proves: [CTRL-LMP-10]
+  owner: P-kenji-aoki
+  collected_at: '2026-05-13'
+  expires_at: '2027-05-13'
+  location: evidence-share/harbor-pine/2026/EV-087_permission-change-log-entry.png
+- id: EV-088
+  kind: screenshot
+  title: Policy portal acknowledgement page
+  proves: [CTRL-ISP-7]
+  owner: P-lena-brandt
+  collected_at: '2026-10-27'
+  expires_at: '2027-04-27'
+  location: evidence-share/harbor-pine/2026/EV-088_policy-portal-acknowledgement-page.png
+- id: EV-089
+  kind: attestation
+  title: Risk assessment methodology approval
+  proves: [CTRL-RIAP-1]
+  owner: P-maya-chen
+  collected_at: '2026-07-03'
+  expires_at: '2027-07-03'
+  location: evidence-share/harbor-pine/2026/EV-089_risk-assessment-methodology-approval.pdf
+- id: EV-090
+  kind: screenshot
+  title: Change approval gate in pipeline
+  proves: [CTRL-ASP-11]
+  owner: P-nia-walker
+  collected_at: '2026-03-02'
+  expires_at: '2027-03-02'
+  location: evidence-share/harbor-pine/2026/EV-090_change-approval-gate-in-pipeline.png
+- id: EV-091
+  kind: attestation
+  title: Test data handling statement
+  proves: [CTRL-ASP-15]
+  owner: P-sofia-lindqvist
+  collected_at: '2026-03-28'
+  expires_at: '2027-03-28'
+  location: evidence-share/harbor-pine/2026/EV-091_test-data-handling-statement.pdf
+- id: EV-092
+  kind: attestation
+  title: Change policy acknowledgement by engineering
+  proves: [CTRL-SCP-1]
+  owner: P-nia-walker
+  collected_at: '2026-08-21'
+  expires_at: '2027-08-21'
+  location: evidence-share/harbor-pine/2026/EV-092_change-policy-acknowledgement-by-engineering.pdf
+- id: EV-093
+  kind: screenshot
+  title: Disk encryption status on sampled laptop
+  proves: [CTRL-REAP-7]
+  owner: P-hugo-silva
+  collected_at: '2026-11-08'
+  expires_at: '2027-05-08'
+  location: evidence-share/harbor-pine/2026/EV-093_disk-encryption-status-on-sampled-laptop.png
+- id: EV-094
+  kind: report
+  title: Asset disposal log
+  proves: [CTRL-MCP-7]
+  owner: P-hugo-silva
+  collected_at: '2026-04-17'
+  expires_at: '2027-04-17'
+  location: evidence-share/harbor-pine/2026/EV-094_asset-disposal-log.pdf
+- id: EV-095
+  kind: ticket
+  title: Vendor onboarding ticket, sampled
+  proves: [CTRL-VMP-1]
+  owner: P-ruth-abara
+  collected_at: '2026-11-18'
+  expires_at: '2027-02-18'
+  location: evidence-share/harbor-pine/2026/EV-095_vendor-onboarding-ticket-sampled.txt
+- id: EV-096
+  kind: ticket
+  title: Post-incident action items
+  proves: [CTRL-SIRP-32]
+  owner: P-kenji-aoki
+  collected_at: '2026-04-25'
+  expires_at: '2027-04-25'
+  location: evidence-share/harbor-pine/2026/EV-096_post-incident-action-items.txt
+- id: EV-097
+  kind: ticket
+  title: Quarterly access list approval ticket
+  proves: [CTRL-OSP-3]
+  owner: P-ivan-petrov
+  collected_at: '2026-10-29'
+  expires_at: '2027-04-29'
+  location: evidence-share/harbor-pine/2026/EV-097_quarterly-access-list-approval-ticket.txt
+- id: EV-098
+  kind: screenshot
+  title: Restore test console output
+  proves: [CTRL-AP-12]
+  owner: P-omar-haddad
+  collected_at: '2026-06-25'
+  expires_at: '2027-06-25'
+  location: evidence-share/harbor-pine/2026/EV-098_restore-test-console-output.png
+- id: EV-099
+  kind: screenshot
+  title: KMS rotation setting
+  proves: [CTRL-EP-8]
+  owner: P-dana-okafor
+  collected_at: '2026-02-18'
+  expires_at: '2027-02-18'
+  location: evidence-share/harbor-pine/2026/EV-099_kms-rotation-setting.png
+- id: EV-100
+  kind: config-export
+  title: Central log aggregation configuration export
+  proves: [CTRL-LMP-15]
+  owner: P-omar-haddad
+  collected_at: '2026-06-18'
+  expires_at: '2026-12-18'
+  location: evidence-share/harbor-pine/2026/EV-100_central-log-aggregation-configuration-export.json
+- id: EV-101
+  kind: report
+  title: Independent vulnerability assessment report (external tester)
+  proves: [CTRL-SDLCP-46]
+  owner: P-kenji-aoki
+  collected_at: '2026-01-05'
+  expires_at: '2027-01-05'
+  location: evidence-share/harbor-pine/2026/EV-101_independent-vulnerability-assessment-report-exte.pdf
+- id: EV-102
+  kind: report
+  title: Visitor access log and secure area inspection record
+  proves: [CTRL-DP-3]
+  owner: P-ivan-petrov
+  collected_at: '2026-09-30'
+  expires_at: '2026-12-30'
+  location: evidence-share/harbor-pine/2026/EV-102_visitor-access-log-and-secure-area-inspection-re.pdf
+- id: EV-103
+  kind: report
+  title: Incremental backup job report, Q2 (superseded)
+  proves: [CTRL-AP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-05-20'
+  expires_at: '2026-11-20'
+  location: evidence-share/harbor-pine/2026/EV-103_incremental-backup-job-report-q2-superseded.pdf
+- id: EV-104
+  kind: report
+  title: Incremental backup job report, Q4
+  proves: [CTRL-AP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-11-10'
+  expires_at: '2027-11-10'
+  location: evidence-share/harbor-pine/2026/EV-104_incremental-backup-job-report-q4.pdf
+- id: EV-105
+  kind: report
+  title: Application log volume and retention check
+  proves: [CTRL-ASP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-10-21'
+  expires_at: '2027-04-21'
+  location: evidence-share/harbor-pine/2026/EV-105_application-log-volume-and-retention-check.pdf
+- id: EV-106
+  kind: screenshot
+  title: Time source status screen
+  proves: [CTRL-LMP-18]
+  owner: P-omar-haddad
+  collected_at: '2026-11-25'
+  expires_at: '2027-11-25'
+  location: evidence-share/harbor-pine/2026/EV-106_time-source-status-screen.png
+- id: EV-107
+  kind: config-export
+  title: Backup replica region settings
+  proves: [CTRL-AP-11]
+  owner: P-omar-haddad
+  collected_at: '2026-08-18'
+  expires_at: '2027-08-18'
+  location: evidence-share/harbor-pine/2026/EV-107_backup-replica-region-settings.json
+- id: EV-108
+  kind: ticket
+  title: CIO approval email export, sampled change
+  proves: [CTRL-SCP-8]
+  owner: P-nia-walker
+  collected_at: '2026-08-10'
+  expires_at: '2027-08-10'
+  location: evidence-share/harbor-pine/2026/EV-108_cio-approval-email-export-sampled-change.txt
+- id: EV-109
+  kind: report
+  title: Third-party app inventory
+  proves: [CTRL-ASP-22]
+  owner: P-amara-osei
+  collected_at: '2026-10-03'
+  expires_at: '2027-10-03'
+  location: evidence-share/harbor-pine/2026/EV-109_third-party-app-inventory.pdf
+- id: EV-110
+  kind: config-export
+  title: Antivirus policy export
+  proves: [CTRL-WP-6]
+  owner: P-hugo-silva
+  collected_at: '2026-08-04'
+  expires_at: '2027-02-04'
+  location: evidence-share/harbor-pine/2026/EV-110_antivirus-policy-export.json
+- id: EV-111
+  kind: report
+  title: Application log volume and retention check (sample 2)
+  proves: [CTRL-ASP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-03-16'
+  expires_at: '2027-03-16'
+  location: evidence-share/harbor-pine/2026/EV-111_application-log-volume-and-retention-check-sampl.pdf
+- id: EV-112
+  kind: screenshot
+  title: Time source status screen (sample 2)
+  proves: [CTRL-LMP-18]
+  owner: P-omar-haddad
+  collected_at: '2026-11-21'
+  expires_at: '2027-02-21'
+  location: evidence-share/harbor-pine/2026/EV-112_time-source-status-screen-sample-2.png
+- id: EV-113
+  kind: config-export
+  title: Backup replica region settings (sample 2)
+  proves: [CTRL-AP-11]
+  owner: P-omar-haddad
+  collected_at: '2026-06-10'
+  expires_at: '2027-06-10'
+  location: evidence-share/harbor-pine/2026/EV-113_backup-replica-region-settings-sample-2.json
+- id: EV-114
+  kind: ticket
+  title: CIO approval email export, sampled change (sample 2)
+  proves: [CTRL-SCP-8]
+  owner: P-nia-walker
+  collected_at: '2026-09-21'
+  expires_at: '2027-03-21'
+  location: evidence-share/harbor-pine/2026/EV-114_cio-approval-email-export-sampled-change-sample-.txt
+- id: EV-115
+  kind: report
+  title: Third-party app inventory (sample 2)
+  proves: [CTRL-ASP-22]
+  owner: P-amara-osei
+  collected_at: '2026-04-04'
+  expires_at: '2027-04-04'
+  location: evidence-share/harbor-pine/2026/EV-115_third-party-app-inventory-sample-2.pdf
+- id: EV-116
+  kind: config-export
+  title: Antivirus policy export (sample 2)
+  proves: [CTRL-WP-6]
+  owner: P-hugo-silva
+  collected_at: '2026-04-30'
+  expires_at: '2027-04-30'
+  location: evidence-share/harbor-pine/2026/EV-116_antivirus-policy-export-sample-2.json
+- id: EV-117
+  kind: report
+  title: Application log volume and retention check (sample 3)
+  proves: [CTRL-ASP-9]
+  owner: P-omar-haddad
+  collected_at: '2026-02-21'
+  expires_at: '2027-02-21'
+  location: evidence-share/harbor-pine/2026/EV-117_application-log-volume-and-retention-check-sampl.pdf
+- id: EV-118
+  kind: screenshot
+  title: Time source status screen (sample 3)
+  proves: [CTRL-LMP-18]
+  owner: P-omar-haddad
+  collected_at: '2026-08-18'
+  expires_at: '2027-08-18'
+  location: evidence-share/harbor-pine/2026/EV-118_time-source-status-screen-sample-3.png
+- id: EV-119
+  kind: config-export
+  title: Backup replica region settings (sample 3)
+  proves: [CTRL-AP-11]
+  owner: P-omar-haddad
+  collected_at: '2026-07-27'
+  expires_at: '2027-01-27'
+  location: evidence-share/harbor-pine/2026/EV-119_backup-replica-region-settings-sample-3.json
+- id: EV-120
+  kind: ticket
+  title: CIO approval email export, sampled change (sample 3)
+  proves: [CTRL-SCP-8]
+  owner: P-nia-walker
+  collected_at: '2026-09-20'
+  expires_at: '2027-09-20'
+  location: evidence-share/harbor-pine/2026/EV-120_cio-approval-email-export-sampled-change-sample-.txt

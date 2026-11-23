@@ -1,0 +1,10 @@
+# Harbor & Pine (fictional). Every person, system, date and record in this file is invented
+# for the Crosswalk demo. No real company or individual is described.
+- {id: D-001, proposal: PR-001, control: CTRL-AOTP-11, requirement: '800-53:AC-17', decision: rejected, decided_by: P-maya-chen, decided_at: '2026-11-25',
+  reason: AC-17 is remote access; this control is local account review}
+- {id: D-002, proposal: PR-002, control: CTRL-REAP-7, requirement: '800-53:SC-8', decision: rejected, decided_by: P-maya-chen, decided_at: '2026-11-20',
+  reason: SC-8 protects data in transit; disk encryption protects data at rest (SC-28)}
+- {id: D-003, proposal: PR-003, control: CTRL-AP-12, requirement: '800-53:CP-4', decision: approved, decided_by: P-maya-chen, decided_at: '2026-11-18',
+  reason: Restore tests are contingency plan testing}
+- {id: D-004, proposal: PR-004, control: CTRL-LMP-18, requirement: '800-53:AU-8', decision: approved, decided_by: P-maya-chen, decided_at: '2026-11-12',
+  reason: NTP synchronisation matches time stamps}

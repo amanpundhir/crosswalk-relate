@@ -1,0 +1,246 @@
+# Harbor & Pine (fictional). Every person, system, date and record in this file is invented
+# for the Crosswalk demo. No real company or individual is described.
+- id: CTRL-AOTP-8
+  owners: [P-dana-okafor]
+  applies_to: [SYS-idp, SYS-hr-system]
+  status: implemented
+- id: CTRL-AOTP-11
+  owners: [P-dana-okafor]
+  applies_to: [SYS-idp]
+  status: implemented
+- id: CTRL-AOTP-9
+  owners: [P-lena-brandt]
+  applies_to: [SYS-hr-system, SYS-idp]
+  status: partial
+- id: CTRL-PWP-1
+  owners: [P-dana-okafor]
+  applies_to: [SYS-idp, SYS-password-manager]
+  status: implemented
+- id: CTRL-PWP-4
+  owners: [P-kenji-aoki]
+  applies_to: [SYS-password-manager]
+  status: partial
+- id: CTRL-ASP-8
+  owners: [P-sofia-lindqvist]
+  applies_to: [SYS-customer-app, SYS-prod-db, SYS-api-gateway]
+  status: implemented
+- id: CTRL-ASP-9
+  owners: [P-omar-haddad]
+  applies_to: [SYS-customer-app, SYS-central-logging]
+  status: implemented
+- id: CTRL-ASP-10
+  owners: [P-tomas-ferreira]
+  applies_to: [SYS-source-host]
+  status: implemented
+- id: CTRL-ASP-11
+  owners: [P-nia-walker]
+  applies_to: [SYS-ci-pipeline, SYS-source-host]
+  status: implemented
+- id: CTRL-ASP-12
+  owners: [P-hugo-silva]
+  applies_to: [SYS-cloud-hosting]
+  status: partial
+- id: CTRL-ASP-19
+  owners: [P-hugo-silva]
+  applies_to: [SYS-ci-pipeline, SYS-cloud-hosting]
+  status: implemented
+- id: CTRL-ASP-22
+  owners: [P-amara-osei]
+  applies_to: [SYS-vendor-register]
+  status: partial
+- id: CTRL-ASP-15
+  owners: [P-sofia-lindqvist]
+  applies_to: [SYS-prod-db]
+  status: implemented
+- id: CTRL-SCP-1
+  owners: [P-nia-walker]
+  applies_to: [SYS-ticketing, SYS-ci-pipeline]
+  status: implemented
+- id: CTRL-SCP-8
+  owners: [P-nia-walker]
+  applies_to: [SYS-ci-pipeline]
+  status: partial
+- id: CTRL-SCP-12
+  owners: [P-nia-walker]
+  applies_to: [SYS-ticketing]
+  status: planned
+- id: CTRL-AP-8
+  owners: [P-dana-okafor]
+  applies_to: [SYS-backups, SYS-prod-db]
+  status: implemented
+- id: CTRL-AP-9
+  owners: [P-omar-haddad]
+  applies_to: [SYS-backups, SYS-prod-db]
+  status: implemented
+- id: CTRL-AP-11
+  owners: [P-omar-haddad]
+  applies_to: [SYS-backups, SYS-cloud-storage]
+  status: implemented
+- id: CTRL-AP-12
+  owners: [P-omar-haddad]
+  applies_to: [SYS-backups]
+  status: partial
+- id: CTRL-BCP-4
+  owners: [P-tomas-ferreira]
+  applies_to: [SYS-cloud-hosting]
+  status: partial
+- id: CTRL-SIRP-1
+  owners: [P-maya-chen]
+  applies_to: [SYS-ticketing, SYS-email]
+  status: implemented
+- id: CTRL-SIRP-2
+  owners: [P-maya-chen]
+  applies_to: [SYS-training-platform]
+  status: implemented
+- id: CTRL-SIRP-3
+  owners: [P-kenji-aoki]
+  applies_to: [SYS-central-logging]
+  status: partial
+- id: CTRL-SIRP-5
+  owners: [P-maya-chen]
+  applies_to: [SYS-ticketing]
+  status: implemented
+- id: CTRL-SIRP-6
+  owners: [P-maya-chen]
+  applies_to: [SYS-ticketing]
+  status: partial
+- id: CTRL-SIRP-32
+  owners: [P-kenji-aoki]
+  applies_to: [SYS-ticketing]
+  status: implemented
+- id: CTRL-LMP-15
+  owners: [P-omar-haddad]
+  applies_to: [SYS-central-logging]
+  status: implemented
+- id: CTRL-LMP-16
+  owners: [P-kenji-aoki]
+  applies_to: [SYS-central-logging]
+  status: partial
+- id: CTRL-LMP-18
+  owners: [P-omar-haddad]
+  applies_to: [SYS-central-logging, SYS-cloud-hosting]
+  status: implemented
+- id: CTRL-LMP-9
+  owners: [P-omar-haddad]
+  applies_to: [SYS-idp, SYS-central-logging]
+  status: implemented
+- id: CTRL-LMP-10
+  owners: [P-kenji-aoki]
+  applies_to: [SYS-idp, SYS-central-logging]
+  status: implemented
+- id: CTRL-EP-8
+  owners: [P-dana-okafor]
+  applies_to: [SYS-kms]
+  status: implemented
+- id: CTRL-EP-5
+  owners: [P-sofia-lindqvist]
+  applies_to: [SYS-kms]
+  status: implemented
+- id: CTRL-REAP-6
+  owners: [P-dana-okafor]
+  applies_to: [SYS-idp, SYS-admin-vpn]
+  status: implemented
+- id: CTRL-REAP-3
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet]
+  status: partial
+- id: CTRL-REAP-4
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet, SYS-endpoint-protection]
+  status: implemented
+- id: CTRL-REAP-7
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet, SYS-mdm]
+  status: implemented
+- id: CTRL-WP-3
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet]
+  status: implemented
+- id: CTRL-WP-6
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet, SYS-endpoint-protection]
+  status: implemented
+- id: CTRL-WP-1
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet]
+  status: partial
+- id: CTRL-MCP-7
+  owners: [P-hugo-silva]
+  applies_to: [SYS-laptop-fleet]
+  status: implemented
+- id: CTRL-MCP-10
+  owners: [P-amara-osei]
+  applies_to: [SYS-cloud-storage]
+  status: planned
+- id: CTRL-MCP-14
+  owners: [P-sofia-lindqvist]
+  applies_to: [SYS-cloud-storage]
+  status: implemented
+- id: CTRL-MCP-13
+  owners: []
+  applies_to: [SYS-cloud-storage, SYS-vendor-register]
+  status: implemented
+- id: CTRL-VMP-1
+  owners: [P-ruth-abara]
+  applies_to: [SYS-vendor-register]
+  status: implemented
+- id: CTRL-VMP-5
+  owners: [P-maya-chen]
+  applies_to: [SYS-vendor-register, SYS-risk-register]
+  status: planned
+- id: CTRL-RIAP-1
+  owners: [P-maya-chen]
+  applies_to: [SYS-risk-register]
+  status: implemented
+- id: CTRL-RIAP-9
+  owners: [P-maya-chen]
+  applies_to: [SYS-risk-register]
+  status: implemented
+- id: CTRL-RIAP-13
+  owners: [P-maya-chen]
+  applies_to: [SYS-risk-register]
+  status: planned
+- id: CTRL-OSP-3
+  owners: [P-ivan-petrov]
+  applies_to: [SYS-badge-access]
+  status: implemented
+- id: CTRL-OSP-4
+  owners: [P-ivan-petrov]
+  applies_to: [SYS-badge-access]
+  status: implemented
+- id: CTRL-OSP-5
+  owners: [P-lena-brandt]
+  applies_to: [SYS-badge-access, SYS-hr-system]
+  status: implemented
+- id: CTRL-DP-3
+  owners: [P-ivan-petrov]
+  applies_to: [SYS-badge-access]
+  status: implemented
+- id: CTRL-DP-15
+  owners: [P-ivan-petrov]
+  applies_to: [SYS-badge-access]
+  status: planned
+- id: CTRL-RP-13
+  owners: [P-amara-osei]
+  applies_to: [SYS-cloud-storage]
+  status: partial
+- id: CTRL-ISP-7
+  owners: [P-lena-brandt]
+  applies_to: [SYS-hr-system, SYS-training-platform]
+  status: implemented
+- id: CTRL-SDLCP-41
+  owners: [P-tomas-ferreira]
+  applies_to: [SYS-ci-pipeline, SYS-source-host]
+  status: implemented
+- id: CTRL-SDLCP-46
+  owners: [P-kenji-aoki]
+  applies_to: [SYS-customer-app, SYS-api-gateway]
+  status: implemented
+- id: CTRL-SDLCP-51
+  owners: [P-tomas-ferreira]
+  applies_to: [SYS-ci-pipeline]
+  status: implemented
+- id: CTRL-AOTP-4
+  owners: [P-maya-chen]
+  applies_to: [SYS-admin-vpn, SYS-idp]
+  status: planned

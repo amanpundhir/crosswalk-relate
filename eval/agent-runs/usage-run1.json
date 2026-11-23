@@ -1,0 +1,3 @@
+{"A-spreadsheet":   {"tokens_total": 92634,  "seconds_total": 82.5},
+ "B-graph":         {"tokens_total": 116227, "seconds_total": 326.2},
+ "C-graph-checker": {"tokens_total": 127665, "seconds_total": 404.5}}

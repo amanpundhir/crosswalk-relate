@@ -1,0 +1,27 @@
+# Harbor & Pine (fictional). Every person, system, date and record in this file is invented
+# for the Crosswalk demo. No real company or individual is described.
+- {id: SYS-prod-db, name: Production database, criticality: high, data_class: restricted}
+- {id: SYS-idp, name: Identity provider, criticality: high, data_class: restricted}
+- {id: SYS-admin-vpn, name: Admin VPN, criticality: high, data_class: confidential}
+- {id: SYS-laptop-fleet, name: Laptop fleet, criticality: med, data_class: confidential}
+- {id: SYS-source-host, name: Source code host, criticality: high, data_class: confidential}
+- {id: SYS-ci-pipeline, name: CI pipeline, criticality: med, data_class: internal}
+- {id: SYS-central-logging, name: Central logging, criticality: med, data_class: confidential}
+- {id: SYS-backups, name: Backups, criticality: high, data_class: restricted}
+- {id: SYS-hr-system, name: HR system, criticality: med, data_class: restricted}
+- {id: SYS-ticketing, name: Ticketing, criticality: low, data_class: internal}
+- {id: SYS-kms, name: Key management service, criticality: high, data_class: restricted}
+- {id: SYS-cloud-hosting, name: Cloud hosting account, criticality: high, data_class: confidential}
+- {id: SYS-customer-app, name: Customer web application, criticality: high, data_class: confidential}
+- {id: SYS-api-gateway, name: API gateway, criticality: high, data_class: confidential}
+- {id: SYS-mdm, name: Mobile device management, criticality: med, data_class: internal}
+- {id: SYS-endpoint-protection, name: Endpoint protection console, criticality: med, data_class: internal}
+- {id: SYS-badge-access, name: Badge access system, criticality: med, data_class: confidential}
+- {id: SYS-office-network, name: Office network, criticality: med, data_class: internal}
+- {id: SYS-password-manager, name: Password manager, criticality: med, data_class: restricted}
+- {id: SYS-cloud-storage, name: Cloud file storage, criticality: med, data_class: confidential}
+- {id: SYS-email, name: Email and chat suite, criticality: med, data_class: confidential}
+- {id: SYS-vuln-scanner, name: Vulnerability scanner, criticality: low, data_class: internal}
+- {id: SYS-training-platform, name: Security training platform, criticality: low, data_class: internal}
+- {id: SYS-vendor-register, name: Vendor register, criticality: low, data_class: internal}
+- {id: SYS-risk-register, name: Risk register, criticality: low, data_class: internal}

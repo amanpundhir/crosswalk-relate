@@ -1,0 +1,266 @@
+# Labelled with AI assistance (Claude Sonnet) from control text and NIST SP 800-53 Rev 5 statements only,
+# without seeing the company's existing mappings. Reviewed by the architect.
+# Fictional company; template text from StrongDM comply (Apache-2.0).
+#
+# Skipped adopted controls (too generic, bundled, duplicate or ambiguous):
+#   CTRL-AOTP-9: procedural notification only; weak fit to any single control
+#   CTRL-AP-9: near-duplicate of CTRL-AP-8 (backup frequency)
+#   CTRL-ASP-11: too generic (implement change management)
+#   CTRL-ASP-12: too generic (document standard configuration): spans CM-2/CM-6/SA-5
+#   CTRL-ASP-22: "full assessment" scope undefined; ambiguous
+#   CTRL-DP-15: generic compliance check of secure areas; no distinct target
+#   CTRL-DP-3: bundles three unrelated requirements (marking, locked door, visitor log)
+#   CTRL-LMP-9: fragment text with no verb or requirement
+#   CTRL-MCP-10: depends on external reference (b); ambiguous between CM-8, PM-5 and PE
+#   CTRL-MCP-14: depends on external reference (d)
+#   CTRL-OSP-4: bundles key issuance, tracking and review; ambiguous
+#   CTRL-RIAP-13: depends on named tables; update cadence only
+#   CTRL-SCP-12: generic post-change lessons learned; ambiguous
+#   CTRL-SCP-8: thin text; near-duplicate of CTRL-SCP-1 (change approval)
+#   CTRL-SDLCP-51: two-developer deployment rule is ambiguous (AC-5 vs CM-5(4) vs CM-3)
+#   CTRL-SIRP-2: bundles training and disciplinary action; ambiguous
+#   CTRL-SIRP-3: evidence preservation has no direct 800-53 Rev 5 analogue; ambiguous
+#   CTRL-VMP-5: generic vendor risk identification; overlaps RA-3/SA-9/SR-6 without clear primary
+#   CTRL-WP-1: too generic ("one generation older"): no clear single 800-53 target
+#   CTRL-WP-6: near-duplicate of CTRL-REAP-4 (antivirus)
+
+- control: CTRL-AOTP-11
+  text_sha: 83b16f9ffac0
+  primary: ['800-53:AC-2']
+  acceptable: ['800-53:AC-6(7)']
+  rationale: Monthly review of accounts and permission levels is the account review in AC-2; AC-6(7) covers review of privileges.
+  confidence: high
+- control: CTRL-AOTP-8
+  text_sha: 12e9c3b90b9b
+  primary: ['800-53:PS-4', '800-53:AC-2']
+  acceptable: ['800-53:AC-2(3)']
+  rationale: Terminating access after notification of departure is personnel termination (PS-4) and account disabling/removal (AC-2).
+  confidence: high
+- control: CTRL-AP-11
+  text_sha: 64611c29e174
+  primary: ['800-53:CP-9', '800-53:CP-6']
+  acceptable: ['800-53:CP-9(8)', '800-53:CP-9(3)', '800-53:SC-28(1)', '800-53:SC-12']
+  rationale: Off-site, redundant, encrypted backups implement system backup and alternate storage; encryption and key management are supporting.
+  confidence: high
+- control: CTRL-AP-12
+  text_sha: 54c61b07e2a6
+  primary: ['800-53:CP-9(1)']
+  acceptable: ['800-53:CP-9', '800-53:CP-4']
+  rationale: Periodic testing of backup data for reliability and integrity is CP-9(1); configuration tests relate to contingency plan testing.
+  confidence: high
+- control: CTRL-AP-8
+  text_sha: ad8a80d0cbe4
+  primary: ['800-53:CP-9']
+  acceptable: ['800-53:CP-2', '800-53:CP-10']
+  rationale: Weekly full backups of critical resources implement the system backup control.
+  confidence: high
+- control: CTRL-ASP-10
+  text_sha: 652c8e49fcc0
+  primary: ['800-53:SA-11(4)', '800-53:SA-11']
+  acceptable: ['800-53:SA-15', '800-53:SA-3']
+  rationale: Peer security review of code is developer manual code review (SA-11(4)) within developer testing and evaluation.
+  confidence: high
+- control: CTRL-ASP-15
+  text_sha: ad926a5767a2
+  primary: ['800-53:SA-3(2)']
+  acceptable: ['800-53:SA-3', '800-53:PM-25', '800-53:SA-11']
+  rationale: Keeping live data out of development and test is the use-of-live-data restriction in the SDLC control SA-3(2).
+  confidence: medium
+- control: CTRL-ASP-19
+  text_sha: 25027bcb0c72
+  primary: ['800-53:SI-2']
+  acceptable: ['800-53:CM-3', '800-53:SI-2(2)', '800-53:SA-9']
+  rationale: Applying vendor updates and patches promptly is flaw remediation.
+  confidence: high
+- control: CTRL-ASP-8
+  text_sha: 95dd8c81210f
+  primary: ['800-53:SC-8', '800-53:SC-28']
+  acceptable: ['800-53:SC-8(1)', '800-53:SC-28(1)', '800-53:SC-13', '800-53:SC-12']
+  rationale: Encryption in transit and at rest maps to transmission confidentiality and protection of information at rest.
+  confidence: high
+- control: CTRL-ASP-9
+  text_sha: 6098c27ebcad
+  primary: ['800-53:AU-12', '800-53:AU-11']
+  acceptable: ['800-53:AU-2', '800-53:AU-3', '800-53:AU-4']
+  rationale: Application logging of user and access events with a retention period is audit record generation and retention.
+  confidence: high
+- control: CTRL-BCP-4
+  text_sha: a8adea97a68b
+  primary: ['800-53:CP-2']
+  acceptable: ['800-53:CP-10', '800-53:CP-1']
+  rationale: A documented disaster recovery plan per key system is the contingency plan, with recovery and reconstitution as support.
+  confidence: high
+- control: CTRL-EP-5
+  text_sha: a7ae845cf033
+  primary: ['800-53:SC-12']
+  acceptable: ['800-53:AC-3', '800-53:AC-6', '800-53:SC-13']
+  rationale: Restricting key access to designated users is cryptographic key management with access enforcement.
+  confidence: medium
+- control: CTRL-EP-8
+  text_sha: e688301ef76e
+  primary: ['800-53:SC-12']
+  acceptable: ['800-53:SC-13']
+  rationale: Periodic automatic key rotation is cryptographic key establishment and management.
+  confidence: high
+- control: CTRL-ISP-7
+  text_sha: 1b5be050d658
+  primary: ['800-53:PL-4', '800-53:PS-6']
+  acceptable: ['800-53:AT-2', '800-53:PL-1']
+  rationale: Reading and acknowledging policies is documented acknowledgment of rules of behavior and access agreements.
+  confidence: medium
+- control: CTRL-LMP-10
+  text_sha: 12c8ae71248e
+  primary: ['800-53:AU-2', '800-53:AU-12']
+  acceptable: ['800-53:AC-2(4)', '800-53:AU-3']
+  rationale: Logging of access-right grants, changes and revocations defines auditable events and requires audit record generation.
+  confidence: high
+- control: CTRL-LMP-15
+  text_sha: 8c69ea643718
+  primary: ['800-53:AU-6', '800-53:AU-6(3)', '800-53:SI-4']
+  acceptable: ['800-53:AU-6(1)', '800-53:SI-4(2)', '800-53:AU-7']
+  rationale: Central aggregation with correlation, alerting and manual review is audit record review and correlation of repositories plus system monitoring.
+  confidence: high
+- control: CTRL-LMP-16
+  text_sha: bf2447713756
+  primary: ['800-53:AU-6']
+  acceptable: ['800-53:AC-2(12)', '800-53:SI-4', '800-53:AU-6(1)']
+  rationale: Monthly review of user, admin and PII-related logs for unusual behaviour is audit record review and analysis.
+  confidence: high
+- control: CTRL-LMP-18
+  text_sha: 77e5bac81d1e
+  primary: ['800-53:AU-8', '800-53:SC-45']
+  acceptable: ['800-53:SC-45(1)']
+  rationale: NTP synchronisation to a common time source is time stamps and system time synchronisation.
+  confidence: high
+- control: CTRL-MCP-13
+  text_sha: 7790bf062ea8
+  primary: ['800-53:SA-9']
+  acceptable: ['800-53:SR-6', '800-53:SA-4']
+  rationale: Requiring cloud providers to demonstrate secured facilities is oversight of external system services and supplier assessment.
+  confidence: medium
+- control: CTRL-MCP-7
+  text_sha: 5b5771049ad9
+  primary: ['800-53:MP-6']
+  acceptable: ['800-53:MP-6(1)', '800-53:SR-12']
+  rationale: Erasing or destroying removable media before reuse or disposal is media sanitization.
+  confidence: high
+- control: CTRL-OSP-3
+  text_sha: d763b6cdb27b
+  primary: ['800-53:PE-2']
+  acceptable: ['800-53:PE-3']
+  rationale: Granting physical access by job function through HR is physical access authorizations.
+  confidence: high
+- control: CTRL-OSP-5
+  text_sha: 9aff8180cdcf
+  primary: ['800-53:PS-4', '800-53:PE-2']
+  acceptable: ['800-53:PE-3']
+  rationale: Immediate revocation of keys and access cards on termination is personnel termination and removal from the physical access list.
+  confidence: high
+- control: CTRL-PWP-1
+  text_sha: 206fe70c4565
+  primary: ['800-53:IA-5']
+  acceptable: ['800-53:IA-5(1)']
+  rationale: Periodic password rotation is authenticator management (change/refresh authenticators).
+  confidence: high
+- control: CTRL-PWP-4
+  text_sha: f2448422936b
+  primary: ['800-53:IA-5']
+  acceptable: ['800-53:IA-5(18)', '800-53:PL-4', '800-53:AT-2']
+  rationale: Not writing down or sharing passwords and using an approved password manager is protecting authenticators.
+  confidence: medium
+- control: CTRL-REAP-3
+  text_sha: 094c448604a0
+  primary: ['800-53:SI-2']
+  acceptable: ['800-53:AC-19', '800-53:AC-17', '800-53:SI-2(2)']
+  rationale: Monthly security patching of remote hosts is flaw remediation; remote and mobile endpoints are a supporting access-control view.
+  confidence: medium
+- control: CTRL-REAP-4
+  text_sha: 6497a12a1bd4
+  primary: ['800-53:SI-3']
+  acceptable: ['800-53:AC-19', '800-53:AC-17']
+  rationale: Endpoint protection software kept updated is malicious code protection.
+  confidence: high
+- control: CTRL-REAP-6
+  text_sha: 77e55f1cad2a
+  primary: ['800-53:AC-17', '800-53:AC-17(2)', '800-53:IA-2(1)']
+  acceptable: ['800-53:IA-2(2)', '800-53:IA-2', '800-53:SC-8', '800-53:SC-12', '800-53:IA-5']
+  rationale: Encrypted, authenticated VPN with MFA and key rotation is remote access protection and multi-factor authentication.
+  confidence: high
+- control: CTRL-REAP-7
+  text_sha: 198a61ae3aa0
+  primary: ['800-53:AC-19(5)', '800-53:SC-28(1)']
+  acceptable: ['800-53:SC-28', '800-53:SC-13']
+  rationale: Full disk encryption on mobile equipment is full device encryption and cryptographic protection of information at rest.
+  confidence: high
+- control: CTRL-RIAP-1
+  text_sha: a753bb74d38d
+  primary: ['800-53:RA-3']
+  acceptable: ['800-53:RA-5', '800-53:PM-9']
+  rationale: Identifying threats and vulnerabilities for assets is the risk assessment control.
+  confidence: high
+- control: CTRL-RIAP-9
+  text_sha: eda85e711cc0
+  primary: ['800-53:RA-7']
+  acceptable: ['800-53:PM-9', '800-53:RA-3']
+  rationale: Treating risks via a risk treatment table with options and residual risk is risk response.
+  confidence: high
+- control: CTRL-RP-13
+  text_sha: ce67acb92011
+  primary: ['800-53:MP-6']
+  acceptable: ['800-53:SI-12(3)', '800-53:SI-12', '800-53:SR-12', '800-53:MP-6(1)']
+  rationale: A list of approved destruction methods for each media and information type is media sanitization and information disposal.
+  confidence: medium
+- control: CTRL-SCP-1
+  text_sha: c1233efc4645
+  primary: ['800-53:CM-3']
+  acceptable: ['800-53:CM-4', '800-53:CM-5', '800-53:PL-8', '800-53:CM-9']
+  rationale: Formal written request and ISM/CIO approval of security-affecting changes is configuration change control.
+  confidence: medium
+- control: CTRL-SDLCP-41
+  text_sha: 24a38348e200
+  primary: ['800-53:SA-11', '800-53:SA-11(1)', '800-53:SA-11(8)']
+  acceptable: ['800-53:RA-5', '800-53:CM-6', '800-53:SA-15']
+  rationale: Static and dynamic code analysis to find vulnerabilities is developer testing with static and dynamic analysis enhancements.
+  confidence: high
+- control: CTRL-SDLCP-46
+  text_sha: 5c77db337f6f
+  primary: ['800-53:RA-5', '800-53:CA-2(1)']
+  acceptable: ['800-53:CA-2', '800-53:CA-8', '800-53:SA-11']
+  rationale: Independent vulnerability assessment of infrastructure and application is vulnerability scanning plus independent control assessment.
+  confidence: medium
+- control: CTRL-SIRP-1
+  text_sha: fa2143fe5317
+  primary: ['800-53:IR-6']
+  acceptable: ['800-53:IR-4', '800-53:IR-8']
+  rationale: Users reporting incidents and vulnerabilities within 24 hours is incident reporting.
+  confidence: high
+- control: CTRL-SIRP-32
+  text_sha: a5aaa875e263
+  primary: ['800-53:IR-4']
+  acceptable: ['800-53:IR-8', '800-53:IR-5']
+  rationale: Post-incident root cause analysis and lessons learned is incident handling (incorporating lessons learned).
+  confidence: high
+- control: CTRL-SIRP-5
+  text_sha: 7f78e49c5db4
+  primary: ['800-53:IR-8']
+  acceptable: ['800-53:IR-1']
+  rationale: Annual review and update of incident response procedures is incident response plan review.
+  confidence: high
+- control: CTRL-SIRP-6
+  text_sha: a93a88fc0ce6
+  primary: ['800-53:IR-3']
+  acceptable: ['800-53:IR-3(2)', '800-53:IR-8']
+  rationale: Twice-yearly testing of the incident response procedure is incident response testing.
+  confidence: high
+- control: CTRL-VMP-1
+  text_sha: e517748c2c6f
+  primary: ['800-53:SA-9', '800-53:SA-4']
+  acceptable: ['800-53:PS-7', '800-53:SR-3', '800-53:CA-3', '800-53:AC-20']
+  rationale: No vendor access before a contract with security controls is signed is external system services and acquisition contract requirements.
+  confidence: medium
+- control: CTRL-WP-3
+  text_sha: 29eec6e4dd7d
+  primary: ['800-53:AC-11']
+  acceptable: ['800-53:AC-11(1)']
+  rationale: Locking the device when not in use is device lock.
+  confidence: high

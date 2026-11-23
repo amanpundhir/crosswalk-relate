@@ -1,0 +1,18 @@
+# Harbor & Pine (fictional). Every person, system, date and record in this file is invented
+# for the Crosswalk demo. No real company or individual is described.
+- {id: PR-001, control: CTRL-AOTP-11, requirement: '800-53:AC-17', by: mapper-agent, status: rejected, rationale: Monthly review of accounts and
+    permissions looks related to remote access accounts., created_at: '2026-11-24'}
+- {id: PR-002, control: CTRL-REAP-7, requirement: '800-53:SC-8', by: mapper-agent, status: rejected, rationale: Encryption of mobile computing
+    equipment mentions protecting information., created_at: '2026-11-18'}
+- {id: PR-003, control: CTRL-AP-12, requirement: '800-53:CP-4', by: mapper-agent, status: approved, rationale: 'Scheduled restore tests exercise
+    recovery capability, matching contingency plan testing.', created_at: '2026-11-16'}
+- {id: PR-004, control: CTRL-LMP-18, requirement: '800-53:AU-8', by: mapper-agent, status: approved, rationale: Clock synchronisation by NTP is
+    the time stamp requirement., created_at: '2026-11-10'}
+- {id: PR-005, control: CTRL-PWP-4, requirement: '800-171:03.05.03', by: mapper-agent, status: pending, rationale: 'Policy text points staff to
+    a single sign-on provider for shared access, which may enforce multi-factor authentication.', created_at: '2026-11-27'}
+- {id: PR-006, control: CTRL-SIRP-1, requirement: '800-53:IR-7', by: mapper-agent, status: pending, rationale: Reporting to the ISM as quickly
+    as possible implies assistance and escalation support., created_at: '2026-11-27'}
+- {id: PR-007, control: CTRL-WP-1, requirement: '800-53:CM-2', by: mapper-agent, status: pending, rationale: Keeping operating systems within
+    one generation of current relates to baseline configuration., created_at: '2026-11-28'}
+- {id: PR-008, control: CTRL-VMP-5, requirement: '800-53:SR-6', by: mapper-agent, status: pending, rationale: Vendor risks identified during risk
+    assessment relate to supplier assessments., created_at: '2026-11-30'}
