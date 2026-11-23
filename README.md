@@ -128,7 +128,7 @@ Or open the [browser explorer](https://amanpundhir.github.io/crosswalk-relate/),
 |---|---|
 | `crosswalk coverage -f 800-171` | Covered, inherited and gap counts by control family |
 | `crosswalk blast --audit AUD-171` | Which requirements lose coverage before the audit, and why |
-| `crosswalk adopt 800-171` | What you already meet through NIST's crosswalk (a head start) |
+| `crosswalk adopt 800-171` | What you already meet through NIST's crosswalk (inherited) |
 | `crosswalk explain 800-171:03.05.03` | Why one requirement is covered, inherited or a gap, with dates |
 | `crosswalk stale` | Controls the old spreadsheet calls "Compliant" but the graph contradicts |
 | `crosswalk evidence --audit AUD-171 --status lapsed` | Expired and soon-to-expire evidence the audit asks for |

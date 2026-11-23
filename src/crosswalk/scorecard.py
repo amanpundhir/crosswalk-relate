@@ -323,12 +323,20 @@ def section_c(store: Path, quick: bool, results: dict | None, timings: dict) -> 
             work = D._copy_store(store)
             try:
                 r = fn(work, echo=False)
+            except B.BuildError:
+                # served mode needs the separate relate CLI (README, "Run it with AI", step 2); the no-AI path has only
+                # the Python package, so report the embedded half instead of failing the whole scorecard
+                if mode != "server":
+                    raise
+                modes[mode] = "skipped (the relate CLI is not installed)"
+                continue
             finally:
                 shutil.rmtree(work.parent, ignore_errors=True)
             lost += r["lost_updates"]
             writes += 2
             modes[mode] = f"lost {r['lost_updates']}, conflicts retried {r['conflicts']}, lock refusals {r['lock_waits']}"
-        out.append(metric("C6", "Concurrent-write integrity (lost updates / writes, both modes)", f"{lost}/{writes}", "0",
+        both = "both modes" if writes == 4 else "embedded only"
+        out.append(metric("C6", f"Concurrent-write integrity (lost updates / writes, {both})", f"{lost}/{writes}", "0",
                           ps(lost == 0), "demo_concurrency.run_embedded + run_server on temp copies",
                           "; ".join(f"{k}: {v}" for k, v in modes.items())))
     return out

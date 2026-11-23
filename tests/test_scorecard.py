@@ -53,3 +53,17 @@ def test_recorded_agent_numbers(sc):
 def test_markdown_renders(sc):
     md = S.render_markdown(sc)
     assert "## Headline" in md and "## D. Core correctness" in md and "Timings" in md
+
+
+def test_full_scorecard_without_relate_cli(monkeypatch):
+    """The no-AI path installs only the Python package: the served concurrency half is skipped, not a crash."""
+    from crosswalk import build as B
+    from crosswalk import demo_concurrency as D
+
+    def no_cli():
+        raise B.BuildError("the relate CLI was not found (expected next to the Python interpreter)")
+
+    monkeypatch.setattr(D, "_relate_cli", no_cli)
+    c6 = {m["id"]: m for m in S.section_c(REPO / "data" / "crosswalk", False, None, {})}["C6"]
+    assert c6["status"] == "pass" and c6["value"] == "0/2", c6
+    assert "embedded only" in c6["name"] and "server: skipped" in c6["note"]

@@ -40,6 +40,12 @@ jobs:
           crosswalk demo live-catch | tee /tmp/live.txt
           grep -q "0/2 claims verified" /tmp/live.txt
 
+      - name: "README: crosswalk scorecard with no Relate CLI and no key"
+        run: |
+          source .venv/bin/activate
+          ! command -v relate
+          crosswalk scorecard
+
       - name: Relate CLI from the official release asset (SHA-256 checked)
         run: |
           base="https://github.com/relatedb/relate/releases/download/${RELATE_VERSION}"
