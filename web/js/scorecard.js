@@ -61,7 +61,7 @@ function renderStructured(d) {
     <p class="muted">${esc(d.note)}</p></div>`;
   const s = d.summary || {};
   const summary = `<p>${pill('pass')} ${s.pass ?? 0} &nbsp; ${pill('miss')} ${s.miss ?? 0} &nbsp; ${pill('info')} ${s.info ?? 0}
-    <span class="muted">&nbsp;as of ${esc(d.as_of)}, ${esc(d.mode)} run${(s.misses || []).length ? `, missed: ${esc(s.misses.join(', '))}` : ''}</span></p>`;
+    <span class="muted">&nbsp;demo date ${esc(d.as_of)}, ${esc(d.mode)} run${(s.misses || []).length ? `, missed: ${esc(s.misses.join(', '))}` : ''}</span></p>`;
   const sections = d.sections.map((sec) => `<div class="card"><h3>${esc(sec.title)}</h3><div class="table-wrap"><table>
     <thead><tr><th>ID</th><th>Metric</th><th>Value</th><th>Target</th><th>Status</th><th>Source</th></tr></thead><tbody>${
     sec.metrics.map((m) => `<tr><td>${esc(m.id)}</td><td>${esc(m.name)}${m.note ? `<br><span class="muted">${esc(m.note)}</span>` : ''}</td>

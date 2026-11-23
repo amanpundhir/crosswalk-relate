@@ -20,10 +20,11 @@
       <span class="chip" id="asof-chip" title="The demo's &quot;today&quot;. Evidence expiry is judged against it, so results don't change with the real date.">demo date &hellip;</span>
       <a class="toplink" href="index.html">About this demo</a>
       <div class="whatif" role="group" aria-label="What-if: try a change">
-        <span class="whatif-label">What-if <span class="hint" tabindex="0" role="note" title="Pretend something changes. Numbers update, nothing is saved. Reload to reset." aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
+        <span class="whatif-label">What-if <span class="hint" tabindex="0" role="note" aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
         <button class="btn small" id="btn-expire" type="button" disabled title="Pretend a piece of evidence expires. Numbers update; nothing is saved.">Expire evidence&hellip;</button>
         <button class="btn small" id="btn-remove" type="button" disabled title="Pretend a person leaves. Controls they alone own lose their owner. Nothing is saved.">Remove person&hellip;</button>
         <button class="btn small ghost" id="btn-reset" type="button" disabled title="Undo every what-if and restore the original numbers.">Reset</button>
+        <span class="whatif-busy" id="wi-busy" hidden><span class="spinner" aria-hidden="true"></span><span id="wi-busy-text">Updating&hellip;</span></span>
       </div>
     </div>
   </header>
@@ -53,14 +54,14 @@
           <span class="rs-small"><b id="hl-wrong">0</b> wrong claims shown &middot; <b id="hl-claims">109/109</b> claims with a valid receipt</span>
         </a>
       </div>
-      <dl class="kpis" id="hero-kpis" aria-live="polite"></dl>
+      <dl class="kpis" id="hero-kpis"></dl>
     </div>
   </section>
 
   <nav class="tabs-bar" aria-label="Explorer sections">
     <div class="wrap">
-      <div class="tabs" role="tablist" id="tabs">
-        <button role="tab" id="tab-coverage" aria-controls="panel-coverage" data-tab="coverage"><b>Coverage</b><span>Which requirements are covered, inherited, or gaps</span></button>
+      <div class="tabs" role="tablist" id="tabs" aria-busy="true">
+        <button role="tab" id="tab-coverage"aria-controls="panel-coverage" data-tab="coverage"><b>Coverage</b><span>Which requirements are covered, inherited, or gaps</span></button>
         <button role="tab" id="tab-blast" aria-controls="panel-blast" data-tab="blast"><b>What breaks</b><span>What fails when evidence expires or a person leaves</span></button>
         <button role="tab" id="tab-adopt" aria-controls="panel-adopt" data-tab="adopt"><b>Inherited</b><span>Requirements already met through another framework</span></button>
         <button role="tab" id="tab-agent" aria-controls="panel-agent" data-tab="agent"><b>Agent log</b><span>What the AI agent suggested, and a wrong answer it caught</span></button>
@@ -71,18 +72,26 @@
   </nav>
   <div class="whatif-dock" id="whatif-dock" hidden>
     <div class="wrap">
-      <div class="banner" id="whatif-banner" role="status"></div>
+      <div class="wi-compact">
+        <button type="button" class="wi-toggle" id="wi-toggle" data-act="wi-toggle" aria-expanded="false" aria-controls="whatif-body"><span class="wi-toggle-text" id="wi-toggle-text"></span><span class="wi-chev" aria-hidden="true"></span></button>
+        <button type="button" class="btn small ghost wi-undo-top" data-act="reset">Undo all</button>
+      </div>
+      <div id="whatif-body">
+        <div class="banner" id="whatif-banner"></div>
+      </div>
     </div>
   </div>
+  <span class="sr" id="wi-status" role="status"></span>
 
   <section class="start" id="start" aria-labelledby="start-h">
     <div class="wrap">
       <div class="start-box">
         <h2 id="start-h">Start here: three things to try</h2>
+        <span class="start-progress" id="start-progress" aria-live="polite">0 of 3 done</span>
         <ol class="start-list">
-          <li><button type="button" class="start-btn" data-start="receipts"><b>See the proof for one requirement</b><span>Opens a requirement and shows its receipt: the chain from requirement to control to evidence.</span></button></li>
-          <li><button type="button" class="start-btn" data-start="catch"><b>See a wrong answer get caught</b><span>Agent log tab: an AI answer is re-checked and corrected.</span></button></li>
-          <li><button type="button" class="start-btn" data-start="expire"><b>Try a what-if: expire evidence</b><span>Pretend a document lapsed and watch the numbers change.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="receipts"><span class="start-check" aria-hidden="true"></span><b>See the proof for one requirement</b><span>Opens a requirement and shows its receipt: the chain from requirement to control to evidence.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="catch"><span class="start-check" aria-hidden="true"></span><b>See a wrong answer get caught</b><span>Agent log tab: an AI answer is re-checked and corrected.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="expire"><span class="start-check" aria-hidden="true"></span><b>Try a what-if: expire evidence</b><span>Pretend a document lapsed and watch the numbers change.</span></button></li>
         </ol>
         <button type="button" class="linkbtn start-hide" id="start-hide">Hide this</button>
       </div>
@@ -92,7 +101,7 @@
   <main id="main" class="wrap">
     <div id="loading" class="loading" role="status">
       <div class="spinner" aria-hidden="true"></div>
-      <p id="loading-text">Loading the graph database (Relate) in your browser&hellip;</p>
+      <p id="loading-text">Step 1 of 3: downloading the graph and the query engine&hellip;</p>
     </div>
     <div id="fatal" class="notice error" hidden></div>
 

@@ -13,7 +13,7 @@ const TABS = ['coverage', 'blast', 'adopt', 'agent', 'scorecard', 'graph'];
 const TAB_NAME = { coverage: 'Coverage', blast: 'What breaks', adopt: 'Inherited', agent: 'Agent log', scorecard: 'Scorecard', graph: 'Graph' };
 
 const S = {
-  g: null, meta: null, asOf: null, tab: 'coverage', rev: 0, rendered: {},
+  g: null, meta: null, asOf: null, tab: 'coverage', rev: 0, rendered: {}, lastKpis: null, dockOpen: false,
   whatIf: [], names: {}, base: {}, liveCatch: null, scorecard: undefined, graphView: null, graphStale: true, graphReturn: null,
   cov: { framework: '800-171', audit: '', gapsOnly: false, expandAll: false },
   adopt: { framework: '800-171' },
@@ -86,6 +86,7 @@ const tick = () => new Promise((r) => setTimeout(r, 0));
 
 function fatal(msg) {
   $('#loading').hidden = true;
+  $('#tabs').removeAttribute('aria-busy');
   const el = $('#fatal');
   el.hidden = false;
   el.innerHTML = msg;
@@ -98,7 +99,7 @@ async function boot() {
   try {
     const meta = JSON.parse(await getText('data/meta.json'));
     const [script, ...qs] = await Promise.all([getText('data/graph.cypher'), ...meta.queries.map((n) => getText(`queries/${n}.cypher`)), init()]);
-    $('#loading-text').textContent = `Building the graph in your browser: ${meta.total_nodes.toLocaleString()} items and ${meta.total_relationships.toLocaleString()} links…`;
+    $('#loading-text').textContent = `Step 2 of 3: building the graph: ${meta.total_nodes.toLocaleString()} items and ${meta.total_relationships.toLocaleString()} links…`;
     await tick();
     const g = new GraphDb(RelateDb);
     g.setScript(script);
@@ -106,6 +107,8 @@ async function boot() {
     g.load();
     S.g = g;
     S.meta = meta;
+    $('#loading-text').textContent = 'Step 3 of 3: running the first queries…';
+    await tick();  // let the step 3 text paint before the first queries run
     S.asOf = A.readAsOf(g);
     loadNames();
     computeBase();
@@ -116,6 +119,7 @@ async function boot() {
     return fatal(`The explorer couldn't start: <code>${esc(e.message || e)}</code>. Reload to try again. If it keeps failing, check that your browser supports WebAssembly and that <code>web/data/graph.cypher</code> exists (build it with <code>python -m crosswalk.export_web</code>).`);
   }
   $('#loading').hidden = true;
+  $('#tabs').removeAttribute('aria-busy');
   $('#asof-chip').textContent = `${S.meta.company || 'Company'} · demo date ${S.asOf}`;  // meta.company already ends "(fictional)"
   $('#foot-stats').textContent = `Graph: ${S.meta.total_nodes.toLocaleString()} nodes, ${S.meta.total_relationships.toLocaleString()} relationships, built in your browser in ${S.g.loadedMs} ms. Queries are the same Cypher files the CLI runs.`;
   for (const id of ['btn-expire', 'btn-remove', 'btn-reset']) $('#' + id).disabled = false;
@@ -159,7 +163,9 @@ function refreshChrome() {
     ['gap', 'Gaps', c.gaps, base.gaps, 'Nothing meets these yet, directly or through another framework.', 'gap'],
     ['', 'Expired or expiring in 30 days', expiring, undefined, 'Evidence that has expired or will within 30 days. Open "What breaks" to see what relies on it.', 'broken'],
   ];
-  $('#hero-kpis').innerHTML = kpis.map(([cls, t, n, was, hint, sw]) => `<div class="${cls ? 'c-' + cls : ''}"><dt><i class="dot ${sw}" aria-hidden="true"></i>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small>was ${was}</small>` : ''}</dd><p class="kpi-hint">${hint}</p></div>`).join('')
+  const values = kpis.map((k) => k[2]);
+  // a tile whose number moved since the last render gets a short highlight (never on the first render)
+  $('#hero-kpis').innerHTML = kpis.map(([cls, t, n, was, hint, sw], i) => `<div class="${(cls ? 'c-' + cls : '') + (S.lastKpis && S.lastKpis[i] !== n ? ' kpi-flash' : '')}"><dt><i class="dot ${sw}" aria-hidden="true"></i>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small>was ${was}</small>` : ''}</dd><p class="kpi-hint">${hint}</p></div>`).join('')
     + `<div class="kpi-note">The first three count the ${c.total} requirements of NIST SP 800-171 (a US security standard) on the demo date, ${esc(S.asOf)}.</div>`;
 
   // the verdict line: the same coverage result as the tiles; the audit date comes from meta.json
@@ -171,8 +177,9 @@ function refreshChrome() {
       : `Audit-ready for ${aud.id} on ${aud.date}: all ${c.total} requirements are met (${c.covered} covered, ${c.inherited} inherited).`;
     verdict.style.color = c.gaps > 0 ? 'var(--gap)' : 'var(--covered)';
   }
-  renderBanner();
+  renderBanner(c);
   measureChrome();
+  S.lastKpis = values;
 }
 
 function invalidate() {
@@ -198,7 +205,9 @@ function showTab(tab, { push = true } = {}) {
   }
   // one history entry per tab change, so Back and Forward move between tabs (popstate/hashchange listeners in wire)
   if (push && location.hash !== '#' + tab) history.pushState(null, '', '#' + tab);
+  if (tab === 'agent' && push) markDone('catch');  // opened by the user, not restored from the URL or Back
   renderTab(tab);
+  measureChrome();
 }
 
 function renderTab(tab) {
@@ -662,6 +671,7 @@ function openExpire() {
   $('#expire-asof').textContent = S.asOf;
   $('#expire-q').value = '';
   fillExpireOptions('EV-044');  // EV-044 is already expired in this data, so it is not in the list: the first "only proof" item is chosen
+  dlgOpener = document.activeElement;
   $('#dlg-expire').showModal();
 }
 
@@ -690,6 +700,7 @@ function openRemove(preselect) {
   const risk = A.ownerRisk(S.g, { asOf: S.asOf });
   const people = Object.values(risk.people).sort((a, b) => b.controls.length - a.controls.length || A.nat(a.id, b.id));
   $('#sel-remove').innerHTML = people.map((p) => `<option value="${esc(p.id)}"${p.id === preselect ? ' selected' : ''}>${esc(p.name)} · sole owner of ${plural(p.controls.length, 'control')}</option>`).join('');
+  dlgOpener = document.activeElement;
   $('#dlg-remove').showModal();
 }
 
@@ -733,29 +744,106 @@ function replayWhatIfs(list) {
   invalidate();
 }
 
+let busy = false;  // one what-if at a time
+let doneTimer = 0;
+let dlgOpener = null;  // the button that opened the expire or remove dialog: focus goes back there afterwards
+
+const wiButtons = () => document.querySelectorAll('.whatif .btn, #whatif-banner .btn, .wi-x, .wi-undo-top');
+const coverCounts = () => { const c = cover171(); return { covered: c.covered, gaps: c.gaps }; };
+const shownNow = (el) => !!el && el.isConnected && !el.disabled && el.getClientRects().length > 0;
+/** "Covered 15 to 12, gaps 59 to 60." for the screen-reader status. */
+function sentenceFor(what, b) {
+  const a = coverCounts();
+  return `${what}. Covered ${b.covered} to ${a.covered}, gaps ${b.gaps} to ${a.gaps}.`;
+}
+
+/**
+ * Run a what-if change with visible feedback: the graph rebuild blocks the page for a moment, so show "Updating…",
+ * disable the controls and let the browser paint first. fn returns one sentence for the status line.
+ */
+async function withBusy(label, fn) {
+  if (busy) return;  // a second click while one change runs is dropped
+  busy = true;
+  const opener = [dlgOpener, document.activeElement].find((el) => el && el !== document.body && el.isConnected) || null;
+  dlgOpener = null;
+  const before = coverCounts();
+  clearTimeout(doneTimer);
+  document.body.classList.add('is-busy');
+  $('#main').setAttribute('aria-busy', 'true');
+  const sp = $('#wi-busy');
+  sp.classList.remove('is-done');
+  $('#wi-busy-text').textContent = label;
+  sp.hidden = false;
+  wiButtons().forEach((b) => { b.disabled = true; });
+  // wait for a paint, but never more than 100 ms (a hidden tab may not paint at all)
+  await Promise.race([new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0))), new Promise((r) => setTimeout(r, 100))]);
+  let sentence = '';
+  let ok = false;
+  try {
+    sentence = fn() || '';
+    ok = true;
+  } finally {
+    wiButtons().forEach((b) => { b.disabled = false; });
+    $('#main').removeAttribute('aria-busy');
+    document.body.classList.remove('is-busy');
+    busy = false;
+    if (ok) {
+      const after = coverCounts();
+      $('#wi-busy-text').textContent = `Done. Covered ${before.covered} → ${after.covered}.`;
+      sp.classList.add('is-done');
+      doneTimer = setTimeout(() => { sp.hidden = true; sp.classList.remove('is-done'); }, 2000);
+    } else {
+      sp.hidden = true;
+    }
+  }
+  $('#wi-status').textContent = sentence;
+  // focus goes back to the control that was used, or the nearest one still on screen
+  [opener, $('#wi-summary'), $('#wi-toggle'), $('#btn-reset')].find(shownNow)?.focus({ preventScroll: true });
+}
+
 function undoWhatIf(i) {
-  replayWhatIfs(S.whatIf.filter((_, j) => j !== i).map(({ kind, id }) => ({ kind, id })));
+  const label = S.whatIf[i] ? S.whatIf[i].label : '';
+  return withBusy('Updating…', () => {
+    const b = coverCounts();
+    replayWhatIfs(S.whatIf.filter((_, j) => j !== i).map(({ kind, id }) => ({ kind, id })));
+    return sentenceFor(`Undid ${label}`, b);
+  });
 }
 
 function doReset() {
-  replayWhatIfs([]);
+  return withBusy('Updating…', () => {
+    const b = coverCounts();
+    replayWhatIfs([]);
+    return sentenceFor('All changes undone', b);
+  });
 }
 
 function doExpire(id) {
-  applyWhatIf({ kind: 'expire', id });
-  invalidate();
+  return withBusy('Updating…', () => {
+    applyWhatIf({ kind: 'expire', id });
+    markDone('expire');
+    invalidate();
+    const w = S.whatIf[S.whatIf.length - 1];
+    return `Expired ${id}. Covered ${w.before.covered} to ${w.after.covered}, gaps ${w.before.gaps} to ${w.after.gaps}.`;
+  });
 }
 
 function doRemove(id) {
-  applyWhatIf({ kind: 'remove', id });
-  invalidate();
-  showTab('blast');
-  // after a tick: closing the dialog hands focus back to the button that opened it, which would pull the page up again
-  setTimeout(() => document.querySelector('#panel-blast [data-removed]')?.scrollIntoView({ block: 'start' }), 60);
+  return withBusy('Updating…', () => {
+    applyWhatIf({ kind: 'remove', id });
+    invalidate();
+    showTab('blast');
+    const w = S.whatIf[S.whatIf.length - 1];
+    return `${w.name} removed. Owners lost: ${plural(w.controls.length, 'control')}.`;
+  }).then(() => {
+    // after a tick: the re-render and the focus return must settle before the page scrolls to the removed card
+    setTimeout(() => document.querySelector('#panel-blast [data-removed]')?.scrollIntoView({ block: 'start' }), 60);
+  });
 }
 
 /** Coverage tab with the family and the requirement open (its receipts). */
 function openRequirement(reqId) {
+  markDone('receipts');
   const fw = A.fwOf(reqId);
   S.cov = { framework: fw, audit: '', gapsOnly: false, expandAll: false };
   S.rendered.coverage = -1;
@@ -772,12 +860,12 @@ function openRequirement(reqId) {
 }
 
 /** The what-if summary: one chip per change (each with its own undo), then what the latest change did. */
-function renderBanner() {
+function renderBanner(c) {
   const dock = $('#whatif-dock');
   const box = $('#whatif-banner');
   dock.hidden = !S.whatIf.length;
   document.body.classList.toggle('dock-on', S.whatIf.length > 0);
-  if (!S.whatIf.length) { box.innerHTML = ''; return; }
+  if (!S.whatIf.length) { S.dockOpen = false; box.innerHTML = ''; paintDock(); return; }
   const last = S.whatIf.length - 1;
   const w = S.whatIf[last];
   const chips = S.whatIf.map((x, i) => `<span class="wi-chip">${esc(x.label)}<button type="button" class="wi-x" data-act="undo-whatif" data-i="${i}" aria-label="Undo: ${esc(x.label)}" title="Undo this change">&times;</button></span>`).join('');
@@ -802,9 +890,26 @@ function renderBanner() {
   const actions = `<button type="button" class="btn small" data-act="see-breaks">See what breaks</button>`
     + (first ? `<button type="button" class="btn small" data-act="open-req" data-req="${esc(first.id)}">Open requirement ${esc(A.shortId(first.id))}</button>` : '')
     + `<button type="button" class="btn small ghost" data-act="undo-whatif" data-i="${last}">Undo last change</button>`
-    + `<button type="button" class="btn small ghost" data-act="reset">Undo all</button>`;
-  box.innerHTML = `<div class="wi-row"><span class="wi-title">What-if <span class="muted">(demo date ${esc(S.asOf)} · not saved)</span></span>${chips}</div>`
+    + `<button type="button" class="btn small ghost wi-undo-banner" data-act="reset">Undo all</button>`;
+  box.innerHTML = `<div class="wi-row"><span class="wi-title" id="wi-summary" tabindex="-1">What-if <span class="muted">(demo date ${esc(S.asOf)} · not saved)</span></span>${chips}</div>`
     + `<div class="wi-row"><span class="wi-nums">${lines}</span><span class="wi-actions">${actions}</span></div>`;
+  // phone summary row: what the collapsed dock says before it is opened
+  const base = S.base['800-171'];
+  $('#wi-toggle-text').textContent = `What-if: ${plural(S.whatIf.length, 'change')} · Covered ${base.covered} → ${c.covered} · Gaps ${base.gaps} → ${c.gaps}`;
+  paintDock();
+}
+
+/** Phones: the what-if dock starts collapsed to its summary row. Desktop always shows the whole dock (CSS). */
+function paintDock() {
+  const open = !!S.dockOpen;
+  $('#whatif-dock').classList.toggle('open', open);
+  $('#wi-toggle').setAttribute('aria-expanded', String(open));
+}
+
+function toggleDock() {
+  S.dockOpen = !S.dockOpen;
+  paintDock();
+  measureChrome();
 }
 
 /** Sticky heights, so that a scrolled-to panel or card clears the header, the tabs and the what-if bar. */
@@ -824,6 +929,44 @@ function measureChrome() {
 // events
 // ---------------------------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------------------------
+// start checklist: the three things to try, ticked as the user does them (kept in localStorage)
+// ---------------------------------------------------------------------------------------------
+
+const START_KEYS = ['receipts', 'catch', 'expire'];
+
+function startDone() {
+  try {
+    const a = JSON.parse(localStorage.getItem('cw-start-done') || '[]');
+    return Array.isArray(a) ? a.filter((k) => START_KEYS.includes(k)) : [];
+  } catch {
+    return [];  // storage blocked or corrupt: start from zero, throw nothing
+  }
+}
+
+function markDone(key) {
+  const done = startDone();
+  if (done.includes(key)) return;
+  done.push(key);
+  try { localStorage.setItem('cw-start-done', JSON.stringify(done)); } catch { /* storage may be blocked: the tick still shows for this visit */ }
+  paintStart(done);
+}
+
+function paintStart(done = startDone()) {
+  for (const btn of document.querySelectorAll('.start-btn[data-start]')) {
+    const on = done.includes(btn.dataset.start);
+    const li = btn.closest('li');
+    if (on) li.dataset.done = '1'; else delete li.dataset.done;
+    if (on) btn.setAttribute('aria-label', `${btn.querySelector('b').textContent}, done`);
+    else btn.removeAttribute('aria-label');
+  }
+  const n = START_KEYS.filter((k) => done.includes(k)).length;
+  const p = $('#start-progress');
+  if (n < 3) { p.textContent = `${n} of 3 done`; return; }
+  p.innerHTML = `You've tried all three. <button type="button" class="linkbtn" id="start-graph">Explore the Graph tab next.</button>`;
+  $('#start-graph').addEventListener('click', () => { showTab('graph'); $('#panel-graph').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+}
+
 function wire() {
   $('#tabs').addEventListener('click', (e) => {
     const b = e.target.closest('[data-tab]');
@@ -831,7 +974,9 @@ function wire() {
   });
   $('#tabs').addEventListener('keydown', (e) => {
     const i = TABS.indexOf(S.tab);
-    const next = e.key === 'ArrowRight' ? (i + 1) % TABS.length : e.key === 'ArrowLeft' ? (i + TABS.length - 1) % TABS.length : -1;
+    const next = e.key === 'ArrowRight' ? (i + 1) % TABS.length
+      : e.key === 'ArrowLeft' ? (i + TABS.length - 1) % TABS.length
+        : e.key === 'Home' ? 0 : e.key === 'End' ? TABS.length - 1 : -1;
     if (next >= 0) { showTab(TABS[next]); $('#tab-' + TABS[next]).focus(); e.preventDefault(); }
   });
   document.querySelectorAll('[data-tab-link]').forEach((el) => el.addEventListener('click', (e) => { e.preventDefault(); showTab(el.dataset.tabLink); $('#panel-' + el.dataset.tabLink).scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
@@ -847,13 +992,14 @@ function wire() {
   const hideStart = () => { $('#start').hidden = true; try { localStorage.setItem('cw-start-hidden', '1'); } catch { /* storage may be blocked */ } };
   $('#start-hide').addEventListener('click', hideStart);
   try { if (localStorage.getItem('cw-start-hidden') === '1') $('#start').hidden = true; } catch { /* storage may be blocked */ }
+  paintStart();
   $('#btn-expire').addEventListener('click', openExpire);
   $('#btn-remove').addEventListener('click', () => openRemove());
   $('#btn-reset').addEventListener('click', doReset);
-  $('#dlg-expire').addEventListener('close', (e) => { const id = $('#sel-expire').value; if (e.target.returnValue === 'ok' && id) doExpire(id); });
+  $('#dlg-expire').addEventListener('close', (e) => { const id = $('#sel-expire').value; if (e.target.returnValue === 'ok' && id) doExpire(id); else dlgOpener = null; });
   $('#expire-q').addEventListener('input', () => fillExpireOptions($('#sel-expire').value));
   $('#expire-q').addEventListener('keydown', (e) => { if (e.key === 'Enter') e.preventDefault(); });  // Enter filters; it must not close the dialog
-  $('#dlg-remove').addEventListener('close', (e) => { if (e.target.returnValue === 'ok') doRemove($('#sel-remove').value); });
+  $('#dlg-remove').addEventListener('close', (e) => { if (e.target.returnValue === 'ok') doRemove($('#sel-remove').value); else dlgOpener = null; });
 
   document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-act]');
@@ -864,6 +1010,7 @@ function wire() {
     const act = el.dataset.act;
     if (act === 'show-paths') goPaths(JSON.parse(el.dataset.paths));
     else if (act === 'reset') doReset();
+    else if (act === 'wi-toggle') toggleDock();
     else if (act === 'undo-whatif') undoWhatIf(Number(el.dataset.i));
     else if (act === 'see-breaks') { showTab('blast'); $('#panel-blast').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
     else if (act === 'open-req') openRequirement(el.dataset.req);
@@ -889,6 +1036,7 @@ function wire() {
       box.innerHTML = reqListHtml(S.cov.gapsOnly ? fam.reqs.filter((r) => r.status === 'gap') : fam.reqs);
       box.dataset.filled = '1';
     } else if (d.classList.contains('req')) {
+      markDone('receipts');
       const body = d.querySelector('.req-body');
       if (body.dataset.filled) return;
       body.innerHTML = explainHtml(d.dataset.req, body.dataset.status);
@@ -932,6 +1080,12 @@ function wire() {
   window.addEventListener('hashchange', onHistory);
   window.addEventListener('popstate', onHistory);
   window.addEventListener('resize', () => measureChrome());
+  // the sticky heights also change when a wrapped tab description or the what-if dock changes size
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => measureChrome());
+    for (const el of [$('.top'), $('.tabs-bar'), $('#whatif-dock')]) ro.observe(el);
+  }
+  document.fonts?.ready.then(() => measureChrome());
 }
 
 function rerender(tab) {
