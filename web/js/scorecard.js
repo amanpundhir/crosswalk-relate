@@ -84,7 +84,7 @@ function renderStructured(d) {
 export function renderScorecard(data) {
   if (!data) {
     return `<div class="card"><h2>Scorecard</h2>
-      <p>No scorecard has been generated yet.</p>
+      <p>The scorecard isn't included in this copy.</p>
       <p class="muted">Run <code>crosswalk scorecard</code> (it writes <code>eval/scorecard.json</code>), then
       <code>python -m crosswalk.export_web</code> to copy it here. The scorecard needs no AI key.</p></div>`;
   }

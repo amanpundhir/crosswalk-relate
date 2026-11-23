@@ -17,13 +17,13 @@
   <header class="top">
     <div class="wrap top-row">
       <a class="brand" href="index.html" aria-label="Crosswalk, back to the overview"><span class="mark" aria-hidden="true"></span>Crosswalk</a>
-      <span class="chip" id="asof-chip" title="The demo date. Every query takes it as a parameter; the page never reads the clock.">as of &hellip;</span>
+      <span class="chip" id="asof-chip" title="The demo's &quot;today&quot;. Evidence expiry is judged against it, so results don't change with the real date.">demo date &hellip;</span>
       <a class="toplink" href="index.html">About this demo</a>
       <div class="whatif" role="group" aria-label="What-if: try a change">
-        <span class="whatif-label">What-if <span class="hint" tabindex="0" role="note" aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
-        <button class="btn small" id="btn-expire" type="button" disabled title="Pretend one evidence item expires. Numbers update; nothing is saved.">Expire evidence&hellip;</button>
-        <button class="btn small" id="btn-remove" type="button" disabled title="Pretend a person leaves. Controls only they own become unowned; nothing is saved.">Remove person&hellip;</button>
-        <button class="btn small ghost" id="btn-reset" type="button" disabled title="Undo every what-if and go back to the original numbers.">Reset</button>
+        <span class="whatif-label">What-if <span class="hint" tabindex="0" role="note" title="Pretend something changes. Numbers update, nothing is saved. Reload to reset." aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
+        <button class="btn small" id="btn-expire" type="button" disabled title="Pretend a piece of evidence expires. Numbers update; nothing is saved.">Expire evidence&hellip;</button>
+        <button class="btn small" id="btn-remove" type="button" disabled title="Pretend a person leaves. Controls they alone own lose their owner. Nothing is saved.">Remove person&hellip;</button>
+        <button class="btn small ghost" id="btn-reset" type="button" disabled title="Undo every what-if and restore the original numbers.">Reset</button>
       </div>
     </div>
   </header>
@@ -34,7 +34,16 @@
       <div class="intro-head">
         <div>
           <h1>Crosswalk explorer</h1>
-          <p class="lede">The audit-prep graph for Harbor &amp; Pine, a made-up company. Every number below is a live query, run in your browser.</p>
+          <p class="lede">Crosswalk checks whether a company is ready for a security audit. Here it checks Harbor &amp; Pine, a made-up company, against NIST security standards. Every number is computed live in your browser.</p>
+          <details class="glossary"><summary>What do these words mean?</summary><dl>
+            <dt>Requirement</dt><dd>One rule a standard asks you to meet, such as "use multi-factor login". A framework (NIST 800-171, 800-53, CSF 2.0) is a set of them.</dd>
+            <dt>Control</dt><dd>Something the company does or uses to meet a requirement, such as an MFA setting.</dd>
+            <dt>Evidence</dt><dd>Proof that a control works, such as a report or screenshot. It has an expiry date.</dd>
+            <dt>Receipt</dt><dd>The chain from a requirement to a control to its evidence. Every claim in an answer comes with one.</dd>
+            <dt>Claim check</dt><dd>Re-runs each receipt against the graph and drops any claim that fails.</dd>
+            <dt>Covered, inherited, gap</dt><dd>Covered: met directly, with valid evidence. Inherited: met through a matching requirement in another framework. Gap: neither.</dd>
+            <dt>Demo date</dt><dd>The demo's "today". Expiry is judged against it, so results never change with the real date.</dd>
+          </dl></details>
         </div>
         <!-- The numbers in this strip (45%, 95%, 0, 109/109) are replaced at boot from data/scorecard.json (app.js fillHeadline).
              These are only the fallback text if that file is missing. Source: eval/agent-runs/results-run2.md -->
@@ -51,12 +60,12 @@
   <nav class="tabs-bar" aria-label="Explorer sections">
     <div class="wrap">
       <div class="tabs" role="tablist" id="tabs">
-        <button role="tab" id="tab-coverage" aria-controls="panel-coverage" data-tab="coverage"><b>Coverage</b><span>Which requirements are met, inherited or open</span></button>
+        <button role="tab" id="tab-coverage" aria-controls="panel-coverage" data-tab="coverage"><b>Coverage</b><span>Which requirements are covered, inherited, or gaps</span></button>
         <button role="tab" id="tab-blast" aria-controls="panel-blast" data-tab="blast"><b>What breaks</b><span>What fails when evidence expires or a person leaves</span></button>
-        <button role="tab" id="tab-adopt" aria-controls="panel-adopt" data-tab="adopt"><b>Head start</b><span>What you already meet through another framework</span></button>
-        <button role="tab" id="tab-agent" aria-controls="panel-agent" data-tab="agent"><b>Agent log</b><span>What the agent proposed, and the live catch</span></button>
-        <button role="tab" id="tab-scorecard" aria-controls="panel-scorecard" data-tab="scorecard"><b>Scorecard</b><span>The measured results, including <span id="hl-tab-range">45% to 95%</span></span></button>
-        <button role="tab" id="tab-graph" aria-controls="panel-graph" data-tab="graph"><b>Graph</b><span>Click through every link behind the numbers</span></button>
+        <button role="tab" id="tab-adopt" aria-controls="panel-adopt" data-tab="adopt"><b>Inherited</b><span>Requirements already met through another framework</span></button>
+        <button role="tab" id="tab-agent" aria-controls="panel-agent" data-tab="agent"><b>Agent log</b><span>What the AI agent suggested, and a wrong answer it caught</span></button>
+        <button role="tab" id="tab-scorecard" aria-controls="panel-scorecard" data-tab="scorecard"><b>Scorecard</b><span>Test results: <span id="hl-tab-range">45% to 95%</span> right</span></button>
+        <button role="tab" id="tab-graph" aria-controls="panel-graph" data-tab="graph"><b>Graph</b><span>Click through the links behind the numbers</span></button>
       </div>
     </div>
   </nav>
@@ -71,11 +80,11 @@
       <div class="start-box">
         <h2 id="start-h">Start here: three things to try</h2>
         <ol class="start-list">
-          <li><button type="button" class="start-btn" data-start="receipts"><b>Open a requirement</b><span>Coverage tab: click a family, then a requirement, to see its receipts.</span></button></li>
-          <li><button type="button" class="start-btn" data-start="catch"><b>Show the live catch</b><span>Agent log tab: a wrong answer is checked and corrected.</span></button></li>
-          <li><button type="button" class="start-btn" data-start="expire"><b>Expire some evidence</b><span>What-if: pretend it lapsed and watch the numbers change.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="receipts"><b>See the proof for one requirement</b><span>Opens a requirement and shows its receipt: the chain from requirement to control to evidence.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="catch"><b>See a wrong answer get caught</b><span>Agent log tab: an AI answer is re-checked and corrected.</span></button></li>
+          <li><button type="button" class="start-btn" data-start="expire"><b>Try a what-if: expire evidence</b><span>Pretend a document lapsed and watch the numbers change.</span></button></li>
         </ol>
-        <button type="button" class="linkbtn start-hide" id="start-hide">Hide</button>
+        <button type="button" class="linkbtn start-hide" id="start-hide">Hide this</button>
       </div>
     </div>
   </section>
@@ -83,7 +92,7 @@
   <main id="main" class="wrap">
     <div id="loading" class="loading" role="status">
       <div class="spinner" aria-hidden="true"></div>
-      <p id="loading-text">Loading Relate (WebAssembly)&hellip;</p>
+      <p id="loading-text">Loading the graph database (Relate) in your browser&hellip;</p>
     </div>
     <div id="fatal" class="notice error" hidden></div>
 
@@ -91,24 +100,25 @@
     <section id="panel-adopt" class="panel" role="tabpanel" aria-labelledby="tab-adopt" hidden></section>
     <section id="panel-blast" class="panel" role="tabpanel" aria-labelledby="tab-blast" hidden></section>
     <section id="panel-graph" class="panel" role="tabpanel" aria-labelledby="tab-graph" hidden>
+      <p class="muted">Each circle is a requirement, control, piece of evidence or person. Lines show how they connect. A receipt is one chain of them.</p>
       <div class="graph-caption" id="graph-caption" hidden>
         <span id="graph-caption-text"></span>
         <button type="button" class="linkbtn" data-act="graph-back" id="graph-back"></button>
       </div>
       <div class="graph-head">
         <form id="graph-search" class="search" role="search" autocomplete="off">
-          <label class="sr" for="graph-q">Find a node by id or name</label>
-          <input id="graph-q" type="search" placeholder="Find a node: 03.05.03, CTRL-REAP-6, EV-044, Dana&hellip;" enterkeyhint="search">
+          <label class="sr" for="graph-q">Search the graph by ID or name</label>
+          <input id="graph-q" type="search" placeholder="Search by ID or name, e.g. 03.05.03, CTRL-REAP-6, EV-044, Dana" enterkeyhint="search">
           <button class="btn small" type="submit">Find</button>
           <button class="btn small ghost" type="button" id="graph-clear">Clear</button>
         </form>
         <ul id="graph-results" class="results" hidden></ul>
       </div>
       <div class="graph-body">
-        <div id="cy" class="cy" role="img" aria-label="Interactive graph. Click a node to see its neighbours."></div>
+        <div id="cy" class="cy" role="img" aria-label="Interactive graph. Click a circle to see what it connects to."></div>
         <aside id="graph-info" class="info" aria-live="polite"></aside>
       </div>
-      <ul class="legend" id="graph-legend" aria-label="Node types"></ul>
+      <ul class="legend" id="graph-legend" aria-label="What the circles mean"></ul>
     </section>
     <section id="panel-agent" class="panel" role="tabpanel" aria-labelledby="tab-agent" hidden></section>
     <section id="panel-scorecard" class="panel" role="tabpanel" aria-labelledby="tab-scorecard" hidden></section>
@@ -116,27 +126,27 @@
 
   <dialog id="dlg-expire" aria-labelledby="dlg-expire-title">
     <form method="dialog" class="dlg">
-      <h2 id="dlg-expire-title">Expire an evidence item</h2>
-      <p class="muted">Pretend this evidence has expired as of <span id="expire-asof"></span> (the demo date). Coverage, what breaks and the agent log recompute at once. Nothing is saved; reload to reset.</p>
-      <label for="expire-q">Filter</label>
-      <input type="search" id="expire-q" placeholder="e.g. EV-04 or MFA" autocomplete="off">
-      <label for="sel-expire">Evidence item</label>
+      <h2 id="dlg-expire-title">Pretend evidence expires</h2>
+      <p class="muted">Pick a piece of evidence to treat as expired on the demo date, <span id="expire-asof"></span>. Coverage, What breaks and the Agent log update right away. Nothing is saved; reload to undo.</p>
+      <label for="expire-q">Search evidence</label>
+      <input type="search" id="expire-q" placeholder="ID or title, e.g. EV-04 or MFA" autocomplete="off">
+      <label for="sel-expire">Evidence</label>
       <select id="sel-expire"></select>
       <div class="dlg-actions">
         <button class="btn ghost" value="cancel">Cancel</button>
-        <button class="btn primary" value="ok" id="ok-expire">Expire it</button>
+        <button class="btn primary" value="ok" id="ok-expire">Expire evidence</button>
       </div>
     </form>
   </dialog>
   <dialog id="dlg-remove" aria-labelledby="dlg-remove-title">
     <form method="dialog" class="dlg">
-      <h2 id="dlg-remove-title">Remove a person</h2>
-      <p class="muted">Pretend this person leaves. Controls only they own become unowned. Nothing is saved; reload to reset.</p>
+      <h2 id="dlg-remove-title">Pretend a person leaves</h2>
+      <p class="muted">Pick someone to treat as gone. Controls they alone own will have no owner. Coverage won't change. Nothing is saved; reload to undo.</p>
       <label for="sel-remove">Person</label>
       <select id="sel-remove"></select>
       <div class="dlg-actions">
         <button class="btn ghost" value="cancel">Cancel</button>
-        <button class="btn primary" value="ok" id="ok-remove">Remove them</button>
+        <button class="btn primary" value="ok" id="ok-remove">Remove person</button>
       </div>
     </form>
   </dialog>
@@ -145,7 +155,7 @@
     <div class="wrap">
       <p><strong>Fictional data.</strong> Harbor &amp; Pine is an invented company. Its people, systems, evidence and dates are made up for this demo; the framework text is NIST's and the policy wording comes from an open-source policy template set. Nothing here is compliance advice.</p>
       <p class="muted" id="foot-stats"></p>
-      <p class="muted">Runs entirely in your browser: <a href="https://relatedb.ai">Relate</a> 1.2.0 (WebAssembly) and <a href="https://js.cytoscape.org">Cytoscape.js</a> 3.35.0, both vendored. Changes you make with What-if live in memory only. Reload to reset.</p>
+      <p class="muted">Runs entirely in your browser: <a href="https://relatedb.ai">Relate</a> 1.2.0 (WebAssembly) and <a href="https://js.cytoscape.org">Cytoscape.js</a> 3.35.0, both vendored. What-if changes live in memory only. Reload to undo.</p>
     </div>
   </footer>
 

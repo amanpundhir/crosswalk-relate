@@ -176,7 +176,7 @@
       <div class="hero__window" role="img" aria-label="The Crosswalk explorer, Coverage tab: for NIST 800-171, 15 of 97 requirements covered, 23 inherited, 59 gaps. Multi-factor authentication is a gap because evidence EV-044 expired on 1 December 2026.">
         <div class="ly-piece xw" aria-hidden="true">
           <div class="xw__bar"><span class="mark" data-mark="stack" aria-hidden="true"></span><b>Crosswalk explorer</b><span class="xw__sp"></span><span class="xw__chip">Harbor &amp; Pine &middot; as of 2026-12-02</span></div>
-          <div class="xw__tabs"><span class="is-on">Coverage</span><span>Head start</span><span>What breaks</span><span>Graph</span><span>Agent log</span><span>Scorecard</span></div>
+          <div class="xw__tabs"><span class="is-on">Coverage</span><span>What breaks</span><span>Inherited</span><span>Agent log</span><span>Scorecard</span><span>Graph</span></div>
           <div class="xw__body">
             <div class="xw__sum">
               <h4>NIST SP 800-171 <span>97 requirements</span></h4>
@@ -231,8 +231,8 @@
         <div class="span-5">
           <div class="section-head"><h2 id="how-h">How it works in 3 steps</h2></div>
           <ol class="steps">
-            <li><div><h3>1. Your question</h3><p>You ask Crosswalk, for example: is MFA covered for the 800-171 audit?</p></div></li>
-            <li><div><h3>2. Cited graph paths</h3><p>The agent answers, and each claim cites a path: requirement, control, evidence.</p></div></li>
+            <li><div><h3>1. Your question</h3><p>You ask Crosswalk, for example: is multi-factor login (MFA) covered for the 800-171 audit?</p></div></li>
+            <li><div><h3>2. Receipts</h3><p>The agent answers, and each claim comes with a receipt: a chain from requirement to control to evidence.</p></div></li>
             <li><div><h3>3. The claim checker</h3><p>The checker re-runs each path and drops any claim that fails. People approve every change.</p></div></li>
           </ol>
         </div>
@@ -269,7 +269,7 @@
         <div class="span-5">
           <div class="section-head">
             <h2 id="catch-h">The claim checker on a real question</h2>
-            <p>The agent first says MFA is covered. The checker finds the evidence expired on 1 December and the second mapping is only proposed. The answer you see is corrected.</p>
+            <p>The agent first says MFA is covered. The checker finds the evidence expired on 1 December and the second link is only proposed, not approved. The answer you see is corrected.</p>
           </div>
           <a class="link" href="explorer.html#agent">See the live catch in the explorer</a>
         </div>
@@ -297,12 +297,12 @@
         <div class="span-5">
           <div class="section-head"><h2 id="guide-h">Explorer tabs, one line each</h2></div>
           <ul class="tabrows">
-            <li><b>Coverage</b><span>Which requirements are met, inherited or open</span></li>
-            <li><b>Head start</b><span>What you already meet through another framework</span></li>
-            <li><b>What breaks</b><span>What fails when evidence expires</span></li>
-            <li><b>Graph</b><span>Every link in the graph, one click at a time</span></li>
+            <li><b>Coverage</b><span>Which requirements are covered, inherited, or gaps</span></li>
+            <li><b>What breaks</b><span>What fails when evidence expires or a person leaves</span></li>
+            <li><b>Inherited</b><span>What you already meet through another framework</span></li>
             <li><b>Agent log</b><span>What the agent proposed, plus the live catch</span></li>
             <li><b>Scorecard</b><span>The measured results behind the numbers above</span></li>
+            <li><b>Graph</b><span>Every link in the graph, one click at a time</span></li>
           </ul>
         </div>
         <div class="span-7">

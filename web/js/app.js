@@ -10,7 +10,7 @@ const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '
 const plural = (n, one, many = one + 's') => `${n} ${n === 1 ? one : many}`;
 // tab order as the explorer shows it; the hashes (#coverage, #blast, #agent, #scorecard) are used by the landing page
 const TABS = ['coverage', 'blast', 'adopt', 'agent', 'scorecard', 'graph'];
-const TAB_NAME = { coverage: 'Coverage', blast: 'What breaks', adopt: 'Head start', agent: 'Agent log', scorecard: 'Scorecard', graph: 'Graph' };
+const TAB_NAME = { coverage: 'Coverage', blast: 'What breaks', adopt: 'Inherited', agent: 'Agent log', scorecard: 'Scorecard', graph: 'Graph' };
 
 const S = {
   g: null, meta: null, asOf: null, tab: 'coverage', rev: 0, rendered: {},
@@ -93,12 +93,12 @@ function fatal(msg) {
 
 async function boot() {
   if (location.protocol === 'file:') {
-    return fatal('This page needs to be served over http (browsers will not load WebAssembly from <code>file://</code>). From the repo root run <code>python -m http.server -d web 8000</code> and open <code>http://localhost:8000</code>.');
+    return fatal('Open this page from a local web server, not as a file. Browsers block the graph engine (WebAssembly) on <code>file://</code> pages. From the repo root run <code>python -m http.server -d web 8000</code>, then open <code>http://localhost:8000</code>.');
   }
   try {
     const meta = JSON.parse(await getText('data/meta.json'));
     const [script, ...qs] = await Promise.all([getText('data/graph.cypher'), ...meta.queries.map((n) => getText(`queries/${n}.cypher`)), init()]);
-    $('#loading-text').textContent = `Building the graph in your browser (${meta.total_nodes.toLocaleString()} nodes, ${meta.total_relationships.toLocaleString()} relationships)…`;
+    $('#loading-text').textContent = `Building the graph in your browser: ${meta.total_nodes.toLocaleString()} items and ${meta.total_relationships.toLocaleString()} links…`;
     await tick();
     const g = new GraphDb(RelateDb);
     g.setScript(script);
@@ -113,10 +113,10 @@ async function boot() {
     S.scorecard = meta.has_scorecard ? await getJsonOrNull('data/scorecard.json') : null;
   } catch (e) {
     console.error(e);
-    return fatal(`Could not start the explorer: <code>${esc(e.message || e)}</code>. Check that <code>web/data/graph.cypher</code> exists (<code>python -m crosswalk.export_web</code>) and that the page is served over http.`);
+    return fatal(`The explorer couldn't start: <code>${esc(e.message || e)}</code>. Reload to try again. If it keeps failing, check that your browser supports WebAssembly and that <code>web/data/graph.cypher</code> exists (build it with <code>python -m crosswalk.export_web</code>).`);
   }
   $('#loading').hidden = true;
-  $('#asof-chip').textContent = `${S.meta.company || 'Company'} · as of ${S.asOf}`;
+  $('#asof-chip').textContent = `${S.meta.company || 'Company'} · demo date ${S.asOf}`;  // meta.company already ends "(fictional)"
   $('#foot-stats').textContent = `Graph: ${S.meta.total_nodes.toLocaleString()} nodes, ${S.meta.total_relationships.toLocaleString()} relationships, built in your browser in ${S.g.loadedMs} ms. Queries are the same Cypher files the CLI runs.`;
   for (const id of ['btn-expire', 'btn-remove', 'btn-reset']) $('#' + id).disabled = false;
   wire();
@@ -154,21 +154,21 @@ function refreshChrome() {
   const expiring = A.blast(S.g, { asOf: S.asOf, until: A.addDays(S.asOf, 30) }).expiring.length
     + S.whatIf.filter((w) => w.kind === 'expire').length;
   const kpis = [
-    ['covered', 'Covered', c.covered, base.covered, 'Met directly: an approved control with evidence that is still valid.', 'covered'],
-    ['inherited', 'Inherited', c.inherited, base.inherited, 'Not met directly, but a matching requirement in another framework is.', 'inherited'],
-    ['gap', 'Gaps', c.gaps, base.gaps, 'No control and no crosswalk neighbour meets these yet.', 'gap'],
-    ['', 'Expired or expiring in 30 days', expiring, undefined, 'Items whose proof lapses soon. Open "What breaks" to see what they hold up.', 'broken'],
+    ['covered', 'Covered', c.covered, base.covered, "Met directly: a control you run, backed by evidence that hasn't expired.", 'covered'],
+    ['inherited', 'Inherited', c.inherited, base.inherited, 'Not met directly, but a matching requirement in another framework is. You can reuse that work.', 'inherited'],
+    ['gap', 'Gaps', c.gaps, base.gaps, 'Nothing meets these yet, directly or through another framework.', 'gap'],
+    ['', 'Expired or expiring in 30 days', expiring, undefined, 'Evidence that has expired or will within 30 days. Open "What breaks" to see what relies on it.', 'broken'],
   ];
   $('#hero-kpis').innerHTML = kpis.map(([cls, t, n, was, hint, sw]) => `<div class="${cls ? 'c-' + cls : ''}"><dt><i class="dot ${sw}" aria-hidden="true"></i>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small>was ${was}</small>` : ''}</dd><p class="kpi-hint">${hint}</p></div>`).join('')
-    + `<div class="kpi-note">The first three count the ${c.total} requirements of NIST SP 800-171 at ${esc(S.asOf)}.</div>`;
+    + `<div class="kpi-note">The first three count the ${c.total} requirements of NIST SP 800-171 (a US security standard) on the demo date, ${esc(S.asOf)}.</div>`;
 
   // the verdict line: the same coverage result as the tiles; the audit date comes from meta.json
   const aud = auditFor('800-171');
   const verdict = $('#verdict');
   if (aud) {
     verdict.textContent = c.gaps > 0
-      ? `Not audit-ready for ${aud.id} (${aud.date}): ${c.covered} of ${c.total} requirements covered, ${c.inherited} inherited, ${c.gaps} gaps.`
-      : `Audit-ready for ${aud.id} (${aud.date}): all ${c.total} requirements are met, ${c.covered} covered and ${c.inherited} inherited.`;
+      ? `Not audit-ready for ${aud.id} on ${aud.date}: ${c.covered} of ${c.total} requirements covered, ${c.inherited} inherited, ${c.gaps} gaps.`
+      : `Audit-ready for ${aud.id} on ${aud.date}: all ${c.total} requirements are met (${c.covered} covered, ${c.inherited} inherited).`;
     verdict.style.color = c.gaps > 0 ? 'var(--gap)' : 'var(--covered)';
   }
   renderBanner();
@@ -209,7 +209,7 @@ function renderTab(tab) {
     S.rendered[tab] = S.rev;
   } catch (e) {
     console.error(e);
-    $('#panel-' + tab).innerHTML = `<div class="notice error">Something went wrong drawing this tab: <code>${esc(e.message)}</code></div>`;
+    $('#panel-' + tab).innerHTML = `<div class="notice error">This tab couldn't load: <code>${esc(e.message)}</code>. Try another tab, or reload the page.</div>`;
   }
 }
 
@@ -247,7 +247,7 @@ function renderCoverage() {
     const open = expandAll;
     return `<details class="fam" data-fam="${esc(f.id)}"${open ? ' open' : ''}>
       <summary><div class="fam-row"><span class="name"><b>${esc(A.shortId(f.id).replace(/^.*:/, ''))}</b> ${esc(f.title)}</span>
-        <span class="num covered" title="covered">${n('covered')}</span><span class="num inherited" title="inherited">${n('inherited')}</span><span class="num gap" title="gaps">${n('gap')}</span>
+        <span class="num covered" title="Covered">${n('covered')}</span><span class="num inherited" title="Inherited">${n('inherited')}</span><span class="num gap" title="Gaps">${n('gap')}</span>
         ${bar(n('covered'), n('inherited'), n('gap'))}</div></summary>
       <div class="reqs" data-filled="${open ? '1' : ''}">${open ? reqListHtml(shown) : ''}</div></details>`;
   }).join('');
@@ -263,24 +263,24 @@ function renderCoverage() {
       </div>
       <div style="margin-top:1rem">
         <div class="row-main"><h2 class="grow">${esc(A.FRAMEWORK_LABEL[cov.framework])}${cov.baseline ? ` <span class="muted">(${esc(cov.baseline)} baseline)</span>` : ''}</h2>
-          <b style="font-size:1.4rem">${cov.total ? Math.round((met / cov.total) * 100) : 0}%</b> <span class="muted">met, counting inherited</span></div>
+          <b style="font-size:1.4rem">${cov.total ? Math.round((met / cov.total) * 100) : 0}%</b> <span class="muted">met, including inherited</span></div>
         ${bar(cov.covered, cov.inherited, cov.gaps, true)}
-        <div class="legend-row"><span><i class="dot covered"></i>Covered directly</span><span><i class="dot inherited"></i>Inherited through the crosswalk</span><span><i class="dot gap"></i>Gap</span></div>
+        <div class="legend-row"><span><i class="dot covered"></i>Covered directly</span><span><i class="dot inherited"></i>Inherited: met through another framework</span><span><i class="dot gap"></i>Gap</span></div>
       </div>
       <div class="stats">
         <div class="stat"><b>${cov.total}</b><span>Requirements in scope</span><small>The rules this framework or audit asks you to meet.</small></div>
         <div class="stat"><b style="color:var(--covered)">${cov.covered}${deltaTxt(cov.covered, base.covered)}</b><span>Covered</span><small>Met directly, with valid evidence.</small></div>
-        <div class="stat"><b style="color:var(--inherited)">${cov.inherited}${deltaTxt(cov.inherited, base.inherited)}</b><span>Inherited</span><small>Met through another framework. You can adopt it.</small></div>
+        <div class="stat"><b style="color:var(--inherited)">${cov.inherited}${deltaTxt(cov.inherited, base.inherited)}</b><span>Inherited</span><small>Met through another framework. See the Inherited tab.</small></div>
         <div class="stat"><b style="color:var(--gap)">${cov.gaps}${deltaTxt(cov.gaps, base.gaps)}</b><span>Gaps</span><small>Nothing meets these yet.</small></div>
         <div class="stat"><b>${bl.expiring.length}</b><span>Evidence expiring</span><small>Items that lapse before ${esc(until)}${aud ? ' (' + esc(aud.id) + ')' : ''}.</small></div>
-        <div class="stat"><b style="color:var(--${broken.length ? 'warn' : 'covered'})">${broken.length}</b><span>Requirements break</span><small>Lose direct coverage by then${broken.length ? `; ${stillMet} still met via crosswalk` : ''}.</small></div>
+        <div class="stat"><b style="color:var(--${broken.length ? 'warn' : 'covered'})">${broken.length}</b><span>Requirements that break</span><small>Lose direct coverage by then${broken.length ? `; ${stillMet} still met through another framework` : ''}.</small></div>
       </div>
     </div>
     <div>
-      <div class="fam-head"><span>Family (click to open, then open a requirement to see its receipts)</span><span title="covered">Cov</span><span title="inherited">Inh</span><span title="gaps">Gap</span></div>
-      ${famHtml || '<div class="notice">No gaps in this scope.</div>'}
+      <div class="fam-head"><span>Family: open one, then pick a requirement to see its receipt</span><span title="Covered">Cov</span><span title="Inherited">Inh</span><span title="Gaps">Gap</span></div>
+      ${famHtml || '<div class="notice">No gaps here. Every requirement in this view is covered or inherited.</div>'}
     </div>
-    <p class="muted">Covered: an adopted control with an approved mapping to the requirement and evidence that has not expired at ${esc(S.asOf)}. Inherited: not covered, but a requirement one NIST crosswalk hop away is. Open a requirement to see the receipts.</p>`;
+    <p class="muted">Covered: a control the company has in place, a person-approved link from it to the requirement, and evidence that hasn't expired on ${esc(S.asOf)}. Inherited: not covered, but a matching requirement in another framework is. Gap: neither. Open a requirement to see its receipt.</p>`;
 }
 
 function reqListHtml(reqs) {
@@ -304,7 +304,7 @@ function explainHtml(reqId, status) {
   }
   for (const p of x.inherited) {
     out.push(`<div class="receipt">${chain(p.nodes, p.rels)} <span class="pill info">inherited, valid until ${esc(p.expires_at)}</span>
-      <span class="muted">via ${esc(A.shortId(p.neighbour))}</span> ${pathButton([{ nodes: p.nodes, rels: p.rels, state: 'ok' }])}</div>`);
+      <span class="muted">through ${esc(A.shortId(p.neighbour))} (another framework)</span> ${pathButton([{ nodes: p.nodes, rels: p.rels, state: 'ok' }])}</div>`);
   }
   for (const p of x.proposals) {
     const nodes = [`Requirement:${reqId}`, `Proposal:${p.proposal}`, `Control:${p.control}`];
@@ -312,7 +312,7 @@ function explainHtml(reqId, status) {
     out.push(`<div class="receipt">${chain(nodes, rels)} <span class="pill ${p.status === 'pending' ? 'warn' : p.status}">proposal ${esc(p.status)}</span>
       <span class="muted">${p.status === 'pending' ? 'proposed, not approved: does not count' : esc(p.reason || '')}</span> ${pathButton([{ nodes, rels, state: p.status === 'pending' ? 'warn' : 'fail', bad: [p.proposal] }])}</div>`);
   }
-  if (!out.length) out.push(`<p class="muted">No control is mapped to this requirement${status === 'gap' ? ', and no crosswalk neighbour is covered. This is a gap.' : '.'}</p>`);
+  if (!out.length) out.push(`<p class="muted">No control is linked to this requirement${status === 'gap' ? ', and no matching requirement in another framework is met. This is a gap.' : '.'}</p>`);
   return out.join('');
 }
 
@@ -328,23 +328,23 @@ function renderAdopt() {
     const first = it.paths[0];
     const via = it.via.map((v) => `<div class="receipt">via <span class="tag">${esc(A.shortId(v.neighbour))}</span> ${v.controls.map((k) => `<span class="muted">&larr;</span> ${tag(k.control)} <span class="muted">&larr;</span> ${k.evidence.map((e) => `${tag(e.id)} <span class="muted">valid until ${esc(e.expires)}</span>`).join(', ')}`).join(' · ')}</div>`).join('');
     return `<div class="row" data-text="${esc((it.requirement + ' ' + it.title).toLowerCase())}">
-      <div class="row-main"><span class="rid"><b>${esc(A.shortId(it.requirement))}</b></span><span class="grow">${esc(it.title)}</span><span class="pill info">met via crosswalk</span></div>
+      <div class="row-main"><span class="rid"><b>${esc(A.shortId(it.requirement))}</b></span><span class="grow">${esc(it.title)}</span><span class="pill info">met via another framework</span></div>
       <div class="row-sub">${via}${pathButton(it.paths.map((p) => ({ nodes: p.nodes, rels: p.rels, state: 'ok' })), 'Show on graph')}</div></div>`;
   }).join('');
   $('#panel-adopt').innerHTML = `
     <div class="card">
       <div class="controls">
-        ${select('adopt-fw', ['800-171', 'CSF'].map((f) => [f, A.FRAMEWORK_LABEL[f]]), fw, 'Framework you are adopting')}
+        ${select('adopt-fw', ['800-171', 'CSF'].map((f) => [f, A.FRAMEWORK_LABEL[f]]), fw, 'Framework to check')}
         <label>Filter<input type="search" id="adopt-q" placeholder="e.g. 03.13 or encryption"></label>
       </div>
-      <h2 style="margin-top:1rem">${a.inheritedCount} of ${a.active} requirements are already met</h2>
-      <p class="muted">Through approved mappings to NIST SP 800-53 and the official NIST crosswalk, with evidence that is still valid. You would only need to <b>adopt</b> them, not redo the work.</p>
+      <h2 style="margin-top:1rem">${a.inheritedCount} of ${a.active} requirements are inherited</h2>
+      <p class="muted">Each one matches a requirement in another framework (using NIST's official crosswalk) that your valid evidence already meets. Reuse that evidence instead of starting over.</p>
       ${bar(c.covered, c.inherited, c.gaps, true)}
-      <div class="legend-row"><span><i class="dot covered"></i>${c.covered} covered directly</span><span><i class="dot inherited"></i>${c.inherited} head start</span><span><i class="dot gap"></i>${c.gaps} still to do</span></div>
+      <div class="legend-row"><span><i class="dot covered"></i>${c.covered} covered directly</span><span><i class="dot inherited"></i>${c.inherited} inherited</span><span><i class="dot gap"></i>${c.gaps} still to do</span></div>
     </div>
-    <div class="card"><h3>Head start list <span class="muted" id="adopt-count"></span></h3>
-      <div class="rows" id="adopt-rows">${items || '<p class="muted">Nothing is inherited yet.</p>'}</div></div>
-    <p class="muted">Rule: one NIST crosswalk hop, either direction. A requirement that is covered directly is not listed here.</p>`;
+    <div class="card"><h3>Inherited requirements <span class="muted" id="adopt-count"></span></h3>
+      <div class="rows" id="adopt-rows">${items || '<p class="muted">Nothing is inherited yet. No requirement here matches one that is already met.</p>'}</div></div>
+    <p class="muted">Rule: a requirement counts only if a matching one in another framework is one step away in NIST's crosswalk (either direction). Requirements covered directly aren't listed.</p>`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -357,7 +357,7 @@ function blastUntil() {
   if (w === 'custom') {
     const d = S.blast.custom;
     if (/^\d{4}-\d{2}-\d{2}$/.test(d) && d > S.asOf) return { until: d, label: d };
-    return { until: A.addDays(S.asOf, 30), label: 'the next 30 days (pick a later date)' };
+    return { until: A.addDays(S.asOf, 30), label: 'the next 30 days (pick a date after the demo date)' };
   }
   const a = S.meta.audits.find((x) => x.id === w);
   return { until: a.date, label: `${a.id} on ${a.date}` };
@@ -382,8 +382,8 @@ function renderBlast() {
       const state = r.still_inherited ? 'warn' : 'fail';
       const paths = [...r.paths.map((p) => ({ ...p, state: 'fail', bad: r.evidence_lost })), ...r.inherited_paths.map((p) => ({ ...p, state: 'ok' }))];
       return `<div class="row"><div class="row-main"><b>${esc(A.shortId(r.requirement))}</b><span class="grow">${esc(r.title)}</span>
-        <span class="pill ${state}">${r.still_inherited ? 'still met via crosswalk' : 'fully broken'}</span></div>
-        <div class="row-sub">loses ${r.controls_lost.map((c) => tag(c)).join(' ')} (evidence ${r.evidence_lost.map((e) => tag(e, 'warn')).join(' ')})${r.still_inherited ? ` &middot; still held up through ${r.inherited_via.map((v) => tag(v)).join(' ')}` : ''} ${pathButton(paths, 'Show path')}</div></div>`;
+        <span class="pill ${state}">${r.still_inherited ? 'still met via another framework' : 'fully broken'}</span></div>
+        <div class="row-sub">loses ${r.controls_lost.map((c) => tag(c)).join(' ')} (evidence ${r.evidence_lost.map((e) => tag(e, 'warn')).join(' ')})${r.still_inherited ? ` &middot; still held up through ${r.inherited_via.map((v) => tag(v)).join(' ')}` : ''} ${pathButton(paths, 'Show on graph')}</div></div>`;
     }).join('');
     return `<h3 style="margin-top:.8rem">${esc(A.FRAMEWORK_LABEL[fw])} <span class="muted">(${list.length})</span></h3><div class="rows">${rows}</div>`;
   }).join('');
@@ -396,7 +396,7 @@ function renderBlast() {
   const people = Object.values(ownerRisk.people);
   const pid = people.some((p) => p.id === S.blast.person) ? S.blast.person : (ownerRisk.ranking[0] || people[0] || {}).id;
   const p = ownerRisk.people[pid];
-  const personOpts = people.map((x) => [x.id, `${x.name} (${x.controls.length} sole-owned)`]);
+  const personOpts = people.map((x) => [x.id, `${x.name} (sole owner of ${x.controls.length})`]);
   const ownerHtml = p ? `
       ${select('blast-person', personOpts, pid, 'Person')}
       <p style="margin-top:.8rem"><b>${esc(p.name)}</b> is the only owner of <b>${plural(p.controls.length, 'control')}</b>${p.highSystems.length ? `, touching ${plural(p.highSystems.length, 'high-criticality system')}` : ''}.
@@ -411,14 +411,14 @@ function renderBlast() {
       <p><b>${plural(w.controls.length, 'control')}</b> ${w.controls.length === 1 ? 'is' : 'are'} left with no owner${w.dependent.length ? `, and <b>${plural(w.dependent.length, 'requirement')}</b> depend on ${w.controls.length === 1 ? 'it' : 'them'} alone${w.audits.length ? ` (${esc(w.audits.join(', '))})` : ''}` : ''}.</p>
       <div class="receipt">${w.controls.map((c) => tag(c, 'warn')).join(' ')}</div>
       ${w.dependent.length ? `<div class="row-sub">Requirements: ${w.dependent.slice(0, 24).map((d) => tag(d.requirement)).join(' ')}${w.dependent.length > 24 ? ` +${w.dependent.length - 24} more` : ''}</div>` : ''}</div>`).join('');
-  $('#panel-blast').innerHTML = `${removed}
+  $('#panel-blast').innerHTML = `<p class="muted">Pick a time window to see which evidence runs out, which requirements lose coverage, and who owns the controls at risk.</p>${removed}
     <div class="card">
       <div class="controls">
-        ${select('blast-window', winOpts, S.blast.window, 'Window')}
+        ${select('blast-window', winOpts, S.blast.window, 'Look ahead')}
         <label id="blast-custom-wrap"${S.blast.window === 'custom' ? '' : ' hidden'}>Date<input type="date" id="blast-custom" min="${esc(A.addDays(S.asOf, 1))}" value="${esc(S.blast.custom)}"></label>
       </div>
       <h2 style="margin-top:1rem">${plural(b.expiring.length, 'evidence item')} expire${b.expiring.length === 1 ? 's' : ''} in ${esc(label)}</h2>
-      <p>${total ? `<b>${plural(total, 'requirement')}</b> lose direct coverage (${total - notInh} still met through the crosswalk, <b>${notInh}</b> fully broken).` : 'No requirement loses direct coverage.'}
+      <p>${total ? `<b>${plural(total, 'requirement')}</b> lose direct coverage (${total - notInh} still met through another framework, <b>${notInh}</b> fully broken).` : 'No requirement loses direct coverage.'}
         ${b.controlsLeft.length ? ` ${plural(b.controlsLeft.length, 'control')} would have no valid evidence left.` : ''}</p>
       <div class="stats">${A.FRAMEWORKS.map((fw) => `<div class="stat"><b>${b.counts[fw]}</b><span>${esc(A.FRAMEWORK_LABEL[fw])}</span><small>requirements lose direct coverage</small></div>`).join('')}
         <div class="stat"><b>${b.audits.length}</b><span>${b.audits.length === 1 ? 'Audit affected' : 'Audits affected'}</span><small>Audits that ask for expiring evidence or lose a requirement.</small></div></div>
@@ -432,9 +432,9 @@ function renderBlast() {
     <div class="grid2">
       <div class="card"><h2>Owner risk: what if someone leaves?</h2>${ownerHtml}
         <p class="muted" style="margin-top:.6rem">Controls with no owner today: ${ownerRisk.unowned.map((u) => tag(u.control, 'warn')).join(' ') || 'none'}.</p></div>
-      <div class="card"><h2>Evidence that earns the most credit</h2>
+      <div class="card"><h2>Evidence that supports the most requirements</h2>
         <div class="rows">${topReuse.map((r) => `<div class="row"><div class="row-main"><span class="tag">${esc(r.evidence)}</span><span class="grow">${esc(evTitles[r.evidence] || '')}</span></div>
-          <div class="row-sub">${plural(r.direct_count, 'requirement')} directly, ${plural(r.reach_count, 'requirement')} with one crosswalk hop, across ${plural(r.framework_count, 'framework')}; expires ${esc(r.expires_at)}</div></div>`).join('')}</div></div>
+          <div class="row-sub">Supports ${plural(r.direct_count, 'requirement')} directly and ${plural(r.reach_count, 'requirement')} counting matches in other frameworks, across ${plural(r.framework_count, 'framework')}; expires ${esc(r.expires_at)}</div></div>`).join('')}</div></div>
     </div>`;
 }
 
@@ -461,14 +461,14 @@ function renderGraph() {
 function showNodeInfo(d, info) {
   const el = $('#graph-info');
   if (!d) {
-    el.innerHTML = '<h3>Nothing selected</h3><p class="muted">Click a node to see its properties and pull in its neighbours. Search above to start from any requirement, control, evidence item or person.</p>';
+    el.innerHTML = '<h3>Nothing selected</h3><p class="muted">Click a circle to see its details and reveal what it connects to. Or search above to start from any requirement, control, piece of evidence or person.</p>';
     return;
   }
   const rows = Object.entries(d.props).filter(([k]) => k !== 'id').sort(([a], [b]) => A.nat(a, b));
   const extra = d.label === 'Evidence'
     ? (d.props.expires_at <= S.asOf ? '<span class="pill fail">expired</span>' : '<span class="pill ok">valid</span>')
     : d.label === 'Proposal' ? `<span class="pill ${d.props.status === 'pending' ? 'warn' : d.props.status}">${esc(d.props.status)}</span>` : '';
-  const more = info && info.total > info.shown ? `<p class="muted">Showing ${info.shown} of ${info.total} neighbours.</p>` : '';
+  const more = info && info.total > info.shown ? `<p class="muted">Showing ${info.shown} of ${info.total} connected items.</p>` : '';
   el.innerHTML = `<h3>${esc(d.label)} ${extra}</h3><p class="mono" style="overflow-wrap:anywhere">${esc(d.id)}</p>
     <dl class="kv">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(Array.isArray(v) ? v.join(', ') : v)}</dd>`).join('')}</dl>${more}`;
 }
@@ -482,7 +482,7 @@ function graphSearch(q) {
   box.hidden = false;
   box.innerHTML = rows.length
     ? rows.map((r) => `<li><button type="button" data-act="graph-pick" data-ref="${esc(r.label + ':' + r.id)}"><b>${esc(A.shortId(r.id))}</b> <span class="muted">${esc(r.label)}</span> ${esc(r.title).slice(0, 80)}</button></li>`).join('')
-    : '<li class="muted" style="padding:.4rem .6rem">No match</li>';
+    : '<li class="muted" style="padding:.4rem .6rem">No match. Try an ID like EV-044 or a name like Dana.</li>';
 }
 
 /** The caption above the graph: only after "Show on graph" from another tab. */
@@ -490,7 +490,7 @@ function paintCaption() {
   const back = S.graphReturn;
   $('#graph-caption').hidden = !back;
   if (!back) return;
-  $('#graph-caption-text').textContent = `Showing the path for ${back.id} · `;
+  $('#graph-caption-text').textContent = `Showing the receipt for ${back.id} · `;
   $('#graph-back').textContent = `← Back to ${TAB_NAME[back.tab]}`;
 }
 
@@ -523,7 +523,7 @@ function verdictOf(res) {
 
 function liveCatchHtml() {
   const rec = S.liveCatch;
-  if (!rec) return '<div class="card"><h2>Live catch</h2><p class="muted">No recorded answer was exported.</p></div>';
+  if (!rec) return '<div class="card"><h2>A wrong answer, caught</h2><p class="muted">No recorded answer is included in this copy.</p></div>';
   const t0 = performance.now();
   const checked = rec.paths.map((p) => ({ p, res: A.checkPath(S.g, { nodes: p.nodes, rels: p.rels, asOf: S.asOf }) }));
   const ms = performance.now() - t0;
@@ -536,9 +536,9 @@ function liveCatchHtml() {
     const detail = cs.map((c) => {
       const cv = verdictOf(c.res);
       const bad = [...c.res.problems.join(' ').matchAll(/(?:Evidence:|\()?(EV-\d+|PR-\d+)/g)].map((m) => m[1]);
-      return `<div class="receipt">${chain(c.p.nodes, c.p.rels, bad)} <span class="mono muted">${esc(c.p.id)}</span></div>
-        <div class="verdict ${cv}">${symbol[cv]} ${esc(c.res.problems.join('; ') || (c.res.valid ? 'path exists and is valid' : 'path not found'))}
-        &nbsp; ${pathButton([{ nodes: c.p.nodes, rels: c.p.rels, state: cv === 'ok' ? 'ok' : cv, bad }], 'Show broken path on graph')}</div>`;
+      return `<div class="receipt">${chain(c.p.nodes, c.p.rels, bad)} <span class="mono muted">Receipt ${esc(c.p.id)}</span></div>
+        <div class="verdict ${cv}">${symbol[cv]} ${esc(c.res.problems.join('; ') || (c.res.valid ? 'the receipt holds' : 'no such link in the graph'))}
+        &nbsp; ${pathButton([{ nodes: c.p.nodes, rels: c.p.rels, state: cv === 'ok' ? 'ok' : cv, bad }], 'Show on graph')}</div>`;
     }).join('');
     return `<div class="claim ${v}"><div><span class="verdict ${v}">${symbol[v]} ${word[v]}</span> &mdash; ${esc(cl.text)}</div>${detail}</div>`;
   }).join('');
@@ -555,15 +555,15 @@ function liveCatchHtml() {
   }
   const allOk = checked.every((c) => c.res.valid);
   const fixed = allOk
-    ? '<b>Confirmed.</b> Every cited path still holds at the demo date.'
-    : `<b>Not covered.</b> ${actions.length ? actions.map((a, i) => (i === 0 ? a.charAt(0).toUpperCase() + a.slice(1) : a)).join(', then ') + '.' : 'At least one cited path no longer holds.'}`;
+    ? '<b>Confirmed.</b> Every receipt still holds on the demo date.'
+    : `<b>Not covered.</b> ${actions.length ? actions.map((a, i) => (i === 0 ? a.charAt(0).toUpperCase() + a.slice(1) : a)).join(', then ') + '.' : 'At least one receipt no longer holds.'}`;
 
   return `<div class="card">
-      <h2>The live catch</h2>
-      <p class="muted">A recorded agent answer, re-checked against the live graph. The agent works from the old spreadsheet; the graph does not.</p>
+      <h2>A wrong answer, caught</h2>
+      <p class="muted">A recorded answer from an AI agent that read the old spreadsheet. Crosswalk re-checks each claim against the live graph.</p>
       <p><b>${esc(S.names[rec.asked_by] || rec.asked_by)} asks:</b> ${esc(rec.question)}</p>
       <div class="quote"><b style="font-style:normal">${esc(rec.agent)}</b>: ${esc(rec.answer_text)}</div>
-      <h3>Claim check <span class="muted" style="font-weight:400">&mdash; ${plural(rec.paths.length, 'cited path')} re-run in ${ms.toFixed(0)} ms, in your browser</span></h3>
+      <h3>Claim check <span class="muted" style="font-weight:400">&mdash; ${plural(rec.paths.length, 'receipt')} re-run in ${ms.toFixed(0)} ms, in your browser</span></h3>
       <div style="margin-top:.5rem">${claims}</div>
       <div class="fixed"><b>Corrected answer.</b> ${fixed}</div>
     </div>`;
@@ -590,9 +590,9 @@ function renderAgent() {
   }).join('');
   $('#panel-agent').innerHTML = `${liveCatchHtml()}
     <div class="card"><h2>Proposals and decisions</h2>
-      <p class="muted">Agents can only <em>propose</em>. A person approves or rejects, and the decision is stored in the same graph, so the next agent reads it before suggesting again.
+      <p class="muted">A proposal suggests that a control meets a requirement. Agents can only <em>propose</em>. A person approves or rejects, and the decision is stored in the same graph, so the next agent reads it before suggesting again.
       ${plural(props.length, 'proposal')} by ${esc(agents.join(', ') || 'no agent')}: ${count('approved')} approved, ${count('rejected')} rejected, ${count('pending')} pending.</p>
-      <div class="rows">${rows || '<p class="muted">No proposals in the graph.</p>'}</div></div>`;
+      <div class="rows">${rows || '<p class="muted">No proposals yet. Agents add suggestions here for a person to approve or reject.</p>'}</div></div>`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -634,8 +634,8 @@ async function renderScorecardTab() {
   }
   // The trap counts (6 of 14, 0 of 14) and GQ-11 are not fields of scorecard.json; their source is eval/agent-runs/results-run2.md
   const h = headlineNumbers() || { before: { right: 9, total: 20, pct: 45 }, after: { right: 19, total: 20, pct: 95 }, claims: '109/109', wrong: '0' };
-  panel.innerHTML = `<div class="card accent"><h2>Headline result: ${h.before.pct}% to ${h.after.pct}%</h2>
-      <p>Same Claude model, same 20 questions (14 planted traps). Reading the spreadsheet: <b>${h.before.right}/${h.before.total} right (${h.before.pct}%)</b>, fell for 6 of 14 traps. With the Relate graph and claim checker: <b>${h.after.right}/${h.after.total} right (${h.after.pct}%)</b>, 0 of 14 traps, <b>${h.wrong ?? '0'} wrong claims shown</b>, <b>${h.claims ?? '109/109'} claims</b> backed by a valid receipt. The one miss (GQ-11) was an incomplete answer, not a false claim.</p>
+  panel.innerHTML = `<div class="card accent"><h2>Headline result: ${h.before.pct}% to ${h.after.pct}% of answers right</h2>
+      <p>Same Claude model, same 20 questions. 14 are planted traps: questions where the spreadsheet is misleading. Reading the spreadsheet: <b>${h.before.right}/${h.before.total} right (${h.before.pct}%)</b>, fell for 6 of 14 traps. With the Relate graph and claim checker: <b>${h.after.right}/${h.after.total} right (${h.after.pct}%)</b>, 0 of 14 traps, <b>${h.wrong ?? '0'} wrong claims shown</b>, <b>${h.claims ?? '109/109'} claims</b> backed by a valid receipt. The one miss (GQ-11) was an incomplete answer, not a false claim.</p>
       <p class="muted">The detail is below. <a href="index.html#result">Read the short version on the overview page.</a></p></div>${renderScorecard(S.scorecard)}`;
 }
 
@@ -670,24 +670,26 @@ function fillExpireOptions(prefer) {
   const q = $('#expire-q').value.trim().toLowerCase();
   const rows = expireRows.filter((r) => !q || `${r.id} ${r.title}`.toLowerCase().includes(q));
   const opt = (r) => {
-    const note = r.sole ? `only proof of ${plural(r.sole, 'control')}` : 'has back-up evidence';
-    return `<option value="${esc(r.id)}">${esc(r.id)} · ${esc(r.title.slice(0, 48))} · ${note}, affects ${plural(r.reach, 'requirement')}</option>`;
+    const note = r.sole ? `only proof for ${plural(r.sole, 'control')}` : 'has other evidence behind it';
+    return `<option value="${esc(r.id)}">${esc(r.id)} · ${esc(r.title.slice(0, 48))} · ${note} · supports ${plural(r.reach, 'requirement')}</option>`;
   };
   const soleRows = rows.filter((r) => r.sole);
   const backupRows = rows.filter((r) => !r.sole);
   const groups = [];
-  if (soleRows.length) groups.push(`<optgroup label="Only proof of a control">${soleRows.map(opt).join('')}</optgroup>`);
-  if (backupRows.length) groups.push(`<optgroup label="Has a backup">${backupRows.map(opt).join('')}</optgroup>`);
+  if (soleRows.length) groups.push(`<optgroup label="Expiring these hurts most: the only proof of a control">${soleRows.map(opt).join('')}</optgroup>`);
+  if (backupRows.length) groups.push(`<optgroup label="Other evidence covers them">${backupRows.map(opt).join('')}</optgroup>`);
   const sel = $('#sel-expire');
-  sel.innerHTML = groups.join('');
   const ids = rows.map((r) => r.id);
+  // no match: one disabled placeholder, and the confirm button stays off until the filter matches something
+  sel.innerHTML = ids.length ? groups.join('') : '<option value="" disabled selected>No evidence matches your search.</option>';
   sel.value = ids.includes(prefer) ? prefer : (ids[0] || '');
+  $('#ok-expire').disabled = !ids.length;
 }
 
 function openRemove(preselect) {
   const risk = A.ownerRisk(S.g, { asOf: S.asOf });
   const people = Object.values(risk.people).sort((a, b) => b.controls.length - a.controls.length || A.nat(a.id, b.id));
-  $('#sel-remove').innerHTML = people.map((p) => `<option value="${esc(p.id)}"${p.id === preselect ? ' selected' : ''}>${esc(p.name)} · solely owns ${p.controls.length}</option>`).join('');
+  $('#sel-remove').innerHTML = people.map((p) => `<option value="${esc(p.id)}"${p.id === preselect ? ' selected' : ''}>${esc(p.name)} · sole owner of ${plural(p.controls.length, 'control')}</option>`).join('');
   $('#dlg-remove').showModal();
 }
 
@@ -783,7 +785,7 @@ function renderBanner() {
   if (w.kind === 'remove') {
     const n = w.controls.length;
     const m = w.dependent.length;
-    lines = `<span class="wi-line">Coverage numbers do not change when a person leaves; ownership risk does: ${n} ${n === 1 ? 'control now has' : 'controls now have'} no owner, ${m} ${m === 1 ? 'requirement depends' : 'requirements depend'} on them alone.</span>`;
+    lines = `<span class="wi-line">Coverage doesn't change when someone leaves, but ownership does: ${n} ${n === 1 ? 'control now has' : 'controls now have'} no owner, and ${m} ${m === 1 ? 'requirement depends' : 'requirements depend'} on them alone.</span>`;
   } else {
     const b = w.before;
     const a = w.after;
@@ -793,15 +795,15 @@ function renderBanner() {
     const nowGaps = w.affected.filter((x) => x.to === 'gap' && x.from !== 'gap').length;
     const ids = w.affected.map((x) => x.id);
     lines = `<span class="wi-line">Covered ${arrow(b.covered, a.covered)} · Inherited ${arrow(b.inherited, a.inherited)} · Gaps ${arrow(b.gaps, a.gaps)}</span>`
-      + `<span class="wi-line">Affected requirements: ${ids.length ? ids.slice(0, 8).map((id) => tag(id)).join(' ') + (ids.length > 8 ? ` +${ids.length - 8} more` : '') : 'none'}`
+      + `<span class="wi-line">Requirements that changed: ${ids.length ? ids.slice(0, 8).map((id) => tag(id)).join(' ') + (ids.length > 8 ? ` +${ids.length - 8} more` : '') : 'none'}`
       + ` <span class="muted">(${lost.length} lost direct coverage, ${stillMet} still met through another framework, ${nowGaps} now gaps)</span></span>`;
   }
   const first = w.affected[0];
   const actions = `<button type="button" class="btn small" data-act="see-breaks">See what breaks</button>`
-    + (first ? `<button type="button" class="btn small" data-act="open-req" data-req="${esc(first.id)}">Open ${esc(A.shortId(first.id))}</button>` : '')
-    + `<button type="button" class="btn small ghost" data-act="undo-whatif" data-i="${last}">Undo this</button>`
-    + `<button type="button" class="btn small ghost" data-act="reset">Reset all</button>`;
-  box.innerHTML = `<div class="wi-row"><span class="wi-title">What-if <span class="muted">(as of ${esc(S.asOf)})</span></span>${chips}</div>`
+    + (first ? `<button type="button" class="btn small" data-act="open-req" data-req="${esc(first.id)}">Open requirement ${esc(A.shortId(first.id))}</button>` : '')
+    + `<button type="button" class="btn small ghost" data-act="undo-whatif" data-i="${last}">Undo last change</button>`
+    + `<button type="button" class="btn small ghost" data-act="reset">Undo all</button>`;
+  box.innerHTML = `<div class="wi-row"><span class="wi-title">What-if <span class="muted">(demo date ${esc(S.asOf)} · not saved)</span></span>${chips}</div>`
     + `<div class="wi-row"><span class="wi-nums">${lines}</span><span class="wi-actions">${actions}</span></div>`;
 }
 
@@ -917,7 +919,7 @@ function wire() {
         row.hidden = !hit;
         if (hit) n++;
       }
-      $('#adopt-count').textContent = q ? `(${n} shown)` : '';
+      $('#adopt-count').textContent = q ? (n ? `(${n} shown)` : '(no match)') : '';
     }
   });
   $('#graph-search').addEventListener('submit', (e) => { e.preventDefault(); graphSearch($('#graph-q').value); });
