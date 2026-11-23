@@ -4,7 +4,11 @@
 
 *Built on [Relate](https://relatedb.ai) (Neo4j's embedded graph database) for the Relate by Neo4j Hackathon, theme "Context, connected".*
 
-**Links:** [Live explorer](https://amanpundhir.github.io/crosswalk-relate/) (no install, no AI) | [Demo video](https://youtu.be/AqZCjWa7gYs) | [Evaluation](docs/evaluation.md) | [Details](docs/details.md) | [Schema](docs/schema.md) | [Queries](docs/queries.md)
+**Links:** [Live explorer](https://amanpundhir.github.io/crosswalk-relate/) (no install, no AI) | [**The whole graph**](https://amanpundhir.github.io/crosswalk-relate/full-graph.html) | [Demo video](https://youtu.be/AqZCjWa7gYs) | [Evaluation](docs/evaluation.md) | [Details](docs/details.md) | [Schema](docs/schema.md) | [Queries](docs/queries.md)
+
+> **See the whole graph at once.** [Open it in your browser](https://amanpundhir.github.io/crosswalk-relate/full-graph.html): all **1,971 nodes and 4,375 relationships** of the committed store on one canvas, loaded into Relate's WebAssembly build. No install, no server, no AI. Switch views (NIST crosswalk, company only, receipts, expired evidence, agent memory), colour by status, and click any node to see what it connects to.
+
+[![The whole Crosswalk graph: three NIST frameworks around the company's policies, controls, evidence and people](docs/images/explorer-whole-graph.png)](https://amanpundhir.github.io/crosswalk-relate/full-graph.html)
 
 ## The result
 
@@ -34,6 +38,8 @@
 * **Works with or without AI.** The CLI and browser explorer need no AI. Agents run in Claude Code, Cursor or any MCP client, wired by one command.
 
 ## Screenshots
+
+**The whole graph** is shown at the top of this page ([open it](https://amanpundhir.github.io/crosswalk-relate/full-graph.html)). The explorer tabs:
 
 **Landing page.**
 ![Crosswalk landing page](docs/images/landing.png)
@@ -78,7 +84,7 @@ Relate features in use (details: [docs/details.md](docs/details.md)):
 * **Cypher paths:** coverage, expiry blast radius and ownership risk are multi-hop graph queries.
 * **Hybrid search:** vector plus full-text search, merged by rank fusion, then re-ranked by graph signals, to suggest mappings.
 * **Transactions:** every proposal and every human decision is one transaction, with retry on write conflicts.
-* **MCP server:** `relate serve --mcp` gives agents direct, read-only graph access. **WASM** runs the same Cypher in the browser.
+* **MCP server:** `relate serve --mcp` gives agents direct, read-only graph access. **WASM** runs the same Cypher in the browser, and draws [the whole graph](https://amanpundhir.github.io/crosswalk-relate/full-graph.html) from it.
 
 ## Setup and run
 
@@ -127,7 +133,7 @@ Claim check (every cited path re-run against the graph in 15 ms):
 Corrected answer: Not covered. Renew EV-044 (owner Dana Okafor, request drafted) and review PR-005.
 ```
 
-Or open the [browser explorer](https://amanpundhir.github.io/crosswalk-relate/), or run it locally with `python -m http.server -d web 8000`.
+Or open the [browser explorer](https://amanpundhir.github.io/crosswalk-relate/) and [the whole graph](https://amanpundhir.github.io/crosswalk-relate/full-graph.html), or run them locally with `python -m http.server -d web 8000` (then `http://localhost:8000/full-graph.html`).
 
 **Most useful commands** (only `propose-map`, `review` and `build` change the graph; full list in [docs/details.md](docs/details.md)):
 

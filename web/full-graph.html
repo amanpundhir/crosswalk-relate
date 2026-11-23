@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crosswalk: the whole graph</title>
+<meta name="description" content="All 1,971 nodes and 4,375 relationships of the Crosswalk compliance graph at once, loaded into Relate (WebAssembly) in your browser.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..700&family=Figtree:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  /* The whole graph on one canvas. Same palette, type and header as the explorer; one canvas plus one control column. */
+  html, body { height: 100%; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+  .top-row { flex-wrap: nowrap; }
+  .top .stats { display: flex; gap: var(--s2); margin-left: auto; }
+  .main { flex: 1; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr) 340px; }
+  .stage { position: relative; min-width: 0; background-color: var(--bg);
+    background-image: radial-gradient(rgb(31 48 56 / .10) 1px, transparent 1.2px); background-size: 20px 20px; }
+  #cy { position: absolute; inset: 0; }
+  .stage-title { position: absolute; top: var(--s4); left: var(--s4); z-index: 5; pointer-events: none; max-width: 520px; }
+  .stage-title h1 { font: 500 var(--t-xl)/1.2 var(--font-display); letter-spacing: -.015em; }
+  .stage-title p { color: var(--muted); font-size: var(--t-sm); margin: 4px 0 0; }
+  .toolbar { position: absolute; left: var(--s4); bottom: var(--s4); z-index: 5; display: flex; gap: 6px; padding: 4px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow-lift); }
+  .toolbar .btn { min-height: 34px; }
+  .keyleg { position: absolute; right: var(--s4); bottom: var(--s4); z-index: 5; background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-lift); padding: var(--s2) var(--s3); font-size: var(--t-xs); }
+  .keyleg div { display: flex; align-items: center; gap: 8px; padding: 1px 0; }
+  .loading { position: absolute; inset: 0; z-index: 9; display: grid; place-items: center; background: var(--bg); color: var(--muted); }
+
+  .side { border-left: 1px solid var(--border); background: var(--surface); overflow-y: auto; padding: var(--s4) var(--s4) var(--s6); }
+  .sec { padding: var(--s3) 0; border-bottom: 1px solid var(--border); }
+  .sec:last-child { border-bottom: 0; }
+  .sec-h { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: var(--s2); }
+  .sec-h h2 { font: 600 var(--t-xxs)/1 var(--font-text); text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .sec-h .links { font-size: var(--t-xxs); display: flex; gap: var(--s2); }
+  .sec-h .links button { all: unset; cursor: pointer; color: var(--accent); }
+  .sec-h .links button:hover { text-decoration: underline; }
+  .search input { width: 100%; font: inherit; font-size: var(--t-sm); padding: 9px 12px; border: 1px solid var(--border-strong); border-radius: var(--r-btn); background: var(--surface); }
+  .search input:focus { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .hint-s { font-size: var(--t-xxs); color: var(--faint); margin-top: 4px; }
+
+  .views { display: grid; gap: 6px; }
+  .view { all: unset; box-sizing: border-box; cursor: pointer; display: block; padding: 8px 10px; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .view b { display: block; font-size: var(--t-sm); font-weight: 600; }
+  .view span { display: block; font-size: var(--t-xxs); color: var(--muted); }
+  .view:hover { border-color: var(--border-strong); }
+  .view[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 3px 0 0 var(--accent); }
+  .view:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+
+  .seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; border: 1px solid var(--border-strong); border-radius: var(--r-btn); overflow: hidden; }
+  .seg button { all: unset; cursor: pointer; text-align: center; font-size: var(--t-xs); padding: 7px 4px; border-left: 1px solid var(--border); }
+  .seg button:first-child { border-left: 0; }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+  .seg button:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+
+  .row { display: flex; align-items: center; gap: var(--s2); font-size: var(--t-sm); padding: 3px 0; }
+  .row label { flex: 1; }
+  .row input[type=range] { width: 130px; accent-color: var(--accent); }
+  .row .val { width: 34px; text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; font-size: var(--t-xs); }
+  .row select { font: inherit; font-size: var(--t-xs); padding: 4px 6px; border: 1px solid var(--border-strong); border-radius: var(--r-btn); background: var(--surface); }
+  .leg { display: flex; align-items: center; gap: 8px; font-size: var(--t-sm); padding: 3px 0; cursor: pointer; user-select: none; }
+  .leg input, .row input[type=checkbox] { margin: 0; accent-color: var(--accent); }
+  .sw { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+  .ln { width: 20px; height: 4px; border-radius: 2px; flex: none; }
+  .n { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; font-size: var(--t-xs); }
+  .leg.dim { opacity: .45; }
+
+  .info .kind { font-size: var(--t-xxs); color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .info .id { font: 500 var(--t-md) var(--font-mono); margin: 2px 0; }
+  .info .tt { font-size: var(--t-sm); margin-bottom: 6px; }
+  .info .tag { display: inline-block; font-size: var(--t-xxs); font-weight: 600; padding: 2px 8px; border-radius: 999px; margin: 2px 4px 2px 0; }
+  .tag.bad { background: var(--gap-soft); color: var(--gap); } .tag.warn { background: var(--warn-soft); color: var(--warn); }
+  .tag.ok { background: var(--covered-soft); color: var(--covered); } .tag.neutral { background: var(--surface-2); color: var(--muted); }
+  .info ul { list-style: none; margin: 8px 0 0; padding: 0; font-size: var(--t-xs); }
+  .info li { padding: 4px 0; border-top: 1px dashed var(--border); }
+  .info li b { font-weight: 600; }
+  .info code { background: var(--surface-2); padding: 1px 5px; border-radius: 3px; margin: 1px 2px 1px 0; display: inline-block; cursor: pointer; }
+  .info code:hover { background: var(--accent-soft); color: var(--accent); }
+  .empty { color: var(--muted); font-size: var(--t-sm); margin: 0; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-row" style="max-width:none">
+    <a class="brand" href="explorer.html"><span class="mark" aria-hidden="true"></span>Crosswalk<span class="brand-sub">Whole graph</span></a>
+    <span class="chip" id="asof">demo date …</span>
+    <div class="stats">
+      <span class="chip" id="st-nodes">… nodes</span>
+      <span class="chip" id="st-rels">… relationships</span>
+      <span class="chip" id="st-vis">showing …</span>
+    </div>
+    <a class="btn small" href="explorer.html">Back to the explorer</a>
+  </div>
+</header>
+
+<div class="main">
+  <div class="stage">
+    <div id="cy" aria-label="The whole Crosswalk graph. Use the panel on the right to filter it."></div>
+    <div class="loading" id="loading">Loading the graph into Relate (WebAssembly)…</div>
+    <div class="stage-title">
+      <h1 id="view-title">Everything</h1>
+      <p id="view-desc">Three NIST frameworks around Harbor &amp; Pine's own policies, controls, evidence and people.</p>
+    </div>
+    <div class="toolbar" role="toolbar" aria-label="Canvas">
+      <button class="btn small" id="b-fit" type="button" title="Fit what is shown">Fit</button>
+      <button class="btn small" id="b-in" type="button" aria-label="Zoom in">+</button>
+      <button class="btn small" id="b-out" type="button" aria-label="Zoom out">−</button>
+      <button class="btn small" id="b-clear" type="button" title="Clear the selection">Clear selection</button>
+      <button class="btn small" id="b-png" type="button" title="Download the current view as a PNG">Save PNG</button>
+    </div>
+    <div class="keyleg" id="keyleg" hidden></div>
+  </div>
+
+  <aside class="side">
+    <div class="sec search">
+      <div class="sec-h"><h2>Find</h2></div>
+      <input id="q" list="ids" placeholder="03.05.03, CTRL-REAP-6, EV-044, Dana…" aria-label="Find a node by id or name">
+      <datalist id="ids"></datalist>
+      <div class="hint-s">Press Enter. Zooms to the node and its connections.</div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>View</h2></div>
+      <div class="views" id="views"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Frameworks</h2></div>
+      <div id="fws"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Colour by</h2></div>
+      <div class="seg" id="colour">
+        <button type="button" data-c="type" aria-pressed="true">Type</button>
+        <button type="button" data-c="status" aria-pressed="false">Status</button>
+        <button type="button" data-c="framework" aria-pressed="false">Framework</button>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Display</h2></div>
+      <div class="row"><label for="r-op">Line strength</label><input id="r-op" type="range" min="0.2" max="2" step="0.1" value="1"><span class="val" id="v-op">1.0×</span></div>
+      <div class="row"><label for="r-w">Line width</label><input id="r-w" type="range" min="0.5" max="4" step="0.25" value="1.5"><span class="val" id="v-w">1.5</span></div>
+      <div class="row"><label for="r-n">Dot size</label><input id="r-n" type="range" min="0.5" max="2.5" step="0.1" value="1"><span class="val" id="v-n">1.0×</span></div>
+      <div class="row"><label for="s-lab">Labels</label>
+        <select id="s-lab"><option value="zoom">when zoomed in</option><option value="big">big dots only</option><option value="all">all</option><option value="none">none</option></select></div>
+      <div class="row"><label for="s-hop">Click shows</label>
+        <select id="s-hop"><option value="1">direct links</option><option value="2">2 steps out</option></select></div>
+      <div class="row"><input type="checkbox" id="c-iso"><label for="c-iso">Hide dots with no visible lines</label></div>
+      <div class="row"><input type="checkbox" id="c-curve"><label for="c-curve">Curved lines (slower)</label></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Node types</h2><div class="links"><button type="button" data-all="node">all</button><button type="button" data-none="node">none</button></div></div>
+      <div id="legend-nodes"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-h"><h2>Relationships</h2><div class="links"><button type="button" data-all="edge">all</button><button type="button" data-none="edge">none</button></div></div>
+      <div id="legend-edges"></div>
+    </div>
+
+    <div class="sec info" id="info" aria-live="polite"><p class="empty">Click a dot, or find one above, to see what it is and what it connects to.</p></div>
+  </aside>
+</div>
+
+<script src="vendor/cytoscape/cytoscape.min.js"></script>
+<script type="module">
+import init, { RelateDb } from './vendor/relate/relate.js';
+import { GraphDb } from './js/graphdb.js';
+
+// ---------------------------------------------------------------- styling tables
+const NODE = {
+  Framework:   { color: '#1f3038', size: 150, shape: 'barrel',          name: 'Framework' },
+  Family:      { color: '#5a6b7f', size: 34,  shape: 'round-rectangle', name: 'Family' },
+  Requirement: { color: '#3b6fd8', size: 12,  shape: 'ellipse',         name: 'Requirement' },
+  Policy:      { color: '#8a6d3b', size: 40,  shape: 'round-tag',       name: 'Policy' },
+  Control:     { color: '#1f9d6b', size: 12,  shape: 'round-rectangle', name: 'Control' },
+  Evidence:    { color: '#d9822b', size: 22,  shape: 'diamond',         name: 'Evidence' },
+  Person:      { color: '#8e5bd0', size: 30,  shape: 'ellipse',         name: 'Person' },
+  System:      { color: '#6b7785', size: 24,  shape: 'rectangle',       name: 'System' },
+  Audit:       { color: '#c2467f', size: 46,  shape: 'hexagon',         name: 'Audit' },
+  TrackerRow:  { color: '#9a8c98', size: 14,  shape: 'tag',             name: 'Tracker row (old spreadsheet)' },
+  Proposal:    { color: '#c9a227', size: 28,  shape: 'octagon',         name: 'Proposal (agent)' },
+  Decision:    { color: '#7a8f2b', size: 28,  shape: 'pentagon',        name: 'Decision (person)' },
+  Agent:       { color: '#2a9bb0', size: 40,  shape: 'ellipse',         name: 'Agent' },
+};
+const EDGE = {
+  EQUIVALENT_TO: { color: '#0d7480', op: .40, w: 1,   label: 'NIST crosswalk link' },
+  ENHANCES:      { color: '#5f7fae', op: .40, w: 1,   label: 'enhancement of' },
+  PART_OF:       { color: '#7d8c99', op: .40, w: 1,   label: 'part of' },
+  SATISFIES:     { color: '#17744a', op: .90, w: 1.8, label: 'control satisfies requirement' },
+  PROVES:        { color: '#c86a12', op: .90, w: 1.8, label: 'evidence proves control' },
+  MANDATES:      { color: '#8a6d3b', op: .45, w: 1,   label: 'policy mandates control' },
+  OWNS:          { color: '#7d4fc0', op: .55, w: 1,   label: 'person owns' },
+  REQUESTS:      { color: '#c2467f', op: .40, w: 1,   label: 'audit requests evidence' },
+  APPLIES_TO:    { color: '#56636f', op: .50, w: 1,   label: 'control applies to system' },
+  ABOUT:         { color: '#8a7c88', op: .60, w: 1,   label: 'about (tracker row, proposal)' },
+  TARGET:        { color: '#b08a10', op: .95, w: 1.8, label: 'proposal targets requirement' },
+  BY:            { color: '#2a9bb0', op: .80, w: 1.4, label: 'proposed by agent' },
+  ON:            { color: '#5f7320', op: .95, w: 1.8, label: 'decision on proposal' },
+  SCOPES:        { color: '#c2467f', op: .80, w: 1.8, label: 'audit scopes framework' },
+};
+const FW = { '800-53': { name: 'NIST SP 800-53 Rev 5', color: '#3b6fd8' }, '800-171': { name: 'NIST SP 800-171 Rev 3', color: '#0d7480' }, CSF: { name: 'NIST CSF 2.0', color: '#8e5bd0' } };
+const COMPANY = '#8a6d3b';
+const STATUS = { ok: '#17744a', warn: '#c28a00', bad: '#b3261e', none: '#aab4ba', info: '#52616a' };
+
+const $ = (s) => document.querySelector(s);
+const key = (label, id) => `${label}|${id}`;
+const short = (id) => String(id).replace(/^(800-53|800-171|CSF):/, '');
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const fmt = (n) => n.toLocaleString('en-US');
+
+// ---------------------------------------------------------------- load the graph into Relate WASM
+const t0 = performance.now();
+const getText = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(`${u}: ${r.status}`); return r.text(); });
+const [script] = await Promise.all([getText('data/graph.cypher'), init()]);
+const g = new GraphDb(RelateDb);
+g.setScript(script);
+g.load();
+const loadMs = Math.round(performance.now() - t0);
+
+const asOf = g.run('MATCH (m:Meta) RETURN m.as_of AS d').rows[0]?.d || '2026-12-02';
+const totalNodes = g.run('MATCH (n) RETURN count(n) AS c').rows[0].c;
+const nodes = g.run(`MATCH (n) WHERE NOT n:Meta RETURN labels(n)[0] AS label, n.id AS id,
+  coalesce(n.title, n.name, n.status_text, n.outcome, n.kind) AS title, n.adopted AS adopted,
+  n.expires_at AS exp, n.framework AS fw, n.status AS status, n.outcome AS outcome, n.role AS role`).rows;
+const rels = g.run('MATCH (a)-[r]->(b) RETURN labels(a)[0] AS al, a.id AS a, type(r) AS t, labels(b)[0] AS bl, b.id AS b').rows;
+const soon = new Date(new Date(asOf).getTime() + 30 * 864e5).toISOString().slice(0, 10);
+
+// ---------------------------------------------------------------- deterministic clustered layout
+const pos = {};
+const GOLD = Math.PI * (3 - Math.sqrt(5));
+const out = new Map();
+for (const r of rels) {
+  const a = key(r.al, r.a);
+  if (!out.has(a)) out.set(a, []);
+  out.get(a).push({ t: r.t, to: key(r.bl, r.b) });
+}
+const byLabel = (l) => nodes.filter((n) => n.label === l).map((n) => key(l, n.id)).sort();
+const targets = (k, t) => (out.get(k) || []).filter((e) => e.t === t).map((e) => e.to);
+function sunflower(members, cx, cy, s, skip = 0) {
+  members.forEach((m, i) => {
+    const j = i + skip, r = s * Math.sqrt(j + 0.5), a = j * GOLD;
+    pos[m] = { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  });
+  return s * Math.sqrt(members.length + skip + 0.5);
+}
+function ring(groups, cx, cy, s, gap, minR = 0, start = -Math.PI / 2) {
+  const radii = groups.map((gr) => s * Math.sqrt(gr.members.length + 4) + s);
+  const circ = radii.reduce((t, r) => t + 2 * r + gap, 0);
+  const R = Math.max(circ / (2 * Math.PI), minR + Math.max(...radii) + gap);
+  let a = start;
+  groups.forEach((gr, i) => {
+    const span = (2 * radii[i] + gap) / R, ang = a + span / 2;
+    const x = cx + R * Math.cos(ang), y = cy + R * Math.sin(ang);
+    if (gr.hub) pos[gr.hub] = { x, y };
+    sunflower(gr.members, x, y, s, gr.hub ? 4 : 0);
+    a += span;
+  });
+  return R + Math.max(...radii);
+}
+let rc = sunflower(byLabel('Evidence'), 0, 0, 34);
+rc = ring([
+  { members: byLabel('Person') }, { members: byLabel('Audit') }, { members: byLabel('System') },
+  { members: [...byLabel('Agent'), ...byLabel('Proposal'), ...byLabel('Decision')] }, { members: byLabel('TrackerRow') },
+], 0, 0, 40, 60, rc + 40);
+rc = ring(byLabel('Policy').map((p) => ({ hub: p, members: targets(p, 'MANDATES').sort() })), 0, 0, 26, 30, rc + 60);
+function cluster(fw, ang) {
+  const fams = byLabel('Family').filter((f) => f.startsWith(`Family|${fw}:`));
+  const reqs = new Map(fams.map((f) => [f, []]));
+  for (const n of nodes) if (n.label === 'Requirement' && n.fw === fw) {
+    const k = key('Requirement', n.id), f = targets(k, 'PART_OF')[0];
+    if (reqs.has(f)) reqs.get(f).push(k);
+  }
+  const groups = fams.map((f) => ({ hub: f, members: reqs.get(f).sort() }));
+  const R = ring(groups, 0, 0, 20, 40, 260);
+  const d = rc + R + 500, dx = d * Math.cos(ang), dy = d * Math.sin(ang);
+  for (const k of [...fams, ...groups.flatMap((gr) => gr.members)]) pos[k] = { x: pos[k].x + dx, y: pos[k].y + dy };
+  pos[key('Framework', fw)] = { x: dx, y: dy };
+}
+cluster('800-53', Math.PI); cluster('800-171', -Math.PI / 4); cluster('CSF', Math.PI / 4);
+
+// ---------------------------------------------------------------- facts per node (status, framework)
+const satisfied = new Set(rels.filter((r) => r.t === 'SATISFIES').map((r) => key('Requirement', r.b)));
+const proposedTo = new Set(rels.filter((r) => r.t === 'TARGET').map((r) => key('Requirement', r.b)));
+const proven = new Set(rels.filter((r) => r.t === 'PROVES').map((r) => key('Control', r.b)));
+function facts(n) {
+  const k = key(n.label, n.id);
+  let status = 'none', note = '';
+  if (n.label === 'Requirement') {
+    if (satisfied.has(k)) { status = 'ok'; note = 'has a mapped company control'; }
+    else if (proposedTo.has(k)) { status = 'warn'; note = 'only a pending agent proposal'; }
+    else note = 'no company control mapped directly';
+  } else if (n.label === 'Evidence') {
+    if (n.exp && n.exp <= asOf) { status = 'bad'; note = `expired ${n.exp}`; }
+    else if (n.exp && n.exp <= soon) { status = 'warn'; note = `expires ${n.exp} (within 30 days)`; }
+    else { status = 'ok'; note = n.exp ? `valid until ${n.exp}` : 'no expiry'; }
+  } else if (n.label === 'Control') {
+    if (!n.adopted) note = 'catalogue control, not adopted';
+    else if (proven.has(k)) { status = 'ok'; note = 'adopted, has evidence'; }
+    else { status = 'warn'; note = 'adopted, no evidence linked'; }
+  } else if (n.label === 'Proposal') {
+    status = n.status === 'approved' ? 'ok' : n.status === 'rejected' ? 'bad' : 'warn'; note = n.status || '';
+  } else if (n.label === 'Decision') {
+    status = n.outcome === 'approved' ? 'ok' : n.outcome === 'rejected' ? 'bad' : 'info'; note = n.outcome || '';
+  } else status = 'info';
+  const fw = n.label === 'Framework' ? n.id : n.fw || null;
+  return { status, note, fw };
+}
+
+// ---------------------------------------------------------------- elements
+const els = [], count = {}, ecount = {};
+for (const n of nodes) {
+  const k = key(n.label, n.id), st = NODE[n.label], f = facts(n);
+  count[n.label] = (count[n.label] || 0) + 1;
+  const big = ['Framework', 'Family', 'Policy', 'Audit', 'Agent', 'Person'].includes(n.label) || (n.label === 'Control' && n.adopted);
+  els.push({ group: 'nodes', position: pos[k] || { x: 0, y: 0 },
+    classes: [n.label, n.label === 'Control' && n.adopted ? 'adopted' : '', big ? 'big' : '', `st-${f.status}`].join(' '),
+    data: { id: k, label: n.label, nid: n.id, title: n.title || '', cap: n.label === 'Framework' ? FW[n.id]?.name || n.id : short(n.id),
+      size: n.label === 'Control' && n.adopted ? 24 : st.size, shape: st.shape, color: st.color, exp: n.exp || '', status: f.status, note: f.note, fw: f.fw,
+      role: n.role || '' } });
+}
+rels.forEach((r, i) => {
+  ecount[r.t] = (ecount[r.t] || 0) + 1;
+  const st = EDGE[r.t];
+  els.push({ group: 'edges', classes: r.t, data: { id: `e${i}`, source: key(r.al, r.a), target: key(r.bl, r.b), type: r.t, color: st.color, op: st.op, w: st.w } });
+});
+
+// ---------------------------------------------------------------- display settings
+const S = { op: 1, w: 1.5, n: 1, labels: 'zoom', hops: 1, colour: 'type', iso: false, curve: false, view: 'all' };
+const labelMin = () => ({ zoom: 9, big: 9, all: 0, none: 999 }[S.labels]);
+function styleSheet() {
+  return [
+    { selector: 'node', style: { 'background-color': 'data(color)', width: (e) => e.data('size') * S.n, height: (e) => e.data('size') * S.n, shape: 'data(shape)',
+      label: S.labels === 'none' ? '' : 'data(cap)', 'font-family': 'Figtree, system-ui, sans-serif', 'font-size': 9, color: '#1f3038',
+      'text-valign': 'bottom', 'text-margin-y': 3, 'min-zoomed-font-size': labelMin(),
+      'text-background-color': '#ffffff', 'text-background-opacity': .8, 'text-background-padding': 1.5, 'text-background-shape': 'roundrectangle',
+      'border-width': 1, 'border-color': '#ffffff', 'border-opacity': .9 } },
+    ...(S.labels === 'big' ? [{ selector: 'node:not(.big)', style: { label: '' } }] : []),
+    { selector: 'node.Framework', style: { 'font-family': 'Gabarito, system-ui, sans-serif', 'font-size': 120, 'font-weight': 600, 'text-valign': 'top', 'text-margin-y': -24,
+      'min-zoomed-font-size': S.labels === 'none' ? 999 : 3, 'text-background-opacity': 0, color: '#1f3038', 'border-width': 0 } },
+    { selector: 'node.Family', style: { 'font-size': 16, 'font-weight': 600, 'text-valign': 'center', 'text-margin-y': 0, color: '#ffffff', 'text-background-opacity': 0,
+      'min-zoomed-font-size': S.labels === 'none' ? 999 : 6 } },
+    { selector: 'node.Policy, node.Audit, node.Agent', style: { 'font-size': 15, 'min-zoomed-font-size': S.labels === 'none' ? 999 : 6 } },
+    { selector: 'node.Control', style: { opacity: .55 } },
+    { selector: 'node.Control.adopted', style: { opacity: 1, 'border-width': 2, 'border-color': '#0e5a3e' } },
+    { selector: 'node.Evidence.st-bad', style: { 'border-width': 5, 'border-color': STATUS.bad } },
+    { selector: 'node.Evidence.st-warn', style: { 'border-width': 4, 'border-color': STATUS.warn } },
+    { selector: 'edge', style: { 'curve-style': S.curve ? 'unbundled-bezier' : 'haystack', 'haystack-radius': 0, 'control-point-distances': 40, 'control-point-weights': .5,
+      width: (e) => e.data('w') * S.w, 'line-color': 'data(color)', opacity: (e) => Math.min(1, e.data('op') * S.op) } },
+    { selector: '.faded', style: { opacity: .06, 'text-opacity': 0 } },
+    { selector: 'edge.faded', style: { opacity: .03 } },
+    { selector: 'node.hl', style: { opacity: 1, 'text-opacity': 1, 'min-zoomed-font-size': 0, label: 'data(cap)', 'font-size': 12, 'z-index': 9 } },
+    { selector: 'node.focus', style: { 'border-width': 6, 'border-color': '#0d7480', 'z-index': 10, 'font-size': 16, 'font-weight': 600 } },
+    { selector: 'edge.hl', style: { opacity: 1, width: (e) => Math.max(2.5, e.data('w') * S.w * 1.6), 'z-index': 8 } },
+    { selector: '.off', style: { display: 'none' } },
+  ];
+}
+
+const cy = cytoscape({
+  container: $('#cy'), elements: els, layout: { name: 'preset' }, style: styleSheet(),
+  minZoom: 0.02, maxZoom: 5, wheelSensitivity: 0.3, textureOnViewport: true, pixelRatio: 'auto',
+});
+$('#loading').remove();
+cy.fit(undefined, 40);
+$('#asof').textContent = `demo date ${asOf}`;
+$('#st-nodes').textContent = `${fmt(totalNodes)} nodes`;
+$('#st-rels').textContent = `${fmt(rels.length)} relationships`;
+$('#asof').title = `Loaded into Relate WASM in ${fmt(loadMs)} ms. The Meta settings node is counted but not drawn.`;
+const restyle = () => cy.style(styleSheet());
+
+// ---------------------------------------------------------------- colour modes
+function colourBy(mode) {
+  S.colour = mode;
+  document.querySelectorAll('#colour button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.c === mode)));
+  cy.batch(() => cy.nodes().forEach((n) => {
+    const d = n.data();
+    let c = NODE[d.label].color;
+    if (mode === 'status') c = STATUS[d.status] || STATUS.info;
+    if (mode === 'framework') c = d.fw ? FW[d.fw].color : COMPANY;
+    n.data('color', c);
+  }));
+  const kl = $('#keyleg');
+  const row = (c, t) => `<div><span class="sw" style="background:${c}"></span>${t}</div>`;
+  if (mode === 'status') {
+    kl.innerHTML = row(STATUS.ok, 'Requirement mapped / evidence valid / control proven') + row(STATUS.warn, 'Pending proposal / evidence expires in 30 days / control without evidence')
+      + row(STATUS.bad, 'Evidence expired / proposal rejected') + row(STATUS.none, 'Requirement with no direct company control') + row(STATUS.info, 'Other (framework, family, people…)');
+    kl.hidden = false;
+  } else if (mode === 'framework') {
+    kl.innerHTML = Object.values(FW).map((f) => row(f.color, f.name)).join('') + row(COMPANY, 'Company (Harbor &amp; Pine)');
+    kl.hidden = false;
+  } else kl.hidden = true;
+}
+document.querySelectorAll('#colour button').forEach((b) => b.addEventListener('click', () => colourBy(b.dataset.c)));
+
+// ---------------------------------------------------------------- filters (types, relationships, frameworks, views)
+const nodeOn = Object.fromEntries(Object.keys(NODE).map((l) => [l, true]));
+const edgeOn = Object.fromEntries(Object.keys(EDGE).map((t) => [t, true]));
+const fwOn = { '800-53': true, '800-171': true, CSF: true };
+let subset = null; // optional Set of node ids a view restricts to
+
+function riskSubset() {
+  const s = new Set();
+  cy.nodes('.Evidence').filter((n) => n.data('status') === 'bad' || n.data('status') === 'warn').forEach((ev) => {
+    s.add(ev.id());
+    ev.incomers('node').forEach((x) => s.add(x.id())); // owners, audits
+    ev.outgoers('node.Control').forEach((c) => {
+      s.add(c.id());
+      c.outgoers('node.Requirement').forEach((r) => { s.add(r.id()); r.outgoers('node.Requirement').forEach((q) => s.add(q.id())); r.incomers('node.Requirement').forEach((q) => s.add(q.id())); });
+    });
+  });
+  return s;
+}
+const VIEWS = [
+  { id: 'all', title: 'Everything', desc: 'Every node and relationship in the store.', nodes: null, edges: null },
+  { id: 'crosswalk', title: 'NIST crosswalk', desc: "The three frameworks and NIST's own links between them.",
+    nodes: ['Framework', 'Family', 'Requirement'], edges: ['EQUIVALENT_TO', 'PART_OF'] },
+  { id: 'company', title: 'Company only', desc: "Harbor & Pine's policies, controls, evidence, people, systems and audits.",
+    nodes: ['Policy', 'Control', 'Evidence', 'Person', 'System', 'Audit', 'TrackerRow'], edges: ['MANDATES', 'PROVES', 'OWNS', 'APPLIES_TO', 'REQUESTS', 'ABOUT'] },
+  { id: 'receipts', title: 'Receipts', desc: 'Requirement ← control ← evidence: the paths every answer must cite.',
+    nodes: ['Requirement', 'Control', 'Evidence'], edges: ['SATISFIES', 'PROVES'], iso: true, n: 1.8 },
+  { id: 'risk', title: 'Expired and expiring evidence', desc: `Evidence expired or expiring within 30 days of ${asOf}, and what relies on it.`,
+    nodes: null, edges: ['PROVES', 'SATISFIES', 'OWNS', 'REQUESTS', 'EQUIVALENT_TO'], subset: riskSubset, colour: 'status', n: 2.2, labels: 'all' },
+  { id: 'agent', title: 'Agent memory', desc: 'What the agent proposed, and what a person decided.',
+    nodes: ['Agent', 'Proposal', 'Decision', 'Control', 'Requirement'], edges: ['BY', 'TARGET', 'ABOUT', 'ON'], iso: true, n: 2.5, labels: 'all' },
+];
+$('#views').innerHTML = VIEWS.map((v) => `<button type="button" class="view" data-v="${v.id}" aria-pressed="${v.id === 'all'}"><b>${esc(v.title)}</b><span>${esc(v.desc)}</span></button>`).join('');
+
+const vis = (c) => c.filter((e) => !e.hasClass('off'));
+function apply() {
+  cy.batch(() => {
+    cy.nodes().forEach((n) => {
+      const d = n.data();
+      const on = nodeOn[d.label] && (!d.fw || fwOn[d.fw]) && (!subset || subset.has(d.id));
+      n.toggleClass('off', !on);
+    });
+    cy.edges().forEach((e) => e.toggleClass('off', !(edgeOn[e.data('type')] && !e.source().hasClass('off') && !e.target().hasClass('off'))));
+    if (S.iso) vis(cy.nodes()).forEach((n) => { if (vis(n.connectedEdges()).length === 0) n.addClass('off'); });
+  });
+  const vn = vis(cy.nodes()).length, ve = vis(cy.edges()).length;
+  $('#st-vis').textContent = vn === nodes.length && ve === rels.length ? 'showing everything' : `showing ${fmt(vn)} nodes · ${fmt(ve)} lines`;
+  syncLegend();
+}
+function syncLegend() {
+  document.querySelectorAll('[data-node]').forEach((cb) => { cb.checked = nodeOn[cb.dataset.node]; cb.closest('.leg').classList.toggle('dim', !cb.checked); });
+  document.querySelectorAll('[data-edge]').forEach((cb) => { cb.checked = edgeOn[cb.dataset.edge]; cb.closest('.leg').classList.toggle('dim', !cb.checked); });
+  document.querySelectorAll('[data-fw]').forEach((cb) => { cb.checked = fwOn[cb.dataset.fw]; });
+  $('#c-iso').checked = S.iso;
+}
+let prevForced = false;
+function setView(id) {
+  const v = VIEWS.find((x) => x.id === id);
+  S.view = id;
+  document.querySelectorAll('.view').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === id)));
+  for (const l in nodeOn) nodeOn[l] = !v.nodes || v.nodes.includes(l);
+  for (const t in edgeOn) edgeOn[t] = !v.edges || v.edges.includes(t);
+  S.iso = !!v.iso || !!v.subset;
+  subset = v.subset ? v.subset() : null;
+  S.n = v.n || 1; $('#r-n').value = S.n; $('#v-n').textContent = S.n.toFixed(1) + '×';
+  S.labels = v.labels || 'zoom'; $('#s-lab').value = S.labels;
+  restyle();
+  $('#view-title').textContent = v.title;
+  $('#view-desc').textContent = v.desc;
+  clearFocus();
+  apply();
+  colourBy(v.colour || (prevForced ? 'type' : S.colour));
+  prevForced = !!v.colour;
+  cy.animate({ fit: { eles: vis(cy.elements()), padding: 40 } }, { duration: 450 });
+}
+document.querySelectorAll('.view').forEach((b) => b.addEventListener('click', () => setView(b.dataset.v)));
+
+$('#fws').innerHTML = Object.entries(FW).map(([id, f]) => {
+  const n = nodes.filter((x) => x.label === 'Requirement' && x.fw === id).length;
+  return `<label class="leg"><input type="checkbox" checked data-fw="${id}"><span class="sw" style="background:${f.color}"></span>${f.name}<span class="n">${fmt(n)} req.</span></label>`;
+}).join('');
+document.querySelectorAll('[data-fw]').forEach((cb) => cb.addEventListener('change', () => { fwOn[cb.dataset.fw] = cb.checked; apply(); }));
+
+$('#legend-nodes').innerHTML = Object.keys(NODE).filter((l) => count[l]).map((l) =>
+  `<label class="leg"><input type="checkbox" checked data-node="${l}"><span class="sw" style="background:${NODE[l].color}"></span>${NODE[l].name}<span class="n">${fmt(count[l])}</span></label>`).join('');
+$('#legend-edges').innerHTML = Object.keys(EDGE).filter((t) => ecount[t]).sort((a, b) => ecount[b] - ecount[a]).map((t) =>
+  `<label class="leg" title="${t}"><input type="checkbox" checked data-edge="${t}"><span class="ln" style="background:${EDGE[t].color}"></span>${EDGE[t].label}<span class="n">${fmt(ecount[t])}</span></label>`).join('');
+document.querySelectorAll('[data-node]').forEach((cb) => cb.addEventListener('change', () => { nodeOn[cb.dataset.node] = cb.checked; apply(); }));
+document.querySelectorAll('[data-edge]').forEach((cb) => cb.addEventListener('change', () => { edgeOn[cb.dataset.edge] = cb.checked; apply(); }));
+document.querySelectorAll('[data-all],[data-none]').forEach((b) => b.addEventListener('click', () => {
+  const on = !!b.dataset.all, tab = (b.dataset.all || b.dataset.none) === 'node' ? nodeOn : edgeOn;
+  for (const k in tab) tab[k] = on;
+  apply();
+}));
+
+// ---------------------------------------------------------------- display controls
+const bindRange = (id, k, suffix) => $(`#r-${id}`).addEventListener('input', (e) => {
+  S[k] = Number(e.target.value); $(`#v-${id}`).textContent = S[k].toFixed(1) + suffix; restyle();
+});
+bindRange('op', 'op', '×'); bindRange('w', 'w', ''); bindRange('n', 'n', '×');
+$('#s-lab').addEventListener('change', (e) => { S.labels = e.target.value; restyle(); });
+$('#s-hop').addEventListener('change', (e) => { S.hops = Number(e.target.value); const f = cy.nodes('.focus')[0]; if (f) focus(f, false); });
+$('#c-iso').addEventListener('change', (e) => { S.iso = e.target.checked; apply(); });
+$('#c-curve').addEventListener('change', (e) => { S.curve = e.target.checked; restyle(); });
+
+// ---------------------------------------------------------------- focus a node
+// keep focused labels readable at any zoom (screen size ~13px)
+function sizeLabels() {
+  const z = cy.zoom();
+  cy.batch(() => { cy.nodes('.hl').style('font-size', Math.min(60, 13 / z)); cy.nodes('.focus').style('font-size', Math.min(80, 16 / z)); });
+}
+cy.on('zoom', () => { if (cy.nodes('.focus').length) sizeLabels(); });
+function clearFocus() {
+  cy.nodes().removeStyle('font-size');
+  cy.elements().removeClass('faded hl focus');
+  $('#info').innerHTML = '<p class="empty">Click a dot, or find one above, to see what it is and what it connects to.</p>';
+}
+function focus(n, zoom = true) {
+  let hood = n.closedNeighborhood();
+  if (S.hops === 2) hood = hood.union(hood.nodes().closedNeighborhood());
+  hood = vis(hood);
+  cy.batch(() => {
+    cy.nodes().removeStyle('font-size');
+    cy.elements().removeClass('hl focus').addClass('faded');
+    hood.removeClass('faded').addClass('hl');
+    n.removeClass('faded').addClass('hl focus');
+  });
+  if (zoom) cy.animate({ fit: { eles: hood, padding: 90 } }, { duration: 500, complete: sizeLabels }); else sizeLabels();
+  const d = n.data(), groups = {};
+  n.connectedEdges().forEach((e) => {
+    const outgoing = e.source().id() === n.id(), other = outgoing ? e.target() : e.source();
+    const k = `${outgoing ? '→' : '←'} ${EDGE[e.data('type')].label}`;
+    (groups[k] = groups[k] || []).push(other);
+  });
+  const tagCls = { ok: 'ok', warn: 'warn', bad: 'bad', none: 'neutral', info: 'neutral' }[d.status];
+  const list = Object.entries(groups).sort((a, b) => b[1].length - a[1].length).map(([k, xs]) =>
+    `<li><b>${esc(k)}</b> (${xs.length})<br>${xs.slice(0, 12).map((x) => `<code data-go="${esc(x.id())}" title="${esc(x.data('title'))}">${esc(short(x.data('nid')))}</code>`).join('')}${xs.length > 12 ? ` <span class="muted">+${xs.length - 12} more</span>` : ''}</li>`).join('');
+  $('#info').innerHTML = `<div class="kind">${esc(NODE[d.label].name)}${d.fw ? ` · ${esc(FW[d.fw].name)}` : ''}</div>
+    <div class="id">${esc(d.nid)}</div><div class="tt">${esc(d.title)}${d.role ? ` <span class="muted">(${esc(d.role)})</span>` : ''}</div>
+    ${d.note ? `<span class="tag ${tagCls}">${esc(d.note)}</span>` : ''}<span class="tag neutral">${n.degree()} connections</span>
+    <ul>${list}</ul>`;
+  $('#info').querySelectorAll('[data-go]').forEach((c) => c.addEventListener('click', () => focus(cy.getElementById(c.dataset.go))));
+}
+cy.on('tap', 'node', (e) => focus(e.target, false));
+cy.on('tap', (e) => { if (e.target === cy) clearFocus(); });
+
+// ---------------------------------------------------------------- search, toolbar
+$('#ids').innerHTML = nodes.map((n) => `<option value="${esc(n.id)}">${esc(n.title || '')}</option>`).join('');
+function find(qs) {
+  const q = qs.trim().toLowerCase(); if (!q) return null;
+  const all = cy.nodes();
+  return all.filter((n) => String(n.data('nid')).toLowerCase() === q || short(n.data('nid')).toLowerCase() === q)[0]
+    || all.filter((n) => String(n.data('nid')).toLowerCase().includes(q))[0]
+    || all.filter((n) => String(n.data('title')).toLowerCase().includes(q))[0] || null;
+}
+$('#q').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter') return;
+  const hit = find(e.target.value);
+  e.target.style.borderColor = hit ? '' : 'var(--gap)';
+  if (!hit) return;
+  if (hit.hasClass('off')) setView('all');
+  focus(hit);
+});
+$('#b-fit').addEventListener('click', () => cy.animate({ fit: { eles: vis(cy.elements()), padding: 40 } }, { duration: 400 }));
+$('#b-in').addEventListener('click', () => cy.animate({ zoom: { level: cy.zoom() * 1.4, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } } }, { duration: 200 }));
+$('#b-out').addEventListener('click', () => cy.animate({ zoom: { level: cy.zoom() / 1.4, renderedPosition: { x: cy.width() / 2, y: cy.height() / 2 } } }, { duration: 200 }));
+$('#b-clear').addEventListener('click', clearFocus);
+$('#b-png').addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = cy.png({ full: false, scale: 2, bg: '#f4f7f8' });
+  a.download = `crosswalk-graph-${S.view}.png`;
+  a.click();
+});
+
+apply();
+</script>
+</body>
+</html>
