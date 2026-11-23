@@ -9,7 +9,7 @@ All inside the project folder. Nothing global, no user PATH change, no install.p
 | `relate-db` (import `relate`) | 1.2.0 (`relate.__version__` printed `1.2.0`) | `.venv\Lib\site-packages` |
 | `relate.exe` CLI | v1.2.0, Apache-2.0 | `.venv\Scripts\relate.exe` (on PATH only when venv active) |
 
-Files: `requirements.txt` (`relate-db==1.2.0`), `requirements-lock.txt` (pip freeze; contains only `relate-db==1.2.0`, no dependencies). Scratch work is in `.scratch\` (should be gitignored).
+Files: `requirements.txt` (`relate-db==1.2.0`). Scratch work is in `.scratch\` (should be gitignored).
 
 The pip package does NOT ship the CLI (`.venv\Scripts` only had pip/python after install). The CLI was taken from the GitHub release v1.2.0 asset `relate-windows-amd64.exe` (36,073,472 bytes), downloaded into `.venv\relate-cli-download\` with `SHA256SUMS`. The release publishes `SHA256SUMS` (and a `.sig`, not verified). SHA-256 matched: `b04051a5c1fa2ee22b15816e05b40557dd6e56cfe268ec3088da94eb9625d071`. Only the exe was copied to `.venv\Scripts\relate.exe`; it was only run after the hash check. (The download folder can be deleted.)
 

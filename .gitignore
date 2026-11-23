@@ -41,3 +41,8 @@ Thumbs.db
 # Web tooling (vendored files in web/vendor are committed)
 web/node_modules/
 __pycache__/
+
+# local editor/preview config
+.claude/
+# design skill history (local)
+.taste-skill/

@@ -8,8 +8,6 @@
 
 Every screen, README section and video beat must support the theme.
 
-(Earlier versions are kept for reference: [archive-crosswalk/](archive-crosswalk/) holds v1, which had no agent core. [archive-waterline/](archive-waterline/) holds the offline OT idea.)
-
 ## The problem, in plain words
 
 A small SaaS company gets asked by different customers for different security rulebooks (frameworks), such as NIST 800-53, NIST 800-171 and NIST CSF. Many rules across these rulebooks mean the same thing, but teams track them in spreadsheets. Vendor guides agree that once several frameworks overlap, mapping the relationships in a spreadsheet quickly becomes overwhelming, and spreadsheets can't link evidence to controls in both directions ([SmartSuite](https://www.smartsuite.com/what-is/what-is-control-framework-mapping), [Wolters Kluwer](https://wolterskluwer.com/en/expert-insights/managing-multiple-compliance-frameworks-efficiently)).

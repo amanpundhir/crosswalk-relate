@@ -11,8 +11,6 @@ These are planning documents only. No code exists yet. Read the files in order.
 | 4 | [04-architecture-and-flow.md](04-architecture-and-flow.md) | Inputs, the graph model (facts plus agent memory), storage mode, agent tools, the claim checker, flows and UI |
 | 5 | [05-kpis-and-evaluation.md](05-kpis-and-evaluation.md) | KPIs: agent reliability, mapping quality, guardrails, correctness and impact |
 | 6 | [06-build-plan.md](06-build-plan.md) | A day-by-day plan to Dec 11, risks, the video outline and the submission checklist |
-| — | [archive-crosswalk/](archive-crosswalk/) | Crosswalk v1 (no agent core), kept for reference |
-| — | [archive-waterline/](archive-waterline/) | The offline OT idea, kept for reference |
 
 ## The plan in five lines
 

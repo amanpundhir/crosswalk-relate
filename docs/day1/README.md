@@ -7,7 +7,7 @@ Detailed logs: [env-setup.md](env-setup.md) (environment and Relate checks) and 
 | Item | Result |
 |---|---|
 | Local git repo | `git init -b main`. Skeleton folders, Apache-2.0 `LICENSE`, `.gitignore`, `.env.example` and a README stub. **Nothing committed yet.** |
-| Python env | `.venv` (Python 3.12.10). `relate-db==1.2.0` is installed only inside it. `requirements.txt` and `requirements-lock.txt` are written. |
+| Python env | `.venv` (Python 3.12.10). `relate-db==1.2.0` is installed only inside it. `requirements.txt` is written. |
 | Relate CLI | v1.2.0 in `.venv\Scripts\relate.exe` (official release asset, SHA-256 checked). No global install and no PATH change. |
 | Relate behaviour checks | All PASS. Readers can run beside a writer on a directory store, `--read-only=live` follows commits, the MCP server works, vector and full-text SEARCH work, and transactions work. |
 | Licence checks | NIST OSCAL catalogs are public domain plus CC0. StrongDM comply is Apache-2.0 (**chosen**). JupiterOne is CC BY-SA (fallback only, kept in a separate folder). |

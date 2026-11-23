@@ -146,13 +146,14 @@ function refreshChrome() {
   const c = A.coverage(S.g, { framework: '800-171', asOf: S.asOf });
   const b30 = A.blast(S.g, { asOf: S.asOf, until: A.addDays(S.asOf, 30) });
   const base = S.base['800-171'];
-  $('#hero-kpis').innerHTML = [
-    ['covered', 'Covered', c.covered, base.covered],
-    ['inherited', 'Inherited', c.inherited, base.inherited],
-    ['gap', 'Gaps', c.gaps, base.gaps],
-    ['', 'Evidence expiring in 30 days', b30.expiring.length, undefined],
-  ].map(([cls, t, n, was]) => `<div class="${cls ? 'c-' + cls : ''}"><dt>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small class="muted" style="font-size:.8rem;font-weight:400">was ${was}</small>` : ''}</dd></div>`).join('')
-    + `<div style="grid-column:1/-1;background:none;border:0;padding:0;box-shadow:none"><dd style="font-size:.8rem;font-weight:400;color:var(--muted)">NIST SP 800-171 requirements (${c.total}) at ${esc(S.asOf)}. Inherited: not covered directly, but a 1-hop crosswalk neighbour is.</dd></div>`;
+  const kpis = [
+    ['covered', 'Covered', c.covered, base.covered, 'Met directly: an approved control with evidence that is still valid.'],
+    ['inherited', 'Inherited', c.inherited, base.inherited, 'Not met directly, but a matching requirement in another framework is.'],
+    ['gap', 'Gaps', c.gaps, base.gaps, 'No control and no crosswalk neighbour meets these yet.'],
+    ['', 'Evidence expiring in 30 days', b30.expiring.length, undefined, 'Items whose proof lapses soon. Open "What breaks" to see what they hold up.'],
+  ];
+  $('#hero-kpis').innerHTML = kpis.map(([cls, t, n, was, hint]) => `<div class="${cls ? 'c-' + cls : ''}"><dt>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small>was ${was}</small>` : ''}</dd><p class="kpi-hint">${hint}</p></div>`).join('')
+    + `<div class="kpi-note">The first three count the ${c.total} requirements of NIST SP 800-171 at ${esc(S.asOf)}.</div>`;
   const banner = $('#whatif-banner');
   banner.hidden = !S.whatIf.length;
   if (S.whatIf.length) {
@@ -253,16 +254,16 @@ function renderCoverage() {
         <div class="legend-row"><span><i class="dot covered"></i>Covered directly</span><span><i class="dot inherited"></i>Inherited through the crosswalk</span><span><i class="dot gap"></i>Gap</span></div>
       </div>
       <div class="stats">
-        <div class="stat"><b>${cov.total}</b><span>requirements in scope</span></div>
-        <div class="stat"><b style="color:var(--covered)">${cov.covered}${deltaTxt(cov.covered, base.covered)}</b><span>covered</span></div>
-        <div class="stat"><b style="color:var(--inherited)">${cov.inherited}${deltaTxt(cov.inherited, base.inherited)}</b><span>inherited (adopt-able)</span></div>
-        <div class="stat"><b style="color:var(--gap)">${cov.gaps}${deltaTxt(cov.gaps, base.gaps)}</b><span>gaps</span></div>
-        <div class="stat"><b>${bl.expiring.length}</b><span>evidence items expire before ${esc(until)}${aud ? ' (' + esc(aud.id) + ')' : ''}</span></div>
-        <div class="stat"><b style="color:var(--${broken.length ? 'warn' : 'covered'})">${broken.length}</b><span>requirements break by then${broken.length ? ` (${stillMet} still met via crosswalk)` : ''}</span></div>
+        <div class="stat"><b>${cov.total}</b><span>Requirements in scope</span><small>The rules this framework or audit asks you to meet.</small></div>
+        <div class="stat"><b style="color:var(--covered)">${cov.covered}${deltaTxt(cov.covered, base.covered)}</b><span>Covered</span><small>Met directly, with valid evidence.</small></div>
+        <div class="stat"><b style="color:var(--inherited)">${cov.inherited}${deltaTxt(cov.inherited, base.inherited)}</b><span>Inherited</span><small>Met through another framework. You can adopt it.</small></div>
+        <div class="stat"><b style="color:var(--gap)">${cov.gaps}${deltaTxt(cov.gaps, base.gaps)}</b><span>Gaps</span><small>Nothing meets these yet.</small></div>
+        <div class="stat"><b>${bl.expiring.length}</b><span>Evidence expiring</span><small>Items that lapse before ${esc(until)}${aud ? ' (' + esc(aud.id) + ')' : ''}.</small></div>
+        <div class="stat"><b style="color:var(--${broken.length ? 'warn' : 'covered'})">${broken.length}</b><span>Requirements break</span><small>Lose direct coverage by then${broken.length ? `; ${stillMet} still met via crosswalk` : ''}.</small></div>
       </div>
     </div>
     <div>
-      <div class="fam-head"><span>Family</span><span title="covered">Cov</span><span title="inherited">Inh</span><span title="gaps">Gap</span></div>
+      <div class="fam-head"><span>Family (click to open, then open a requirement to see its receipts)</span><span title="covered">Cov</span><span title="inherited">Inh</span><span title="gaps">Gap</span></div>
       ${famHtml || '<div class="notice">No gaps in this scope.</div>'}
     </div>
     <p class="muted">Covered: an adopted control with an approved mapping to the requirement and evidence that has not expired at ${esc(S.asOf)}. Inherited: not covered, but a requirement one NIST crosswalk hop away is. Open a requirement to see the receipts.</p>`;
@@ -405,8 +406,8 @@ function renderBlast() {
       <h2 style="margin-top:1rem">${plural(b.expiring.length, 'evidence item')} expire${b.expiring.length === 1 ? 's' : ''} in ${esc(label)}</h2>
       <p>${total ? `<b>${plural(total, 'requirement')}</b> lose direct coverage (${total - notInh} still met through the crosswalk, <b>${notInh}</b> fully broken).` : 'No requirement loses direct coverage.'}
         ${b.controlsLeft.length ? ` ${plural(b.controlsLeft.length, 'control')} would have no valid evidence left.` : ''}</p>
-      <div class="stats">${A.FRAMEWORKS.map((fw) => `<div class="stat"><b>${b.counts[fw]}</b><span>${esc(A.FRAMEWORK_LABEL[fw])} requirements break</span></div>`).join('')}
-        <div class="stat"><b>${b.audits.length}</b><span>${b.audits.length === 1 ? 'audit affected' : 'audits affected'}</span></div></div>
+      <div class="stats">${A.FRAMEWORKS.map((fw) => `<div class="stat"><b>${b.counts[fw]}</b><span>${esc(A.FRAMEWORK_LABEL[fw])}</span><small>requirements lose direct coverage</small></div>`).join('')}
+        <div class="stat"><b>${b.audits.length}</b><span>${b.audits.length === 1 ? 'Audit affected' : 'Audits affected'}</span><small>Audits that ask for expiring evidence or lose a requirement.</small></div></div>
     </div>
     <div class="grid2">
       <div class="card"><h2>Evidence about to expire</h2><div class="rows">${expiring || '<p class="muted">Nothing expires in this window.</p>'}</div></div>
@@ -570,7 +571,9 @@ async function renderScorecardTab() {
     panel.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
     S.scorecard = S.meta.has_scorecard ? await getJsonOrNull('data/scorecard.json') : null;
   }
-  panel.innerHTML = renderScorecard(S.scorecard);
+  panel.innerHTML = `<div class="card accent"><h2>Headline result: 45% to 95%</h2>
+      <p>Same Claude model, same 20 questions (14 planted traps). Reading the spreadsheet: <b>9/20 right (45%)</b>, fell for 6 of 14 traps. With the Relate graph and claim checker: <b>19/20 right (95%)</b>, 0 of 14 traps, <b>0 wrong claims shown</b>, <b>109/109 claims</b> backed by a valid receipt. The one miss (GQ-11) was an incomplete answer, not a false claim.</p>
+      <p class="muted">The detail is below. <a href="index.html#result">Read the short version on the overview page.</a></p></div>${renderScorecard(S.scorecard)}`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -636,16 +639,23 @@ function wire() {
     const next = e.key === 'ArrowRight' ? (i + 1) % TABS.length : e.key === 'ArrowLeft' ? (i + TABS.length - 1) % TABS.length : -1;
     if (next >= 0) { showTab(TABS[next]); $('#tab-' + TABS[next]).focus(); e.preventDefault(); }
   });
-  $('#cta-gaps').addEventListener('click', () => {
-    S.cov = { framework: '800-171', audit: 'AUD-171', gapsOnly: true, expandAll: false };
-    S.rendered.coverage = -1;
-    showTab('coverage');
-    $('#panel-coverage').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-  $('#cta-receipts').addEventListener('click', () => {
-    showTab('agent');
-    $('#panel-agent').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+  document.querySelectorAll('[data-tab-link]').forEach((el) => el.addEventListener('click', (e) => { e.preventDefault(); showTab(el.dataset.tabLink); $('#panel-' + el.dataset.tabLink).scrollIntoView({ behavior: 'smooth', block: 'start' }); }));
+  document.querySelectorAll('[data-start]').forEach((el) => el.addEventListener('click', () => {
+    const what = el.dataset.start;
+    if (what === 'receipts') {
+      S.cov = { framework: '800-171', audit: '', gapsOnly: false, expandAll: false };
+      S.rendered.coverage = -1;
+      showTab('coverage');
+      const fam = document.querySelector('#panel-coverage .fam[data-fam="800-171:03.05"]');
+      if (fam) { fam.open = true; fam.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => { const rq = document.querySelector('#panel-coverage .req[data-req="800-171:03.05.03"]'); if (rq) rq.open = true; }, 60); }
+    } else if (what === 'catch') {
+      showTab('agent');
+      $('#panel-agent').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (what === 'expire') openExpire();
+  }));
+  const hideStart = () => { $('#start').hidden = true; try { localStorage.setItem('cw-start-hidden', '1'); } catch { /* storage may be blocked */ } };
+  $('#start-hide').addEventListener('click', hideStart);
+  try { if (localStorage.getItem('cw-start-hidden') === '1') $('#start').hidden = true; } catch { /* storage may be blocked */ }
   $('#btn-expire').addEventListener('click', openExpire);
   $('#btn-remove').addEventListener('click', () => openRemove());
   $('#btn-reset').addEventListener('click', doReset);
