@@ -8,11 +8,13 @@ import { renderScorecard } from './scorecard.js';
 const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const plural = (n, one, many = one + 's') => `${n} ${n === 1 ? one : many}`;
-const TABS = ['coverage', 'adopt', 'blast', 'graph', 'agent', 'scorecard'];
+// tab order as the explorer shows it; the hashes (#coverage, #blast, #agent, #scorecard) are used by the landing page
+const TABS = ['coverage', 'blast', 'adopt', 'agent', 'scorecard', 'graph'];
+const TAB_NAME = { coverage: 'Coverage', blast: 'What breaks', adopt: 'Head start', agent: 'Agent log', scorecard: 'Scorecard', graph: 'Graph' };
 
 const S = {
   g: null, meta: null, asOf: null, tab: 'coverage', rev: 0, rendered: {},
-  whatIf: [], names: {}, base: {}, liveCatch: null, scorecard: undefined, graphView: null, graphStale: true,
+  whatIf: [], names: {}, base: {}, liveCatch: null, scorecard: undefined, graphView: null, graphStale: true, graphReturn: null,
   cov: { framework: '800-171', audit: '', gapsOnly: false, expandAll: false },
   adopt: { framework: '800-171' },
   blast: { window: '30', custom: '', person: 'P-dana-okafor' },
@@ -108,6 +110,7 @@ async function boot() {
     loadNames();
     computeBase();
     S.liveCatch = meta.has_live_catch ? await getJsonOrNull('data/live-catch.json') : null;
+    S.scorecard = meta.has_scorecard ? await getJsonOrNull('data/scorecard.json') : null;
   } catch (e) {
     console.error(e);
     return fatal(`Could not start the explorer: <code>${esc(e.message || e)}</code>. Check that <code>web/data/graph.cypher</code> exists (<code>python -m crosswalk.export_web</code>) and that the page is served over http.`);
@@ -120,6 +123,7 @@ async function boot() {
   const initial = location.hash.slice(1);
   showTab(TABS.includes(initial) ? initial : 'coverage', { push: false });
   refreshChrome();
+  fillHeadline();
 }
 
 function loadNames() {
@@ -143,24 +147,32 @@ function computeBase() {
 // ---------------------------------------------------------------------------------------------
 
 function refreshChrome() {
-  const c = A.coverage(S.g, { framework: '800-171', asOf: S.asOf });
-  const b30 = A.blast(S.g, { asOf: S.asOf, until: A.addDays(S.asOf, 30) });
+  const c = cover171();
   const base = S.base['800-171'];
+  // Evidence whose proof has lapsed or lapses within 30 days. An expiry what-if moves an item out of the
+  // window into the past, so the what-if expiries are added back: this count never drops under a what-if.
+  const expiring = A.blast(S.g, { asOf: S.asOf, until: A.addDays(S.asOf, 30) }).expiring.length
+    + S.whatIf.filter((w) => w.kind === 'expire').length;
   const kpis = [
-    ['covered', 'Covered', c.covered, base.covered, 'Met directly: an approved control with evidence that is still valid.'],
-    ['inherited', 'Inherited', c.inherited, base.inherited, 'Not met directly, but a matching requirement in another framework is.'],
-    ['gap', 'Gaps', c.gaps, base.gaps, 'No control and no crosswalk neighbour meets these yet.'],
-    ['', 'Evidence expiring in 30 days', b30.expiring.length, undefined, 'Items whose proof lapses soon. Open "What breaks" to see what they hold up.'],
+    ['covered', 'Covered', c.covered, base.covered, 'Met directly: an approved control with evidence that is still valid.', 'covered'],
+    ['inherited', 'Inherited', c.inherited, base.inherited, 'Not met directly, but a matching requirement in another framework is.', 'inherited'],
+    ['gap', 'Gaps', c.gaps, base.gaps, 'No control and no crosswalk neighbour meets these yet.', 'gap'],
+    ['', 'Expired or expiring in 30 days', expiring, undefined, 'Items whose proof lapses soon. Open "What breaks" to see what they hold up.', 'broken'],
   ];
-  $('#hero-kpis').innerHTML = kpis.map(([cls, t, n, was, hint]) => `<div class="${cls ? 'c-' + cls : ''}"><dt>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small>was ${was}</small>` : ''}</dd><p class="kpi-hint">${hint}</p></div>`).join('')
+  $('#hero-kpis').innerHTML = kpis.map(([cls, t, n, was, hint, sw]) => `<div class="${cls ? 'c-' + cls : ''}"><dt><i class="dot ${sw}" aria-hidden="true"></i>${t}</dt><dd>${n}${was !== undefined && was !== n ? ` <small>was ${was}</small>` : ''}</dd><p class="kpi-hint">${hint}</p></div>`).join('')
     + `<div class="kpi-note">The first three count the ${c.total} requirements of NIST SP 800-171 at ${esc(S.asOf)}.</div>`;
-  const banner = $('#whatif-banner');
-  banner.hidden = !S.whatIf.length;
-  if (S.whatIf.length) {
-    banner.innerHTML = `<strong>What-if active</strong> (in memory only): ${S.whatIf.map((w) => esc(w.text)).join('; ')}. <button class="linkbtn" type="button" data-act="reset">Reset</button>`;
+
+  // the verdict line: the same coverage result as the tiles; the audit date comes from meta.json
+  const aud = auditFor('800-171');
+  const verdict = $('#verdict');
+  if (aud) {
+    verdict.textContent = c.gaps > 0
+      ? `Not audit-ready for ${aud.id} (${aud.date}): ${c.covered} of ${c.total} requirements covered, ${c.inherited} inherited, ${c.gaps} gaps.`
+      : `Audit-ready for ${aud.id} (${aud.date}): all ${c.total} requirements are met, ${c.covered} covered and ${c.inherited} inherited.`;
+    verdict.style.color = c.gaps > 0 ? 'var(--gap)' : 'var(--covered)';
   }
-  const h = $('.top').offsetHeight;
-  document.documentElement.style.setProperty('--top-h', h + 'px');
+  renderBanner();
+  measureChrome();
 }
 
 function invalidate() {
@@ -175,6 +187,7 @@ function invalidate() {
 // ---------------------------------------------------------------------------------------------
 
 function showTab(tab, { push = true } = {}) {
+  if (S.tab === 'graph' && tab !== 'graph') S.graphReturn = null;  // leaving the graph ends its caption
   S.tab = tab;
   for (const t of TABS) {
     const sel = t === tab;
@@ -183,7 +196,8 @@ function showTab(tab, { push = true } = {}) {
     btn.tabIndex = sel ? 0 : -1;
     $('#panel-' + t).hidden = !sel;
   }
-  if (push) history.replaceState(null, '', '#' + tab);
+  // one history entry per tab change, so Back and Forward move between tabs (popstate/hashchange listeners in wire)
+  if (push && location.hash !== '#' + tab) history.pushState(null, '', '#' + tab);
   renderTab(tab);
 }
 
@@ -386,14 +400,14 @@ function renderBlast() {
   const ownerHtml = p ? `
       ${select('blast-person', personOpts, pid, 'Person')}
       <p style="margin-top:.8rem"><b>${esc(p.name)}</b> is the only owner of <b>${plural(p.controls.length, 'control')}</b>${p.highSystems.length ? `, touching ${plural(p.highSystems.length, 'high-criticality system')}` : ''}.
-        ${p.dependent.length ? `<b>${plural(p.dependent.length, 'requirement')}</b> rely on her controls alone${p.audits.length ? `, affecting ${esc(p.audits.join(', '))}` : ''}.` : 'No requirement relies on her controls alone.'}</p>
+        ${p.dependent.length ? `<b>${plural(p.dependent.length, 'requirement')}</b> rely on their controls alone${p.audits.length ? `, affecting ${esc(p.audits.join(', '))}` : ''}.` : 'No requirement relies on her controls alone.'}</p>
       <div class="receipt">${p.controls.map((c) => tag(c)).join(' ') || '<span class="muted">no sole-owned controls</span>'}</div>
       ${p.dependent.length ? `<div class="row-sub">Requirements: ${p.dependent.slice(0, 24).map((d) => tag(d.requirement)).join(' ')}${p.dependent.length > 24 ? ` +${p.dependent.length - 24} more` : ''} ${pathButton(p.dependent.slice(0, 6).flatMap((d) => d.paths.slice(0, 1)).map((x) => ({ ...x, state: 'warn' })), 'Show on graph')}</div>` : ''}
       <p style="margin-top:.6rem"><button type="button" class="btn small" data-act="whatif-remove" data-person="${esc(pid)}">What if ${esc(p.name.split(' ')[0])} leaves?</button></p>` : '<p class="muted">No people in the graph.</p>';
 
   const topReuse = A.reuse(S.g, { asOf: S.asOf, top: 5 });
   const removed = S.whatIf.filter((w) => w.kind === 'remove').map((w) => `
-    <div class="card" style="border-color:var(--warn)"><h2>If ${esc(w.name)} leaves</h2>
+    <div class="card" data-removed style="border-color:var(--warn)"><h2>If ${esc(w.name)} leaves</h2>
       <p><b>${plural(w.controls.length, 'control')}</b> ${w.controls.length === 1 ? 'is' : 'are'} left with no owner${w.dependent.length ? `, and <b>${plural(w.dependent.length, 'requirement')}</b> depend on ${w.controls.length === 1 ? 'it' : 'them'} alone${w.audits.length ? ` (${esc(w.audits.join(', '))})` : ''}` : ''}.</p>
       <div class="receipt">${w.controls.map((c) => tag(c, 'warn')).join(' ')}</div>
       ${w.dependent.length ? `<div class="row-sub">Requirements: ${w.dependent.slice(0, 24).map((d) => tag(d.requirement)).join(' ')}${w.dependent.length > 24 ? ` +${w.dependent.length - 24} more` : ''}</div>` : ''}</div>`).join('');
@@ -436,10 +450,12 @@ function renderGraph() {
   }
   if (S.graphStale) {
     S.graphStale = false;
+    S.graphReturn = null;
     S.graphView.clear();
     S.graphView.select('Requirement:800-171:03.05.03');
   }
   requestAnimationFrame(() => S.graphView.resize());
+  paintCaption();
 }
 
 function showNodeInfo(d, info) {
@@ -469,12 +485,30 @@ function graphSearch(q) {
     : '<li class="muted" style="padding:.4rem .6rem">No match</li>';
 }
 
+/** The caption above the graph: only after "Show on graph" from another tab. */
+function paintCaption() {
+  const back = S.graphReturn;
+  $('#graph-caption').hidden = !back;
+  if (!back) return;
+  $('#graph-caption-text').textContent = `Showing the path for ${back.id} · `;
+  $('#graph-back').textContent = `← Back to ${TAB_NAME[back.tab]}`;
+}
+
+function leaveCaption() {
+  S.graphReturn = null;
+  paintCaption();
+}
+
 function goPaths(paths) {
+  const root = paths[0].nodes[0];  // the clicked node: first node of the first path, e.g. 'Requirement:800-171:03.05.03'
+  const from = { tab: S.tab, y: window.scrollY, id: A.shortId(A.splitRef(root).id) };
+  S.graphStale = false;  // the paths replace whatever the graph showed
   showTab('graph');
-  S.graphStale = false;
   S.graphView.showPaths(paths);
+  S.graphReturn = from;
+  paintCaption();
+  showNodeInfo(S.graphView.details(root), null);
   $('#panel-graph').scrollIntoView({ block: 'start', behavior: 'smooth' });
-  showNodeInfo(null);
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -565,20 +599,56 @@ function renderAgent() {
 // Scorecard
 // ---------------------------------------------------------------------------------------------
 
+/** Headline numbers from data/scorecard.json (written by `crosswalk scorecard`); null if the file is missing. */
+function headlineNumbers() {
+  const d = S.scorecard;
+  if (!d || !Array.isArray(d.headline)) return null;
+  const m = /(\d+)\/(\d+) \((\d+)%\) -> (\d+)\/(\d+) \((\d+)%\)/.exec(d.headline[0]?.value || '');
+  if (!m) return null;
+  const claims = (d.sections || []).flatMap((s) => s.metrics || []).find((x) => x.id === 'A4')?.value;
+  const wrong = /->\s*(\d+)/.exec(d.headline[1]?.value || '');
+  return {
+    before: { right: m[1], total: m[2], pct: m[3] },
+    after: { right: m[4], total: m[5], pct: m[6] },
+    claims: claims || null,
+    wrong: wrong ? wrong[1] : null,
+  };
+}
+
+/** The intro strip (45%, 95%, 0, 109/109). The HTML keeps the same text as its fallback. */
+function fillHeadline() {
+  const h = headlineNumbers();
+  if (!h) return;
+  $('#hl-before').textContent = `${h.before.pct}%`;
+  $('#hl-after').textContent = `${h.after.pct}%`;
+  if (h.wrong !== null) $('#hl-wrong').textContent = h.wrong;
+  if (h.claims) $('#hl-claims').textContent = h.claims;
+  $('#hl-tab-range').textContent = `${h.before.pct}% to ${h.after.pct}%`;
+}
+
 async function renderScorecardTab() {
   const panel = $('#panel-scorecard');
   if (S.scorecard === undefined) {
     panel.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
     S.scorecard = S.meta.has_scorecard ? await getJsonOrNull('data/scorecard.json') : null;
   }
-  panel.innerHTML = `<div class="card accent"><h2>Headline result: 45% to 95%</h2>
-      <p>Same Claude model, same 20 questions (14 planted traps). Reading the spreadsheet: <b>9/20 right (45%)</b>, fell for 6 of 14 traps. With the Relate graph and claim checker: <b>19/20 right (95%)</b>, 0 of 14 traps, <b>0 wrong claims shown</b>, <b>109/109 claims</b> backed by a valid receipt. The one miss (GQ-11) was an incomplete answer, not a false claim.</p>
+  // The trap counts (6 of 14, 0 of 14) and GQ-11 are not fields of scorecard.json; their source is eval/agent-runs/results-run2.md
+  const h = headlineNumbers() || { before: { right: 9, total: 20, pct: 45 }, after: { right: 19, total: 20, pct: 95 }, claims: '109/109', wrong: '0' };
+  panel.innerHTML = `<div class="card accent"><h2>Headline result: ${h.before.pct}% to ${h.after.pct}%</h2>
+      <p>Same Claude model, same 20 questions (14 planted traps). Reading the spreadsheet: <b>${h.before.right}/${h.before.total} right (${h.before.pct}%)</b>, fell for 6 of 14 traps. With the Relate graph and claim checker: <b>${h.after.right}/${h.after.total} right (${h.after.pct}%)</b>, 0 of 14 traps, <b>${h.wrong ?? '0'} wrong claims shown</b>, <b>${h.claims ?? '109/109'} claims</b> backed by a valid receipt. The one miss (GQ-11) was an incomplete answer, not a false claim.</p>
       <p class="muted">The detail is below. <a href="index.html#result">Read the short version on the overview page.</a></p></div>${renderScorecard(S.scorecard)}`;
 }
 
 // ---------------------------------------------------------------------------------------------
 // what-if
+// Each change is stored as {kind, id, label} and applied to the in-memory graph. Undo rebuilds the graph
+// from the data and replays the remaining changes in order, so any one of them can be taken back.
 // ---------------------------------------------------------------------------------------------
+
+/** The 800-171 coverage the hero KPIs and the what-if banner show. */
+const cover171 = () => A.coverage(S.g, { framework: '800-171', asOf: S.asOf });
+
+let expireRows = [];  // the evidence the expire dialog offers, with what it proves
 
 function openExpire() {
   const sole = new Map(S.g.run(
@@ -588,12 +658,30 @@ function openExpire() {
      RETURN e.id AS id, count(c) AS n`, { as_of: S.asOf }).rows.map((r) => [r.id, r.n]));
   // evidence that is the ONLY proof of some control first (expiring it visibly drops coverage), then by reach
   const ev = A.reuse(S.g, { asOf: S.asOf }).sort((a, b) => (sole.get(b.evidence) || 0) - (sole.get(a.evidence) || 0) || a.rank - b.rank);
-  $('#sel-expire').innerHTML = ev.map((r) => {
-    const n = sole.get(r.evidence) || 0;
-    const note = n ? `only proof of ${plural(n, 'control')}` : 'has back-up evidence';
-    return `<option value="${esc(r.evidence)}">${esc(r.evidence)} · ${esc((S.names[r.evidence] || '').slice(0, 48))} · ${note}, reaches ${r.reach_count}</option>`;
-  }).join('');
+  expireRows = ev.map((r) => ({ id: r.evidence, title: S.names[r.evidence] || '', sole: sole.get(r.evidence) || 0, reach: r.reach_count }));
+  $('#expire-asof').textContent = S.asOf;
+  $('#expire-q').value = '';
+  fillExpireOptions('EV-044');  // EV-044 is already expired in this data, so it is not in the list: the first "only proof" item is chosen
   $('#dlg-expire').showModal();
+}
+
+/** Fill the list from the filter text; keeps the current choice when it still matches. */
+function fillExpireOptions(prefer) {
+  const q = $('#expire-q').value.trim().toLowerCase();
+  const rows = expireRows.filter((r) => !q || `${r.id} ${r.title}`.toLowerCase().includes(q));
+  const opt = (r) => {
+    const note = r.sole ? `only proof of ${plural(r.sole, 'control')}` : 'has back-up evidence';
+    return `<option value="${esc(r.id)}">${esc(r.id)} · ${esc(r.title.slice(0, 48))} · ${note}, affects ${plural(r.reach, 'requirement')}</option>`;
+  };
+  const soleRows = rows.filter((r) => r.sole);
+  const backupRows = rows.filter((r) => !r.sole);
+  const groups = [];
+  if (soleRows.length) groups.push(`<optgroup label="Only proof of a control">${soleRows.map(opt).join('')}</optgroup>`);
+  if (backupRows.length) groups.push(`<optgroup label="Has a backup">${backupRows.map(opt).join('')}</optgroup>`);
+  const sel = $('#sel-expire');
+  sel.innerHTML = groups.join('');
+  const ids = rows.map((r) => r.id);
+  sel.value = ids.includes(prefer) ? prefer : (ids[0] || '');
 }
 
 function openRemove(preselect) {
@@ -603,26 +691,131 @@ function openRemove(preselect) {
   $('#dlg-remove').showModal();
 }
 
+/** Per-requirement status and KPI counts for 800-171, the framework the hero numbers show. */
+function coverState() {
+  const c = cover171();
+  return {
+    counts: { covered: c.covered, inherited: c.inherited, gaps: c.gaps },
+    status: Object.fromEntries(c.requirements.map((r) => [r.id, r.status])),
+  };
+}
+
+/** Apply one change to the graph and record it with what it did to coverage (captured before and after). */
+function applyWhatIf(w) {
+  const before = coverState();
+  if (w.kind === 'expire') {
+    const d = A.addDays(S.asOf, -1);
+    S.g.run('MATCH (e:Evidence {id: $id}) SET e.expires_at = date($d)', { id: w.id, d });
+    S.whatIf.push({ kind: 'expire', id: w.id, label: `${w.id} expired` });
+  } else {
+    const name = S.names[w.id] || w.id;
+    const p = A.ownerRisk(S.g, { asOf: S.asOf }).people[w.id];  // what they owned, read before the delete
+    S.g.run('MATCH (p:Person {id: $id}) DETACH DELETE p', { id: w.id });
+    S.whatIf.push({ kind: 'remove', id: w.id, label: `${name} removed`, name, controls: p ? p.controls : [], dependent: p ? p.dependent : [], audits: p ? p.audits : [] });
+  }
+  const last = S.whatIf[S.whatIf.length - 1];
+  const after = coverState();
+  last.before = before.counts;
+  last.after = after.counts;
+  last.affected = Object.keys(after.status)
+    .filter((id) => before.status[id] !== after.status[id])
+    .sort(A.nat)
+    .map((id) => ({ id, from: before.status[id], to: after.status[id] }));
+}
+
+/** Rebuild the graph from the data, then replay the given changes in order. */
+function replayWhatIfs(list) {
+  S.g.load();
+  S.whatIf = [];
+  for (const w of list) applyWhatIf(w);
+  invalidate();
+}
+
+function undoWhatIf(i) {
+  replayWhatIfs(S.whatIf.filter((_, j) => j !== i).map(({ kind, id }) => ({ kind, id })));
+}
+
+function doReset() {
+  replayWhatIfs([]);
+}
+
 function doExpire(id) {
-  const d = A.addDays(S.asOf, -1);
-  S.g.run('MATCH (e:Evidence {id: $id}) SET e.expires_at = date($d)', { id, d });
-  S.whatIf.push({ text: `${id} expired (${d})` });
+  applyWhatIf({ kind: 'expire', id });
   invalidate();
 }
 
 function doRemove(id) {
-  const name = S.names[id] || id;
-  const p = A.ownerRisk(S.g, { asOf: S.asOf }).people[id];  // what they owned, read before the delete
-  S.g.run('MATCH (p:Person {id: $id}) DETACH DELETE p', { id });
-  S.whatIf.push({ kind: 'remove', text: `${name} removed`, name, controls: p ? p.controls : [], dependent: p ? p.dependent : [], audits: p ? p.audits : [] });
+  applyWhatIf({ kind: 'remove', id });
   invalidate();
   showTab('blast');
+  // after a tick: closing the dialog hands focus back to the button that opened it, which would pull the page up again
+  setTimeout(() => document.querySelector('#panel-blast [data-removed]')?.scrollIntoView({ block: 'start' }), 60);
 }
 
-function doReset() {
-  S.g.load();
-  S.whatIf = [];
-  invalidate();
+/** Coverage tab with the family and the requirement open (its receipts). */
+function openRequirement(reqId) {
+  const fw = A.fwOf(reqId);
+  S.cov = { framework: fw, audit: '', gapsOnly: false, expandAll: false };
+  S.rendered.coverage = -1;
+  showTab('coverage');
+  const famRec = [...S.famIndex.values()].find((f) => f.reqs.some((r) => r.id === reqId));
+  const fam = famRec && document.querySelector(`#panel-coverage .fam[data-fam="${CSS.escape(famRec.id)}"]`);
+  if (!fam) return;
+  fam.open = true;
+  fam.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  setTimeout(() => {
+    const rq = document.querySelector(`#panel-coverage .req[data-req="${CSS.escape(reqId)}"]`);
+    if (rq) rq.open = true;
+  }, 60);
+}
+
+/** The what-if summary: one chip per change (each with its own undo), then what the latest change did. */
+function renderBanner() {
+  const dock = $('#whatif-dock');
+  const box = $('#whatif-banner');
+  dock.hidden = !S.whatIf.length;
+  document.body.classList.toggle('dock-on', S.whatIf.length > 0);
+  if (!S.whatIf.length) { box.innerHTML = ''; return; }
+  const last = S.whatIf.length - 1;
+  const w = S.whatIf[last];
+  const chips = S.whatIf.map((x, i) => `<span class="wi-chip">${esc(x.label)}<button type="button" class="wi-x" data-act="undo-whatif" data-i="${i}" aria-label="Undo: ${esc(x.label)}" title="Undo this change">&times;</button></span>`).join('');
+  let lines;
+  if (w.kind === 'remove') {
+    const n = w.controls.length;
+    const m = w.dependent.length;
+    lines = `<span class="wi-line">Coverage numbers do not change when a person leaves; ownership risk does: ${n} ${n === 1 ? 'control now has' : 'controls now have'} no owner, ${m} ${m === 1 ? 'requirement depends' : 'requirements depend'} on them alone.</span>`;
+  } else {
+    const b = w.before;
+    const a = w.after;
+    const arrow = (x, y) => `${x} → ${y}`;
+    const lost = w.affected.filter((x) => x.from === 'covered' && x.to !== 'covered');
+    const stillMet = lost.filter((x) => x.to === 'inherited').length;
+    const nowGaps = w.affected.filter((x) => x.to === 'gap' && x.from !== 'gap').length;
+    const ids = w.affected.map((x) => x.id);
+    lines = `<span class="wi-line">Covered ${arrow(b.covered, a.covered)} · Inherited ${arrow(b.inherited, a.inherited)} · Gaps ${arrow(b.gaps, a.gaps)}</span>`
+      + `<span class="wi-line">Affected requirements: ${ids.length ? ids.slice(0, 8).map((id) => tag(id)).join(' ') + (ids.length > 8 ? ` +${ids.length - 8} more` : '') : 'none'}`
+      + ` <span class="muted">(${lost.length} lost direct coverage, ${stillMet} still met through another framework, ${nowGaps} now gaps)</span></span>`;
+  }
+  const first = w.affected[0];
+  const actions = `<button type="button" class="btn small" data-act="see-breaks">See what breaks</button>`
+    + (first ? `<button type="button" class="btn small" data-act="open-req" data-req="${esc(first.id)}">Open ${esc(A.shortId(first.id))}</button>` : '')
+    + `<button type="button" class="btn small ghost" data-act="undo-whatif" data-i="${last}">Undo this</button>`
+    + `<button type="button" class="btn small ghost" data-act="reset">Reset all</button>`;
+  box.innerHTML = `<div class="wi-row"><span class="wi-title">What-if <span class="muted">(as of ${esc(S.asOf)})</span></span>${chips}</div>`
+    + `<div class="wi-row"><span class="wi-nums">${lines}</span><span class="wi-actions">${actions}</span></div>`;
+}
+
+/** Sticky heights, so that a scrolled-to panel or card clears the header, the tabs and the what-if bar. */
+function measureChrome() {
+  const root = document.documentElement.style;
+  const top = $('.top').offsetHeight;
+  const tabs = $('.tabs-bar').offsetHeight;
+  const dock = $('#whatif-dock').hidden ? 0 : $('#whatif-dock').offsetHeight;
+  const phone = window.matchMedia('(max-width: 640px)').matches;
+  root.setProperty('--top-h', top + 'px');
+  root.setProperty('--tabs-h', tabs + 'px');
+  root.setProperty('--dock-h', dock + 'px');
+  root.setProperty('--sticky-h', (phone ? tabs : top + tabs + dock) + 'px');
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -643,11 +836,7 @@ function wire() {
   document.querySelectorAll('[data-start]').forEach((el) => el.addEventListener('click', () => {
     const what = el.dataset.start;
     if (what === 'receipts') {
-      S.cov = { framework: '800-171', audit: '', gapsOnly: false, expandAll: false };
-      S.rendered.coverage = -1;
-      showTab('coverage');
-      const fam = document.querySelector('#panel-coverage .fam[data-fam="800-171:03.05"]');
-      if (fam) { fam.open = true; fam.scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(() => { const rq = document.querySelector('#panel-coverage .req[data-req="800-171:03.05.03"]'); if (rq) rq.open = true; }, 60); }
+      openRequirement('800-171:03.05.03');
     } else if (what === 'catch') {
       showTab('agent');
       $('#panel-agent').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -659,7 +848,9 @@ function wire() {
   $('#btn-expire').addEventListener('click', openExpire);
   $('#btn-remove').addEventListener('click', () => openRemove());
   $('#btn-reset').addEventListener('click', doReset);
-  $('#dlg-expire').addEventListener('close', (e) => { if (e.target.returnValue === 'ok') doExpire($('#sel-expire').value); });
+  $('#dlg-expire').addEventListener('close', (e) => { const id = $('#sel-expire').value; if (e.target.returnValue === 'ok' && id) doExpire(id); });
+  $('#expire-q').addEventListener('input', () => fillExpireOptions($('#sel-expire').value));
+  $('#expire-q').addEventListener('keydown', (e) => { if (e.key === 'Enter') e.preventDefault(); });  // Enter filters; it must not close the dialog
   $('#dlg-remove').addEventListener('close', (e) => { if (e.target.returnValue === 'ok') doRemove($('#sel-remove').value); });
 
   document.addEventListener('click', (e) => {
@@ -671,10 +862,15 @@ function wire() {
     const act = el.dataset.act;
     if (act === 'show-paths') goPaths(JSON.parse(el.dataset.paths));
     else if (act === 'reset') doReset();
+    else if (act === 'undo-whatif') undoWhatIf(Number(el.dataset.i));
+    else if (act === 'see-breaks') { showTab('blast'); $('#panel-blast').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    else if (act === 'open-req') openRequirement(el.dataset.req);
+    else if (act === 'graph-back') { const back = S.graphReturn; if (back) { showTab(back.tab); window.scrollTo({ top: back.y }); } }
     else if (act === 'toggle-expand') { S.cov.expandAll = !S.cov.expandAll; S.rendered.coverage = -1; renderTab('coverage'); }
     else if (act === 'whatif-remove') openRemove(el.dataset.person);
     else if (act === 'graph-pick') {
       $('#graph-results').hidden = true;
+      leaveCaption();
       S.graphView.clear();
       S.graphView.select(el.dataset.ref);
     }
@@ -726,16 +922,14 @@ function wire() {
   });
   $('#graph-search').addEventListener('submit', (e) => { e.preventDefault(); graphSearch($('#graph-q').value); });
   $('#graph-q').addEventListener('input', (e) => graphSearch(e.target.value));
-  $('#graph-clear').addEventListener('click', () => { $('#graph-q').value = ''; $('#graph-results').hidden = true; S.graphView.clear(); showNodeInfo(null); });
-  window.addEventListener('hashchange', () => {
-    const h = location.hash.slice(1);
+  $('#graph-clear').addEventListener('click', () => { $('#graph-q').value = ''; $('#graph-results').hidden = true; leaveCaption(); S.graphView.clear(); showNodeInfo(null); });
+  const onHistory = () => {
+    const h = location.hash.slice(1) || 'coverage';
     if (TABS.includes(h) && h !== S.tab) showTab(h, { push: false });
-  });
-  window.addEventListener('resize', () => refreshChromeHeight());
-}
-
-function refreshChromeHeight() {
-  document.documentElement.style.setProperty('--top-h', $('.top').offsetHeight + 'px');
+  };
+  window.addEventListener('hashchange', onHistory);
+  window.addEventListener('popstate', onHistory);
+  window.addEventListener('resize', () => measureChrome());
 }
 
 function rerender(tab) {

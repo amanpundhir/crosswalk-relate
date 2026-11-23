@@ -138,6 +138,12 @@
   .tiny { font-size: var(--t-small); color: var(--ink); max-width: 60ch; }
   @media (max-width: 639px) { .xw__chip, .xw__tabs { display: none; } .xw__sum { grid-template-columns: 1fr; } .xw__nums { justify-content: flex-start; gap: 20px; } .tabrows li { grid-template-columns: 1fr; gap: 2px; } }
   @media (max-width: 639px) { #result, #catch, #guide { --hm: 2; } #how .panel { height: 230px !important; --p-h: 230px !important; } .closing__links .footer__col:last-child, .close__word, .footer__lede { display: none; } }
+  /* page override (the kit's system.css fixes footer.closing to one screen of height, which is too short for the
+     close and the links at 1280-1900px wide on a short window, so the word ran over the links). The band grows to its content. */
+  footer.closing { height: auto; min-height: 100svh; }
+  footer.closing > .wrap { height: auto; }
+  .close__word { margin-top: var(--s-6); }
+  .closing__links { margin-top: var(--s-7); }
 </style>
 </head>
 <body>
