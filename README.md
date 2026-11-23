@@ -4,7 +4,7 @@
 
 *Built on [Relate](https://relatedb.ai) (Neo4j's embedded graph database) for the Relate by Neo4j Hackathon, theme "Context, connected".*
 
-**Links:** [Live explorer](https://amanpundhir.github.io/crosswalk-relate/) (no install, no AI) | Demo video (1:50): <!-- VIDEO_LINK --> link coming | [Evaluation](docs/evaluation.md) | [Details](docs/details.md) | [Schema](docs/schema.md) | [Queries](docs/queries.md)
+**Links:** [Live explorer](https://amanpundhir.github.io/crosswalk-relate/) (no install, no AI) | [Demo video](https://youtu.be/AqZCjWa7gYs) | [Evaluation](docs/evaluation.md) | [Details](docs/details.md) | [Schema](docs/schema.md) | [Queries](docs/queries.md)
 
 ## The result
 
