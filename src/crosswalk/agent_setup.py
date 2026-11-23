@@ -77,7 +77,9 @@ def scripts_dir(root: Path) -> Path:
     for cand in (root / ".venv" / "Scripts", root / ".venv" / "bin"):
         if cand.is_dir():
             return cand
-    return Path(sys.executable).resolve().parent
+    # no .resolve(): on Linux/macOS a venv's python is a symlink to the system interpreter, and
+    # following it would look for relate and crosswalk-mcp outside the venv
+    return Path(os.path.abspath(sys.executable)).parent
 
 
 def _exe(folder: Path, name: str) -> Path | None:
@@ -92,14 +94,15 @@ def server_config(root: Path, store: Path, agent: str) -> tuple[dict[str, dict],
     folder, notes = scripts_dir(root), []
     relate_exe = _exe(folder, "relate")
     if relate_exe is None:
-        raise SetupError(f"relate is not installed in {folder}. Install it with: pip install relate-db==1.2.0")
+        raise SetupError(f"the relate CLI is not installed in {folder}. `pip install relate-db` does not provide it: "
+                         "download the v1.2.0 release asset for your platform (see the README, 'The Relate CLI').")
     mcp_exe = _exe(folder, "crosswalk-mcp")
     if mcp_exe is not None:
         cw = {"command": str(mcp_exe), "args": []}
     else:  # an editable install made before the script existed: run the module instead
         py = _exe(folder, "python") or Path(sys.executable)
         cw = {"command": str(py), "args": ["-m", "crosswalk_mcp.server"]}
-        notes.append(f"{folder}\\crosswalk-mcp.exe not found (re-run `pip install -e .` to create it): "
+        notes.append(f"{folder / 'crosswalk-mcp'} not found (re-run `pip install -e .` to create it): "
                      f"using `python -m crosswalk_mcp.server` instead")
     cw["env"] = {"CROSSWALK_STORE": str(store), "DO_NOT_TRACK": "1"}
     rl = {"command": str(relate_exe),
