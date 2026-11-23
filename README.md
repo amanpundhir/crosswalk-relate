@@ -6,9 +6,14 @@
 
 **Links:** [Live explorer](https://amanpundhir.github.io/crosswalk-relate/) (no install, no AI) | [**The whole graph**](https://amanpundhir.github.io/crosswalk-relate/full-graph.html) | [Demo video](https://youtu.be/AqZCjWa7gYs) | [Evaluation](docs/evaluation.md) | [Details](docs/details.md) | [Schema](docs/schema.md) | [Queries](docs/queries.md)
 
-> **See the whole graph at once.** [Open it in your browser](https://amanpundhir.github.io/crosswalk-relate/full-graph.html): all **1,971 nodes and 4,375 relationships** of the committed store on one canvas, loaded into Relate's WebAssembly build. No install, no server, no AI. Switch views (NIST crosswalk, company only, receipts, expired evidence, agent memory), colour by status, and click any node to see what it connects to.
+## Use case: what Crosswalk does
 
-[![The whole Crosswalk graph: three NIST frameworks around the company's policies, controls, evidence and people](docs/images/explorer-whole-graph.png)](https://amanpundhir.github.io/crosswalk-relate/full-graph.html)
+* **The problem:** audit prep lives in spreadsheets. An AI that reads them repeats whatever they say, even when it is out of date.
+* **A compliance graph** in Relate: NIST SP 800-53 Rev 5, SP 800-171 Rev 3 and CSF 2.0, NIST's official crosswalks between them, and a **fictional** company, Harbor & Pine, built on open-source policy templates.
+* **Answers with receipts.** Every claim the agent makes cites a path id (`P-...`) from requirement to control to evidence.
+* **A claim checker** re-runs each cited path against the graph and drops or flags what fails (expired evidence, unapproved mappings, made-up ids).
+* **Humans stay in charge.** Agents can only *propose* changes. You approve with `crosswalk review`. Your decisions are stored, so a rejected suggestion is never repeated.
+* **Works with or without AI.** The CLI and browser explorer need no AI. Agents run in Claude Code, Cursor or any MCP client, wired by one command.
 
 ## The result
 
@@ -28,33 +33,11 @@
 
 **Why not Vanta?** Crosswalk is free, runs locally, and lets you inspect every link in the graph. It works with any MCP agent, it is built on NIST's official crosswalk, and its accuracy is measured and published.
 
-## Use case: what Crosswalk does
+## The whole graph
 
-* **The problem:** audit prep lives in spreadsheets. An AI that reads them repeats whatever they say, even when it is out of date.
-* **A compliance graph** in Relate: NIST SP 800-53 Rev 5, SP 800-171 Rev 3 and CSF 2.0, NIST's official crosswalks between them, and a **fictional** company, Harbor & Pine, built on open-source policy templates.
-* **Answers with receipts.** Every claim the agent makes cites a path id (`P-...`) from requirement to control to evidence.
-* **A claim checker** re-runs each cited path against the graph and drops or flags what fails (expired evidence, unapproved mappings, made-up ids).
-* **Humans stay in charge.** Agents can only *propose* changes. You approve with `crosswalk review`. Your decisions are stored, so a rejected suggestion is never repeated.
-* **Works with or without AI.** The CLI and browser explorer need no AI. Agents run in Claude Code, Cursor or any MCP client, wired by one command.
+> **See the whole graph at once.** [Open it in your browser](https://amanpundhir.github.io/crosswalk-relate/full-graph.html): all **1,971 nodes and 4,375 relationships** of the committed store on one canvas, loaded into Relate's WebAssembly build. No install, no server, no AI. Switch views (NIST crosswalk, company only, receipts, expired evidence, agent memory), colour by status, and click any node to see what it connects to.
 
-## Screenshots
-
-**The whole graph** is shown at the top of this page ([open it](https://amanpundhir.github.io/crosswalk-relate/full-graph.html)). The explorer tabs:
-
-**Landing page.**
-![Crosswalk landing page](docs/images/landing.png)
-
-**Coverage:** what is covered, inherited through NIST's crosswalk, or a gap.
-![Coverage tab of the explorer](docs/images/explorer-coverage.png)
-
-**The live catch:** the agent says "Yes", the checker proves it wrong.
-![Live catch in the explorer](docs/images/explorer-live-catch.png)
-
-**What breaks:** which requirements lose coverage before the audit.
-![What breaks tab of the explorer](docs/images/explorer-what-breaks.png)
-
-**Scorecard:** the numbers above, computed from the store.
-![Scorecard tab of the explorer](docs/images/explorer-scorecard.png)
+[![The whole Crosswalk graph: three NIST frameworks around the company's policies, controls, evidence and people](docs/images/explorer-whole-graph.png)](https://amanpundhir.github.io/crosswalk-relate/full-graph.html)
 
 ## How it works
 
@@ -237,6 +220,25 @@ Copy the four `SKILL.md` instructions from `agents/skills/` into your client's r
 
 Everything runs on your machine. There is no Crosswalk server or account and no API key. The only downloads are `pip install`, the optional Relate CLI (SHA-256 checked) and, if you rebuild the store, the embedding model (fetched once). Relate's telemetry is off with `DO_NOT_TRACK=1`.
 
+## Screenshots
+
+**The whole graph** is shown in [The whole graph](#the-whole-graph) above ([open it](https://amanpundhir.github.io/crosswalk-relate/full-graph.html)). The explorer tabs:
+
+**Landing page.**
+![Crosswalk landing page](docs/images/landing.png)
+
+**Coverage:** what is covered, inherited through NIST's crosswalk, or a gap.
+![Coverage tab of the explorer](docs/images/explorer-coverage.png)
+
+**The live catch:** the agent says "Yes", the checker proves it wrong.
+![Live catch in the explorer](docs/images/explorer-live-catch.png)
+
+**What breaks:** which requirements lose coverage before the audit.
+![What breaks tab of the explorer](docs/images/explorer-what-breaks.png)
+
+**Scorecard:** the numbers above, computed from the store.
+![Scorecard tab of the explorer](docs/images/explorer-scorecard.png)
+
 ## Example questions and expected answers
 
 Numbers come from the committed store (as of 2026-12-02) and the [golden questions](eval/golden_questions.yaml). An agent should give these answers, with path ids; the CLI shows the same facts without AI.
@@ -268,31 +270,6 @@ A normal agent tries to be helpful: it approves, edits, sends and fills gaps fro
 
 Recorded results: [eval/agent-runs/results-run2.md](eval/agent-runs/results-run2.md). Guardrail counts: [eval/scorecard.md](eval/scorecard.md). Same caveat as the main result: one fictional company, one model, published transcripts.
 
-## What's in the repo
-
-```
-data/crosswalk/    the Relate graph store (committed, plain JSON)
-exports/           sorted graph export, readable in git diffs
-inputs/            NIST data, policy templates, the fictional company pack
-src/               the crosswalk CLI, claim checker, verifier, MCP server
-agents/skills/     the four agent skills (audit-prep, mapper, evidence, auditor-packet)
-queries/           one Cypher file per question
-web/               the browser explorer (Relate WASM, no AI)
-eval/              golden questions, ground truth, agent-run transcripts, scorecard
-tests/             274 tests
-docs/              evaluation, details, schema, query cookbook
-```
-
-## Limits and honesty
-
-* The company, Harbor & Pine, and its people, systems and evidence are **fictional**. This is **not audit or legal advice**; "covered" means an approved mapping and unexpired evidence exist in this graph.
-* NIST says its crosswalks give "a general indication", not proof of equivalence. Treat inherited coverage as a head start.
-* Mapping suggestions are modest (Precision@5 about 0.2): a shortlist for a human, not an answer.
-* Agent results: one model, 20 questions, one company. The checker verifies paths, not truth outside the graph.
-* Developed on Windows 11. Linux is tested in CI on every push. macOS is untested. Cursor is untested.
-
-More: [docs/evaluation.md](docs/evaluation.md).
-
 ## Security checks
 
 Checked on 2026-11-23. All passed.
@@ -308,6 +285,31 @@ Checked on 2026-11-23. All passed.
 | Network exposure | Nothing listens on the network by default. The concurrency demo's Relate server binds to 127.0.0.1 on a throwaway copy |
 | Downloads | The Relate CLI comes from the official v1.2.0 release asset and is checked against its published SHA-256, in the README steps and in CI |
 | CI | Workflows run with read-only repo permissions (Pages adds only `pages: write`) |
+
+## Limits and honesty
+
+* The company, Harbor & Pine, and its people, systems and evidence are **fictional**. This is **not audit or legal advice**; "covered" means an approved mapping and unexpired evidence exist in this graph.
+* NIST says its crosswalks give "a general indication", not proof of equivalence. Treat inherited coverage as a head start.
+* Mapping suggestions are modest (Precision@5 about 0.2): a shortlist for a human, not an answer.
+* Agent results: one model, 20 questions, one company. The checker verifies paths, not truth outside the graph.
+* Developed on Windows 11. Linux is tested in CI on every push. macOS is untested. Cursor is untested.
+
+More: [docs/evaluation.md](docs/evaluation.md).
+
+## What's in the repo
+
+```
+data/crosswalk/    the Relate graph store (committed, plain JSON)
+exports/           sorted graph export, readable in git diffs
+inputs/            NIST data, policy templates, the fictional company pack
+src/               the crosswalk CLI, claim checker, verifier, MCP server
+agents/skills/     the four agent skills (audit-prep, mapper, evidence, auditor-packet)
+queries/           one Cypher file per question
+web/               the browser explorer (Relate WASM, no AI)
+eval/              golden questions, ground truth, agent-run transcripts, scorecard
+tests/             274 tests
+docs/              evaluation, details, schema, query cookbook
+```
 
 ## Data and licences
 
