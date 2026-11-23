@@ -9,7 +9,7 @@ Keywords: Relate, compliance, NIST 800-53, NIST 800-171, NIST CSF 2.0, AI agent,
 | | |
 |---|---|
 | Demo video (1:50, no login) | <!-- VIDEO_LINK --> link coming |
-| Browser explorer (no install, no server, no AI key) | <!-- EXPLORER_LINK --> link coming. Until then run it locally: `python -m http.server -d web 8000` |
+| Browser explorer (no install, no server, no AI key) | **https://amanpundhir.github.io/crosswalk-relate/** (or locally: `python -m http.server -d web 8000`) |
 | Source | Public GitHub repository, link coming (topics `relate`, `relate-neo4j-hackathon`) |
 
 *Built for the Relate by Neo4j Hackathon ("Context, connected"), Nov 11 to Dec 11, 2026. The company in the demo, Harbor & Pine, is fictional. This is not audit advice.*
@@ -300,6 +300,8 @@ Restart Claude Code in the project folder, then ask, for example:
 Agents cannot approve anything. You do, with `crosswalk review`.
 
 ### Browser explorer
+
+Live: **https://amanpundhir.github.io/crosswalk-relate/** (deployed from `web/` by `.github/workflows/pages.yml`). To run it locally:
 
 ```powershell
 python -m http.server -d web 8000     # then open http://localhost:8000
