@@ -64,6 +64,11 @@ def test_full_scorecard_without_relate_cli(monkeypatch):
         raise B.BuildError("the relate CLI was not found (expected next to the Python interpreter)")
 
     monkeypatch.setattr(D, "_relate_cli", no_cli)
-    c6 = {m["id"]: m for m in S.section_c(REPO / "data" / "crosswalk", False, None, {})}["C6"]
+    monkeypatch.setattr(B, "_relate_cli", no_cli)
+    store = REPO / "data" / "crosswalk"
+    _, timings = S.section_f(store, False)
+    c6 = {m["id"]: m for m in S.section_c(store, False, None, timings)}["C6"]
     assert c6["status"] == "pass" and c6["value"] == "0/2", c6
     assert "embedded only" in c6["name"] and "server: skipped" in c6["note"]
+    f3 = {m["id"]: m for m in S.timing_metrics(timings, False)}["F3"]
+    assert f3["status"] == "info" and "relate CLI is not installed" in f3["value"], f3

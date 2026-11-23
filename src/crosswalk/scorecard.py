@@ -515,6 +515,10 @@ def section_f(store: Path, quick: bool) -> tuple[list[dict], dict]:
             t0 = time.perf_counter()
             B.build(tmp / "crosswalk", export=False)
             timings["build_s"] = round(time.perf_counter() - t0, 1)
+        except B.BuildError as exc:
+            if "relate CLI was not found" not in str(exc):
+                raise
+            timings["build_skipped"] = "the relate CLI is not installed"  # a fresh build initialises the store with it
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
     return sysm, timings
@@ -527,6 +531,9 @@ def timing_metrics(t: dict, quick: bool) -> list[dict]:
                           ps(t["build_s"] <= 60), "build.build into a temp dir"))
     elif quick:
         out.append(metric("F3", "crosswalk build time", "skipped (--quick)", "<= 60 s", "info", "build.build"))
+    elif "build_skipped" in t:
+        out.append(metric("F3", "crosswalk build time", f"skipped ({t['build_skipped']})", "<= 60 s", "info",
+                          "build.build"))
     worst = t["query_p95_worst_ms"]
     out.append(metric("F4", "Query latency p95, worst of the core queries", f"{worst} ms", "< 200 ms", ps(worst < 200),
                       "20 runs per query after one warm-up", "per query in timings.query_latency"))

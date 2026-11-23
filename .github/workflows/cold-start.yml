@@ -43,8 +43,12 @@ jobs:
       - name: "README: crosswalk scorecard with no Relate CLI and no key"
         run: |
           source .venv/bin/activate
-          ! command -v relate
-          crosswalk scorecard
+          echo "relate on PATH: $(command -v relate || echo none)"
+          if ! crosswalk scorecard > /tmp/sc.txt 2>&1; then
+            echo "::error title=crosswalk scorecard (no CLI)::$(tail -c 1500 /tmp/sc.txt | tr '\n' ' ')"
+            exit 1
+          fi
+          tail -5 /tmp/sc.txt
 
       - name: Relate CLI from the official release asset (SHA-256 checked)
         run: |
