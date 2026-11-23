@@ -10,6 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400..700&family=Figtree:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/whatif-viz.css">
+  <link rel="stylesheet" href="css/tour.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -19,6 +21,7 @@
       <a class="brand" href="index.html" aria-label="Crosswalk, back to the overview"><span class="mark" aria-hidden="true"></span>Crosswalk</a>
       <span class="chip" id="asof-chip" title="The demo's &quot;today&quot;. Evidence expiry is judged against it, so results don't change with the real date.">demo date &hellip;</span>
       <a class="toplink" href="index.html">About this demo</a>
+      <button type="button" class="toplink tour-start" id="tour-start">Take the tour</button>
       <div class="whatif" role="group" aria-label="What-if: try a change">
         <span class="whatif-label">What-if <span class="hint" tabindex="0" role="note" aria-label="Pretend something changes. Numbers update, nothing is saved. Reload to reset.">?</span></span>
         <button class="btn small" id="btn-expire" type="button" disabled title="Pretend a piece of evidence expires. Numbers update; nothing is saved.">Expire evidence&hellip;</button>
@@ -82,6 +85,8 @@
     </div>
   </div>
   <span class="sr" id="wi-status" role="status"></span>
+  <!-- js/whatif-viz.js renders the simulation view here (keep this element) -->
+  <div id="whatif-viz-root"></div>
 
   <section class="start" id="start" aria-labelledby="start-h">
     <div class="wrap">
@@ -169,6 +174,8 @@
   </footer>
 
   <script src="vendor/cytoscape/cytoscape.min.js"></script>
+  <script src="js/whatif-viz.js" defer></script>
+  <script src="js/tour.js" defer></script>
   <script type="module" src="js/app.js"></script>
 </body>
 </html>

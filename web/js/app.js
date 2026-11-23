@@ -128,6 +128,8 @@ async function boot() {
   showTab(TABS.includes(initial) ? initial : 'coverage', { push: false });
   refreshChrome();
   fillHeadline();
+  window.CW = { A, S, showTab, openRequirement, goPaths, openExpire, openRemove, doReset, undoWhatIf };
+  emit('ready');
 }
 
 function loadNames() {
@@ -208,6 +210,7 @@ function showTab(tab, { push = true } = {}) {
   if (tab === 'agent' && push) markDone('catch');  // opened by the user, not restored from the URL or Back
   renderTab(tab);
   measureChrome();
+  if (typeof emit === 'function') emit('tab', { tab });
 }
 
 function renderTab(tab) {
@@ -807,7 +810,7 @@ function undoWhatIf(i) {
     const b = coverCounts();
     replayWhatIfs(S.whatIf.filter((_, j) => j !== i).map(({ kind, id }) => ({ kind, id })));
     return sentenceFor(`Undid ${label}`, b);
-  });
+  }).then(() => emitWhatIf('undo'));
 }
 
 function doReset() {
@@ -815,7 +818,7 @@ function doReset() {
     const b = coverCounts();
     replayWhatIfs([]);
     return sentenceFor('All changes undone', b);
-  });
+  }).then(() => emitWhatIf('reset'));
 }
 
 function doExpire(id) {
@@ -825,7 +828,7 @@ function doExpire(id) {
     invalidate();
     const w = S.whatIf[S.whatIf.length - 1];
     return `Expired ${id}. Covered ${w.before.covered} to ${w.after.covered}, gaps ${w.before.gaps} to ${w.after.gaps}.`;
-  });
+  }).then(() => emitWhatIf('apply'));
 }
 
 function doRemove(id) {
@@ -836,6 +839,7 @@ function doRemove(id) {
     const w = S.whatIf[S.whatIf.length - 1];
     return `${w.name} removed. Owners lost: ${plural(w.controls.length, 'control')}.`;
   }).then(() => {
+    emitWhatIf('apply');
     // after a tick: the re-render and the focus return must settle before the page scrolls to the removed card
     setTimeout(() => document.querySelector('#panel-blast [data-removed]')?.scrollIntoView({ block: 'start' }), 60);
   });
@@ -1094,5 +1098,17 @@ function rerender(tab) {
   renderTab(tab);
   if (keep) document.getElementById(keep)?.focus();
 }
+
+/* ---- Integration contract for js/whatif-viz.js and js/tour.js (do not remove) ----
+ * window.CW = { A, S, showTab, openRequirement, goPaths, openExpire, openRemove, doReset, undoWhatIf }
+ * Events on document:
+ *   'crosswalk:ready'  detail {}                                   after boot, first tab shown
+ *   'crosswalk:tab'    detail { tab }                              after every tab change
+ *   'crosswalk:whatif' detail { changes, last, action }            after every what-if apply / undo / reset
+ *       changes: copy of S.whatIf (each {kind:'expire'|'remove', id, label, before, after, affected:[{id,from,to}], ...})
+ *       last: the newest change or null; action: 'apply' | 'undo' | 'reset'
+ */
+const emit = (name, detail = {}) => document.dispatchEvent(new CustomEvent('crosswalk:' + name, { detail }));
+const emitWhatIf = (action) => emit('whatif', { changes: S.whatIf.map((w) => ({ ...w })), last: S.whatIf.length ? { ...S.whatIf[S.whatIf.length - 1] } : null, action });
 
 boot();
