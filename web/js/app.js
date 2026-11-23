@@ -32,7 +32,7 @@ function tag(id, cls = '') {
   return `<span class="tag ${cls}"${title ? ` title="${esc(title)}"` : ''}>${esc(A.shortId(id))}</span>`;
 }
 
-/** An interface glyph from the sprite in explorer.html (Lucide). */
+/** An interface glyph from the sprite in explorer.html (Phosphor). */
 const ic = (name, cls = '') => `<svg class="ic${cls ? ' ' + cls : ''}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 
 /** A receipt drawn as a horizontal chain: each node a chip with its kind above its id, joined by direction arrows. */
@@ -508,7 +508,7 @@ function renderBlast() {
     <div class="grid2">
       <div class="card"><div class="card-head"><h3>${ic('users')}Owner risk: what if someone leaves?</h3></div>${ownerHtml}
         <p class="card-foot">Controls with no owner today: ${ownerRisk.unowned.map((u) => tag(u.control, 'warn')).join(' ') || 'none'}.</p></div>
-      <div class="card"><div class="card-head"><h3>${ic('sparkles')}Evidence that supports the most requirements</h3></div>
+      <div class="card"><div class="card-head"><h3>${ic('stack')}Evidence that supports the most requirements</h3></div>
         <div class="rows">${topReuse.map((r) => `<div class="row"><div class="row-main"><span class="tag">${esc(r.evidence)}</span><span class="grow">${esc(evTitles[r.evidence] || '')}</span><span class="pill info">${plural(r.reach_count, 'requirement')}</span></div>
           <div class="row-sub">Supports ${plural(r.direct_count, 'requirement')} directly and ${plural(r.reach_count, 'requirement')} counting matches in other frameworks, across ${plural(r.framework_count, 'framework')}; expires ${esc(r.expires_at)}</div></div>`).join('')}</div></div>
     </div>`;
@@ -671,7 +671,7 @@ function renderAgent() {
         ${pathButton([{ nodes: p.nodes, rels: p.rels, state, bad: [p.proposal] }], 'Show on graph')}</div></div>`;
   }).join('');
   $('#panel-agent').innerHTML = `${panelHead('agent')}${liveCatchHtml()}
-    <div class="card"><div class="card-head"><h3>${ic('sparkles')}Proposals and decisions</h3><span class="count">${plural(props.length, 'proposal')}</span></div>
+    <div class="card"><div class="card-head"><h3>${ic('note-pencil')}Proposals and decisions</h3><span class="count">${plural(props.length, 'proposal')}</span></div>
       <p class="muted">A proposal suggests that a control meets a requirement. Agents can only <em>propose</em>. A person approves or rejects, and the decision is stored in the same graph, so the next agent reads it before suggesting again.
       ${plural(props.length, 'proposal')} by ${esc(agents.join(', ') || 'no agent')}.</p>
       <div class="prop-summary"><span class="pill approved">${count('approved')} approved</span><span class="pill rejected">${count('rejected')} rejected</span><span class="pill pending">${count('pending')} pending</span></div>
