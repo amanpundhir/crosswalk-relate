@@ -324,7 +324,7 @@ def section_c(store: Path, quick: bool, results: dict | None, timings: dict) -> 
             try:
                 r = fn(work, echo=False)
             except B.BuildError:
-                # served mode needs the separate relate CLI (README, "Run it with AI", step 2); the no-AI path has only
+                # served mode needs the separate relate CLI (README, "Setup and run, With AI", step 2); the no-AI path has only
                 # the Python package, so report the embedded half instead of failing the whole scorecard
                 if mode != "server":
                     raise

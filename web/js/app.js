@@ -557,7 +557,7 @@ function graphSearch(q) {
       RETURN labels(n)[0] AS label, n.id AS id, coalesce(n.title, n.name, '') AS title LIMIT 15`, { q }).rows;
   box.hidden = false;
   box.innerHTML = rows.length
-    ? rows.map((r) => `<li><button type="button" data-act="graph-pick" data-ref="${esc(r.label + ':' + r.id)}"><b>${esc(A.shortId(r.id))}</b> <span class="muted">${esc(r.label)}</span> ${esc(r.title).slice(0, 80)}</button></li>`).join('')
+    ? rows.map((r) => `<li><button type="button" data-act="graph-pick" data-ref="${esc(r.label + ':' + r.id)}"><b>${esc(A.shortId(r.id))}</b> <span class="muted">${esc(r.label)}</span> ${esc(String(r.title ?? "").slice(0, 80))}</button></li>`).join('')
     : '<li class="muted" style="padding:.5rem .75rem;font-size:.875rem">No match. Try an ID like EV-044 or a name like Dana.</li>';
 }
 

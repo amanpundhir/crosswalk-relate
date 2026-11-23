@@ -95,7 +95,7 @@ def server_config(root: Path, store: Path, agent: str) -> tuple[dict[str, dict],
     relate_exe = _exe(folder, "relate")
     if relate_exe is None:
         raise SetupError(f"the relate CLI is not installed in {folder}. `pip install relate-db` does not provide it: "
-                         "download the v1.2.0 release asset for your platform (see the README, 'The Relate CLI').")
+                         "download the v1.2.0 release asset for your platform (see the README: Setup and run, With AI, step 2).")
     mcp_exe = _exe(folder, "crosswalk-mcp")
     if mcp_exe is not None:
         cw = {"command": str(mcp_exe), "args": []}

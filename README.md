@@ -24,7 +24,7 @@
 
 **Why not Vanta?** Crosswalk is free, runs locally, and lets you inspect every link in the graph. It works with any MCP agent, it is built on NIST's official crosswalk, and its accuracy is measured and published.
 
-## What Crosswalk does
+## Use case: what Crosswalk does
 
 * **The problem:** audit prep lives in spreadsheets. An AI that reads them repeats whatever they say, even when it is out of date.
 * **A compliance graph** in Relate: NIST SP 800-53 Rev 5, SP 800-171 Rev 3 and CSF 2.0, NIST's official crosswalks between them, and a **fictional** company, Harbor & Pine, built on open-source policy templates.
@@ -67,15 +67,22 @@ flowchart LR
 3. **Check:** each claim in the answer is tied to a graph path. The checker re-runs the path and marks it ✔ verified, ⚠ partial or ✖ failed.
 4. **Decide:** changes are proposals. You approve or reject them, and the reason is stored for next time.
 
-**How it uses Relate** (details: [docs/details.md](docs/details.md)):
+## How it uses Relate
 
-* **Directory store** committed in the repo: readers can open it beside a writer, and GitHub shows plain JSON.
+* **Mode: directory.** The store is the folder `data/crosswalk/`, committed to the repo with Relate's JSON codec.
+* **Why this mode:** a judge gets the real graph with `git clone`, with no build and no server. It survives restarts, readers can open it beside a writer, and GitHub shows it as plain JSON, so every change is a readable diff. In-memory mode would lose the agent's proposals and the human decisions between sessions.
+* **What the graph models:** 3 frameworks and 1,217 requirements (NIST 800-53, 800-171, CSF 2.0) linked by 1,204 NIST crosswalk edges. A company's 61 adopted controls satisfy requirements, 120 evidence items prove controls, 15 people own controls and evidence, controls apply to 25 systems, and 3 audits scope frameworks and request evidence. On top of that sits the agent's working memory: proposals, human decisions, checked answers, claims and the cited paths. Full schema: [docs/schema.md](docs/schema.md).
+
+Relate features in use (details: [docs/details.md](docs/details.md)):
+
 * **Cypher paths:** coverage, expiry blast radius and ownership risk are multi-hop graph queries.
 * **Hybrid search:** vector plus full-text search, merged by rank fusion, then re-ranked by graph signals, to suggest mappings.
 * **Transactions:** every proposal and every human decision is one transaction, with retry on write conflicts.
 * **MCP server:** `relate serve --mcp` gives agents direct, read-only graph access. **WASM** runs the same Cypher in the browser.
 
-## Run it without AI
+## Setup and run
+
+### Without AI
 
 Needs Python 3.12 or newer. Run commands from the repo root. The store is committed, so no build and no API key are needed.
 
@@ -137,13 +144,13 @@ Or open the [browser explorer](https://amanpundhir.github.io/crosswalk-relate/),
 | `crosswalk review --list` | Pending proposals waiting for your decision |
 | `crosswalk scorecard` | Recomputes every number in the evaluation (no AI) |
 
-## Run it with AI
+### With AI
 
 Crosswalk itself uses **no API key**. The agent runs in your own Claude, Cursor or other MCP client account. Two servers give the agent its tools: Relate's own (read-only graph access) and `crosswalk-mcp` (cited read tools, the claim checker, and propose-only write tools). `crosswalk agent setup` wires both.
 
-### a) Claude Code
+#### a) Claude Code
 
-1. Do the "Run it without AI" steps above.
+1. Do the "Without AI" steps above.
 2. Install the Relate CLI into the venv (`pip install relate-db` gives only the Python package). Windows, downloading the official v1.2.0 release asset and checking its SHA-256:
 
 ```powershell
@@ -181,7 +188,7 @@ crosswalk agent setup --yes
 
 The four skills in [`agents/skills/`](agents/skills/) are: audit-prep, mapper, evidence, auditor-packet. Agents cannot approve anything. You do, with `crosswalk review`.
 
-### b) Cursor
+#### b) Cursor
 
 ```
 crosswalk agent setup --agent cursor --yes
@@ -189,7 +196,7 @@ crosswalk agent setup --agent cursor --yes
 
 This writes `.cursor/mcp.json` and Cursor rules. We checked that the files are written, but **we have not run Cursor itself** against it.
 
-### c) Any other MCP client (including local models)
+#### c) Any other MCP client (including local models)
 
 Add these two stdio servers to your client's MCP settings. Use absolute paths. The `relate` and `crosswalk-mcp` programs are in `.venv\Scripts` (or `.venv/bin`).
 
@@ -211,6 +218,18 @@ Add these two stdio servers to your client's MCP settings. Use absolute paths. T
 ```
 
 Copy the four `SKILL.md` instructions from `agents/skills/` into your client's rules or system prompt so the agent follows the same steps (decisions first, cite paths, run `check_claims`, propose only).
+
+## Where the data lives
+
+| What | Where |
+|---|---|
+| The graph (frameworks, company, proposals, decisions, checked answers) | `data/crosswalk/`, a Relate directory store, committed (`graph.json` plus `manifest.json`) |
+| A sorted export of the same graph, for readable git diffs | `exports/` |
+| Source data the graph is built from | `inputs/` (NIST catalogs and crosswalks, policy templates, the fictional company pack) |
+| Files you generate (auditor packets) | `out/packets/`, not committed |
+| The browser explorer's copy | `web/data/`; what-if changes stay in browser memory and vanish on reload |
+
+Everything runs on your machine. There is no Crosswalk server or account and no API key. The only downloads are `pip install`, the optional Relate CLI (SHA-256 checked) and, if you rebuild the store, the embedding model (fetched once). Relate's telemetry is off with `DO_NOT_TRACK=1`.
 
 ## Example questions and expected answers
 
@@ -254,7 +273,7 @@ agents/skills/     the four agent skills (audit-prep, mapper, evidence, auditor-
 queries/           one Cypher file per question
 web/               the browser explorer (Relate WASM, no AI)
 eval/              golden questions, ground truth, agent-run transcripts, scorecard
-tests/             273 tests
+tests/             274 tests
 docs/              evaluation, details, schema, query cookbook
 ```
 
@@ -267,6 +286,22 @@ docs/              evaluation, details, schema, query cookbook
 * Developed on Windows 11. Linux is tested in CI on every push. macOS is untested. Cursor is untested.
 
 More: [docs/evaluation.md](docs/evaluation.md).
+
+## Security checks
+
+Checked on 2026-11-23. All passed.
+
+| Check | Result |
+|---|---|
+| What the agent can change | Relate's MCP server runs `--read-only=live`; Crosswalk's only write tools are `propose_*`, and proposals stay pending. No approve, send or delete tool exists (tool list asserted in `tests/test_mcp_server.py`; 0 unauthorised writes in scorecard C5) |
+| Secrets | Nothing to leak: no API key or account needed. The full git history was scanned for keys, tokens and private keys: none found. `.env` is gitignored |
+| Known vulnerabilities in dependencies | `pip-audit` (Python) and `npm audit` (browser): 0 found |
+| Query injection | User input reaches Cypher only as parameters (`$q`, `$id`), never pasted into the query text |
+| Browser explorer | Graph search text goes to the query as a parameter and results are HTML-escaped; no remote scripts (Relate WASM and Cytoscape are vendored) |
+| File writes | `crosswalk packet` only writes to `out/packets/`; an unknown audit id or a non-date `--as-of` (such as `../../x`) is refused before anything is written |
+| Network exposure | Nothing listens on the network by default. The concurrency demo's Relate server binds to 127.0.0.1 on a throwaway copy |
+| Downloads | The Relate CLI comes from the official v1.2.0 release asset and is checked against its published SHA-256, in the README steps and in CI |
+| CI | Workflows run with read-only repo permissions (Pages adds only `pages: write`) |
 
 ## Data and licences
 
